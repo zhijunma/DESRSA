@@ -1,4 +1,4 @@
-package com.cn.school.service.web;
+package com.cn.school.service.web.impl;
 
 import com.cn.school.entity.DSUser;
 import com.cn.school.mapper.wx.UserMapper;

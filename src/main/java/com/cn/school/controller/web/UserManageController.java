@@ -16,4 +16,8 @@ public class UserManageController {
     public String index() {
         return "Hello World";
     }
+    /**
+     * 查看个人信息
+     *
+     */
 }

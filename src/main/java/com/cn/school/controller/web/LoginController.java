@@ -2,7 +2,7 @@ package com.cn.school.controller.web;
 
 import com.cn.school.config.JwtUtil;
 import com.cn.school.entity.DSUser;
-import com.cn.school.service.web.LoginServiceImpl;
+import com.cn.school.service.web.impl.LoginServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,9 @@ public class LoginController {
         String username = account.username;
         String password = account.password;
         DSUser user = loginService.Login(username, password);
+        //生成token
         String token = jwtUtil.generateToken(user, response, request);
+        //封装的实体类里setToken
         respon.setToken(token);
 
         HashMap<Object, Object> data = new HashMap<>();
@@ -44,11 +46,8 @@ public class LoginController {
         respon.setData(data);
         return respon;
     }
-
-
     //@ApiModel(value = "账号")
     public static class Account {
-
         //@Email(message = "请输入正确的邮箱")
         @NotBlank(message = "username不能为空")
         public String username;

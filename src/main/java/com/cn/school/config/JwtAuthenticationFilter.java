@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-log.info(request.getParameter("access_token"));
+        log.info(request.getParameter("access_token"));
         try {
             if (isProtectedUrl(request)) {
                 Jws<Claims> claims = JwtUtil.validateTokenAndGetClaims(request);

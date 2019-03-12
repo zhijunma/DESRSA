@@ -55,10 +55,38 @@
     </update>
     <select id="login" resultType="com.cn.school.entity.DSUser">
         SELECT
-        *
+            user_name,
+            mobile_phone,
+            id_card,
+            status,
+            role,
+            add_user_id,
+            add_user,
+            add_time,
+            mod_user_id,
+            mod_user,
+            mod_time,
+            delete_flag
         FROM
         driver_school_user
         where
         USER_NAME=#{username} AND password=#{password};
+    </select>
+    <select id="login" resultType="com.cn.school.entity.DSUser">
+        SELECT
+            user_name,
+            mobile_phone,
+            id_card,
+            status,
+            role,
+            add_user_id,
+            add_user,
+            add_time,
+            mod_user_id,
+            mod_user,
+            mod_time,
+            delete_flag
+        FROM
+        driver_school_user
     </select>
 </mapper>
