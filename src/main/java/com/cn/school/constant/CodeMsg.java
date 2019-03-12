@@ -1,4 +1,4 @@
-package com.cn.school.utils;
+package com.cn.school.constant;
 
 /**
  * @author:HuMin Date:2019/3/1

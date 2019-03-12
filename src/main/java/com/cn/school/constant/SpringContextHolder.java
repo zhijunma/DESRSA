@@ -1,4 +1,4 @@
-package com.cn.school.utils;
+package com.cn.school.constant;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "app.config")
 @Data
-public class  AppConfigUrl{
+public class AppConfigUrl {
     /**
      * 有效时间
+     *
      * @默认 默认时间一个小时
      */
-    private long EXPIRATION_TIME = 3600_000; // 1 hour
+    private long EXPIRATION_TIME = 3600_000;
     /**
      * 加密秘钥
      */
@@ -24,7 +25,7 @@ public class  AppConfigUrl{
     /**
      * @默认 加密前缀
      */
-    private String TOKEN_PREFIX = "Bearer";//加密前缀
+    private String TOKEN_PREFIX = "Bearer";
     /**
      * header头验证参数
      */
@@ -36,6 +37,6 @@ public class  AppConfigUrl{
     /**
      * 开放路径
      */
-    private String[] permits=new String[]{"*/*"};
+    private String[] permits = new String[]{"*/*"};
 
 }

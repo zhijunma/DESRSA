@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  * 国际短信发送请勿参照此DEMO
  */
 @Service
-public class Sms {
+public class SmsUtil {
 
     /**
      * 产品名称:云通信短信API产品,开发者无需替换

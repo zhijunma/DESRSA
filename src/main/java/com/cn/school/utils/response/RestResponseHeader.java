@@ -2,7 +2,7 @@ package com.cn.school.utils.response;
 
 
 import com.cn.school.constant.CodeConstant;
-import com.cn.school.utils.SpringContextHolder;
+import com.cn.school.constant.SpringContextHolder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.core.env.Environment;

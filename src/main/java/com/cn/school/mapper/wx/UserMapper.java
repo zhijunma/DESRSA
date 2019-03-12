@@ -1,6 +1,7 @@
 package com.cn.school.mapper.wx;
 
 import com.cn.school.dto.info.po.InsertUserPO;
+import com.cn.school.dto.info.po.LoginUserPO;
 import com.cn.school.entity.DSUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -38,11 +39,20 @@ public interface UserMapper {
      */
     DSUser getUserInfoByTel(@Param("mobilePhone") String mobilePhone);
 
+
     /**
      * 登录验证
      *
-     * @param userName,passWord
+     * @param loginUserPO
      * @return
      */
-    DSUser login(@Param("username") String userName, @Param("password") String password);
+    DSUser getUserInfoByMobilRole(@Param("loginUserPO") LoginUserPO loginUserPO);
+
+    /**
+     * 登录验证2
+     *
+     * @param loginUser
+     * @return
+     */
+    Integer updateUserLogin(@Param("loginUser") LoginUserPO loginUser);
 }
