@@ -8,8 +8,8 @@ import com.cn.school.dto.info.bo.GetSystemCodeMessageBO;
 import com.cn.school.entity.DSCode;
 import com.cn.school.mapper.common.ComSendMapper;
 import com.cn.school.service.common.SmsService;
-import com.cn.school.utils.CodeMsg;
-import com.cn.school.utils.Sms;
+import com.cn.school.constant.CodeMsg;
+import com.cn.school.utils.SmsUtil;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +69,10 @@ public class SmsServiceImpl implements SmsService {
         getSystemCodeMessageBO.setMobile(mobile);
 
         // 发送系统验证码消息
-        Sms sms = new Sms();
+        SmsUtil smsUtil = new SmsUtil();
         SendSmsResponse res = new SendSmsResponse();
         try {
-            res = sms.sendSms(getSystemCodeMessageBO);
+            res = smsUtil.sendSms(getSystemCodeMessageBO);
         } catch (ClientException e) {
             log.info("短信发送异常+++++++++++++++++++++++++" + e.getMessage());
             throw new RuntimeException(e.getMessage());

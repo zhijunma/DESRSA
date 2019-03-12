@@ -1,5 +1,6 @@
-package com.cn.school.config;
+package com.cn.school.utils;
 
+import com.cn.school.config.AppConfigUrl;
 import com.cn.school.entity.DSUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -9,11 +10,9 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -44,9 +43,6 @@ public class JwtUtil {
         JwtUtil.applicationContext = applicationContext;
     }
 
-    public static UserDetails getUser(String username) {
-        return null;
-    }
 
     /**
      * 生成令牌
@@ -54,7 +50,7 @@ public class JwtUtil {
      * @param user
      * @return
      */
-    public String generateToken(DSUser user, HttpServletResponse response, HttpServletRequest request) {
+    public String generateToken(DSUser user) {
         //添加自定义参数
         HashMap<String, Object> map = new HashMap<>();
         /**
@@ -72,8 +68,6 @@ public class JwtUtil {
                 //设置cokice
                 .signWith(SignatureAlgorithm.HS512, appConfigUrl.getSECRET())
                 .compact();
-
-        response.setHeader(appConfigUrl.getHEADER_STRING(), jwt);
         return jwt;
     }
 

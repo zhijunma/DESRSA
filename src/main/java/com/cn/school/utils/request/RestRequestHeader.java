@@ -1,6 +1,6 @@
 package com.cn.school.utils.request;
 
-import com.cn.school.utils.SpringContextHolder;
+import com.cn.school.constant.SpringContextHolder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;

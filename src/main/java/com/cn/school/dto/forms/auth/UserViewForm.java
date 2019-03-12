@@ -24,13 +24,13 @@ public class UserViewForm implements Serializable {
     /**
      * 登陆账号
      */
-    @NotBlank(message = "登录账号或密码不能为空")
-    private String account;
+    @NotBlank(message = "登录手机号或密码不能为空")
+    private String mobile;
 
     /**
      * 登录密码
      */
-    @NotBlank(message = "登录账号或密码不能为空")
+    @NotBlank(message = "登录手机号或密码不能为空")
     private String password;
 
 }

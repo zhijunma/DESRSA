@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserManageController {
 
     /**
-     * 发送短信验证码（所有手机号都可以发送）
+     * 添加管理員
      *
      * @param request
      * @return
      */
-    @RequestMapping(value = "/getList", method = RequestMethod.POST,
+    @RequestMapping(value = "/addManager", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RestResponse sendCode(@RequestBody RestRequest<UserInsertViewForm> request) {
+    public RestResponse addManager(@RequestBody RestRequest<UserInsertViewForm> request) {
         UserInsertViewForm viewForm = request.getBody();
         return null;
     }

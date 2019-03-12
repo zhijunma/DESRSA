@@ -8,7 +8,15 @@ import lombok.Data;
  * Time:11:50
  */
 @Data
-public class UserInsertViewForm  extends UserContextViewForm {
+public class UserInsertViewForm extends UserContextViewForm {
 
+    /**
+     * 用戶名
+     */
     private String userName;
+    /**
+     * 电话号码
+     */
+    private String mobilePhone;
+    
 }
