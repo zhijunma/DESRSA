@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.common.ComSendMapper">
+    <!-- 新增验证码 -->
+    <insert id="insertMobileCode">
+		INSERT
+		INTO driver_school_code(
+		mobile_phone
+		, code
+		, code_type
+		, status
+		, add_user
+		, add_user_id
+		, add_time
+		, mod_user
+		, mod_user_id
+		, mod_time
+		, delete_flag
+		)
+		VALUES (
+		#{entity.mobilePhone}
+		, #{entity.code}
+		, #{entity.codeType}
+		, #{entity.status}
+		, #{entity.addUser}
+		, #{entity.addUserId}
+		, NOW()
+		, #{entity.modUser}
+		, #{entity.modUserId}
+		, NOW()
+		, #{entity.deleteFlag}
+		)
+	</insert>
+
+    <!-- 校验验证码 -->
+    <update id="updateMobileCode">
+		UPDATE driver_school_code
+		SET
+		mod_user = #{entity.modUser},
+		mod_user_id = #{entity.modUser}
+		, mod_time = NOW()
+		, status = #{entity.status}
+		WHERE
+		add_time >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
+		AND
+		mobile_phone = #{entity.mobilePhone}
+		AND
+		code =  #{entity.code}
+		AND
+		status = 0
+        AND
+        delete_flag = 0
+    </update>
+
+    <!-- 删除失效验证码 -->
+    <update id="removeMobileCode">
+		UPDATE driver_school_code
+		SET
+		mod_user = #{entity.modUser},
+		mod_user_id = #{entity.modUserId}
+		, mod_time = NOW()
+		, delete_flag = #{entity.deleteFlag}
+		WHERE
+		mobile_phone = #{entity.mobilePhone}
+        AND
+        delete_flag=0
+	</update>
+</mapper>
