@@ -1,5 +1,6 @@
 package com.cn.school.dto.forms;
 
+import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -10,7 +11,7 @@ import javax.validation.constraints.Size;
  * Time:16:45
  */
 @Data
-public class WxInsertUserViewForm {
+public class WxInsertUserViewForm extends UserContextViewForm {
 
     /**
      * 用户名

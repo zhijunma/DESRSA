@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.web.UsersMapper">
+    <!--查看用户个人信息-->
+    <select id="getUser" resultType="com.cn.school.entity.DSUser">
+        SELECT
+        user_name AS userName,
+        mobile_phone AS mobilePhone,
+        id_card AS idCard,
+        status AS status,
+        role AS role,
+        add_user_id AS addUserId,
+        add_user AS addUser,
+        add_time AS addTime,
+        mod_user_id AS modUserId,
+        mod_user AS modUser,
+        mod_time AS modTime,
+        delete_flag AS deleteFlag
+        FROM
+        driver_school_user
+        where guid=#{entity.guid} AND delete_flag=FALSE
+    </select>
+    <update id="updateUsers">
+        UPDATE driver_school_user
+        SET
+        mobile_phone=#{mobilePhone},
+        password=#{password}
+        where
+        guid=#{guid}
+    </update>
+</mapper>

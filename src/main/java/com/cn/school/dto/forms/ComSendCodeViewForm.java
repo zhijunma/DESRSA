@@ -1,5 +1,6 @@
 package com.cn.school.dto.forms;
 
+import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * Time:11:50
  */
 @Data
-public class ComSendCodeViewForm {
+public class ComSendCodeViewForm extends UserContextViewForm {
     /**
      * 手机号码
      */

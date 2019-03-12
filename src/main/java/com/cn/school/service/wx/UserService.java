@@ -16,11 +16,4 @@ public interface UserService {
      * @return
      */
     RestResponse insertUser(WxInsertUserViewForm viewForm);
-    /**
-     * 查看个人信息
-     *
-     *
-     *
-     */
-    RestResponse selectUser(WxInsertUserViewForm viewForm);
 }
