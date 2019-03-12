@@ -53,4 +53,12 @@
     <update id="updateTime">
 
     </update>
+    <select id="login" resultType="com.cn.school.entity.DSUser">
+        SELECT
+        *
+        FROM
+        driver_school_user
+        where
+        USER_NAME=#{username} AND password=#{password};
+    </select>
 </mapper>

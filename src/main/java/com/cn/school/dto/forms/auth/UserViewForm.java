@@ -33,9 +33,4 @@ public class UserViewForm implements Serializable {
     @NotBlank(message = "登录账号或密码不能为空")
     private String password;
 
-    /**
-     * 登录平台
-     */
-    @NotBlank(message = "登录平台不能为空")
-    private Integer os;
 }

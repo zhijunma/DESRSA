@@ -9,7 +9,6 @@ import com.cn.school.entity.DSCode;
 import com.cn.school.mapper.common.ComSendMapper;
 import com.cn.school.service.common.SmsService;
 import com.cn.school.utils.CodeMsg;
-import com.cn.school.utils.Result;
 import com.cn.school.utils.Sms;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -117,7 +116,7 @@ public class SmsServiceImpl implements SmsService {
      * @param viewForm
      * @return
      */
-    public Result updateCheckMobileCode(ComSendCodeViewForm viewForm) {
+    public RestResponse updateCheckMobileCode(ComSendCodeViewForm viewForm) {
 
         // 校验验证码
         DSCode dsCode = new DSCode();
@@ -130,10 +129,10 @@ public class SmsServiceImpl implements SmsService {
         int count = comSendMapper.updateMobileCode(dsCode);
 
         if (1 > count) {
-            return Result.error(CodeMsg.SERVER_EXCEPTION);
+            return RestResponse.error(CodeMsg.SERVER_EXCEPTION);
         }
 
-        return Result.success();
+        return RestResponse.success();
     }
 
     /**

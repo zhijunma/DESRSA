@@ -1,16 +1,15 @@
 package com.cn.school.config;
 
+import com.cn.school.entity.DSUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- *
  * 功能描述:   jwt工具包
  *
  * @param:
@@ -29,38 +27,34 @@ import java.util.HashMap;
  */
 @Component
 @Slf4j
-@Getter
-@Setter
+@Data
 public class JwtUtil {
 
-    public  static ApplicationContext applicationContext;
+    public static ApplicationContext applicationContext;
 
 
     /**
      * 配置文件
      */
-    public  static AppConfigUrl appConfigUrl;
-    /**
-     * 用户服务
-     */
-    public static UserDetailsService userDetailsService;
+    public static AppConfigUrl appConfigUrl;
+
     @Autowired
-    public JwtUtil(AppConfigUrl appConfigUrl,ApplicationContext applicationContext,UserDetailsService userDetailsService) {
-        JwtUtil.appConfigUrl=  appConfigUrl;
-        JwtUtil.applicationContext=applicationContext;
-        JwtUtil.userDetailsService=userDetailsService;
+    public JwtUtil(AppConfigUrl appConfigUrl, ApplicationContext applicationContext) {
+        JwtUtil.appConfigUrl = appConfigUrl;
+        JwtUtil.applicationContext = applicationContext;
     }
 
     public static UserDetails getUser(String username) {
-        return userDetailsService.loadUserByUsername(username) ;
+        return null;
     }
 
     /**
-     *  生成令牌
+     * 生成令牌
+     *
      * @param user
      * @return
      */
-    public String generateToken(UserDetails user, HttpServletResponse response, HttpServletRequest request) {
+    public String generateToken(DSUser user, HttpServletResponse response, HttpServletRequest request) {
         //添加自定义参数
         HashMap<String, Object> map = new HashMap<>();
         /**
@@ -72,43 +66,51 @@ public class JwtUtil {
                 .setClaims(map)
                 .setExpiration(date)
                 //用户
-                .setSubject(user.getUsername())
+                .setSubject(user.getUserName())
                 //用户id
-                .setId(user.getUsername())
+                .setId(user.getUserName())
                 //设置cokice
                 .signWith(SignatureAlgorithm.HS512, appConfigUrl.getSECRET())
                 .compact();
 
-        response.setHeader(appConfigUrl.getHEADER_STRING(),jwt);
+        response.setHeader(appConfigUrl.getHEADER_STRING(), jwt);
         return jwt;
     }
+
     /**
-     *
      * 功能描述: 获取Tokem
      *
      * @param:
      * @return:
-     * @auther: YiTong
-     * @date: 2019/2/17 14:59
      */
-    public static String getToken(HttpServletRequest request){
+    public static String getToken(HttpServletRequest request) {
 
         String token = request.getHeader(appConfigUrl.getHEADER_STRING());
-        if (token==null)token=request.getParameter(appConfigUrl.getACCESS_TOKEN());
-        if (token == null)
-            throw new TokenValidationException(appConfigUrl.getHEADER_STRING()+":令牌错误!"+"无权访问,原因:令牌过时或错误请重新登录获取令牌");
-        return  token;
+        if (token == null) {
+            token = request.getParameter(appConfigUrl.getACCESS_TOKEN());
+            return token;
+        } else if (token == null) {
+            throw new TokenValidationException(appConfigUrl.getHEADER_STRING() + ":令牌错误!" + "无权访问,原因:令牌过时或错误请重新登录获取令牌");
+        } else {
+            return token;
+        }
+
     }
+
     /**
      * 验证令牌
+     *
      * @param request
      * @return
      */
     public static Jws<Claims> validateTokenAndGetClaims(HttpServletRequest request) {
         String token = request.getHeader(appConfigUrl.getHEADER_STRING());
-        if (token==null)token=request.getParameter(appConfigUrl.getACCESS_TOKEN());
-        if (token == null)
-            throw new TokenValidationException(appConfigUrl.getHEADER_STRING()+":令牌错误!"+"无权访问,原因:令牌过时或错误请重新登录获取令牌");
+        if (token == null) {
+            token = request.getParameter(appConfigUrl.getACCESS_TOKEN());
+        }
+        if (token == null) {
+            throw new TokenValidationException(appConfigUrl.getHEADER_STRING() + ":令牌错误!" + "无权访问,原因:令牌过时或错误请重新登录获取令牌");
+        }
         //令牌验证
         Jws<Claims> body = Jwts.parser()
                 .setSigningKey(appConfigUrl.getSECRET())

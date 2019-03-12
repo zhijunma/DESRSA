@@ -37,10 +37,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     /**
      * 需要验证的
      */
-    private String protectUrlPattern = "/api/**";
+    private String protectUrlPattern = "/**";
 
     /**
      * 拦截器
+     *
      * @param request
      * @param response
      * @param filterChain
@@ -49,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+log.info(request.getParameter("access_token"));
         try {
             if (isProtectedUrl(request)) {
                 Jws<Claims> claims = JwtUtil.validateTokenAndGetClaims(request);
@@ -60,23 +61,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 /* 查找用户结束*/
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(
-                                user,JwtUtil.getToken(request) , user.getAuthorities()));
+                                user, JwtUtil.getToken(request), user.getAuthorities()));
 
             }
             //放行通过
             filterChain.doFilter(request, response);
             return;
         } catch (JwtUtil.TokenValidationException e) {
-            respjson(e,response,401);
+            respjson(e, response, 401);
             return;
-        }catch (Exception e){
-            respjson(e,response,402);
+        } catch (Exception e) {
+            respjson(e, response, 402);
             return;
         }
 
     }
 
-    public void respjson(Exception e , HttpServletResponse response, int code) {
+    public void respjson(Exception e, HttpServletResponse response, int code) {
         e.printStackTrace();
         response.setStatus(200); //设置好相应的状态
         //设置用户取消验证后的消息提示
@@ -84,7 +85,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Map<String, Object> map = new HashMap<>();
         map.put("status", code);
         map.put("msg", "登录过期");
-        map.put("message",e.getMessage());
+        map.put("message", e.getMessage());
         String s = JSON.toJSONString(map);
         try {
             response.getWriter().print(s);
@@ -104,7 +105,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         return pathMatcher.match(protectUrlPattern, request.getServletPath());
     }
-
 
 
 }

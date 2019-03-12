@@ -77,9 +77,9 @@ public class AuthServiceImpl implements AuthService {
 //        processToken(supplierUserinfo.getMobilePhone());
 
 
-        if (webOs.equals(userViewForm.getOs()) && stuRole.equals(supplierUserinfo.getRole())) {
-            return null;
-        }
+//        if (webOs.equals(userViewForm.getOs()) && stuRole.equals(supplierUserinfo.getRole())) {
+//            return null;
+//        }
         UserContextVO userContext = new UserContextVO();
         userContext.setCurrId(supplierUserinfo.getGuid());
         userContext.setCurrName(supplierUserinfo.getUserName());

@@ -1,7 +1,7 @@
 package com.cn.school.service.wx;
 
 import com.cn.school.dto.forms.WxInsertUserViewForm;
-import com.cn.school.utils.Result;
+import com.cn.school.utils.response.RestResponse;
 
 /**
  * @author:HuMin Date:2019/3/1
@@ -15,5 +15,5 @@ public interface UserService {
      * @param viewForm
      * @return
      */
-    Result insertUser(WxInsertUserViewForm viewForm);
+    RestResponse insertUser(WxInsertUserViewForm viewForm);
 }

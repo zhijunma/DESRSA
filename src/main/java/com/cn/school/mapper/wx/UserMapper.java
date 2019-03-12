@@ -4,12 +4,14 @@ import com.cn.school.dto.info.po.InsertUserPO;
 import com.cn.school.entity.DSUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author:HuMin Date:2019/3/1
  * Time:15:46
  */
 @Mapper
+@Repository
 public interface UserMapper {
 
     /**
@@ -35,4 +37,12 @@ public interface UserMapper {
      * @return
      */
     DSUser getUserInfoByTel(@Param("mobilePhone") String mobilePhone);
+
+    /**
+     * 登录验证
+     *
+     * @param userName,passWord
+     * @return
+     */
+    DSUser login(@Param("username") String userName, @Param("password") String password);
 }

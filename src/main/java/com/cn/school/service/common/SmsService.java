@@ -1,7 +1,6 @@
 package com.cn.school.service.common;
 
 import com.cn.school.dto.forms.ComSendCodeViewForm;
-import com.cn.school.utils.Result;
 import com.cn.school.utils.response.RestResponse;
 
 /**

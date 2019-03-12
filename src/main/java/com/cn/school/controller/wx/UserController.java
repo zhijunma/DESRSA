@@ -2,7 +2,7 @@ package com.cn.school.controller.wx;
 
 import com.cn.school.dto.forms.WxInsertUserViewForm;
 import com.cn.school.service.wx.UserService;
-import com.cn.school.utils.Result;
+import com.cn.school.utils.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -36,7 +36,7 @@ public class UserController {
      */
     @RequestMapping(value = "/register")
     @ResponseBody
-    public Result register(@Validated @RequestBody WxInsertUserViewForm viewForm) {
+    public RestResponse register(@Validated @RequestBody WxInsertUserViewForm viewForm) {
         return userService.insertUser(viewForm);
     }
 
@@ -47,7 +47,7 @@ public class UserController {
      */
     @RequestMapping(value = "/addUser")
     @ResponseBody
-    public Result addUser(@Validated @RequestBody WxInsertUserViewForm viewForm) {
+    public RestResponse addUser(@Validated @RequestBody WxInsertUserViewForm viewForm) {
         return userService.insertUser(viewForm);
     }
 

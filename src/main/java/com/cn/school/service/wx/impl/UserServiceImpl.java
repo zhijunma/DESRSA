@@ -5,8 +5,7 @@ import com.cn.school.dto.info.po.InsertUserPO;
 import com.cn.school.mapper.wx.UserMapper;
 import com.cn.school.mapstruct.UserMapStruct;
 import com.cn.school.service.wx.UserService;
-import com.cn.school.utils.Result;
-import org.apache.commons.codec.digest.DigestUtils;
+import com.cn.school.utils.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Result insertUser(WxInsertUserViewForm viewForm) {
+    public RestResponse insertUser(WxInsertUserViewForm viewForm) {
 //        if (!viewForm.getPassword().equals(viewForm.getPasswordCheck())) {
 //            throw new RuntimeException("两次密码不一致！");
 //        }
@@ -63,6 +62,6 @@ public class UserServiceImpl implements UserService {
         insertUserPO.setModUser("000000");
         insertUserPO.setModUserId(0L);
         Integer num = userapper.insertUser(insertUserPO);
-        return Result.success("新增成功");
+        return RestResponse.success("新增成功");
     }
 }

@@ -3,7 +3,6 @@ package com.cn.school.controller.common;
 import com.cn.school.dto.forms.auth.UserViewForm;
 import com.cn.school.dto.info.vo.UserContextVO;
 import com.cn.school.service.common.AuthService;
-import com.cn.school.utils.Result;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
