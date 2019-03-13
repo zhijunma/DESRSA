@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Mapper
@@ -25,6 +24,6 @@ public interface UsersMapper {
      * @param guid
      * @return
      */
-    DSUser updateUsers(@Param("guid") @NotNull(message = "手机号码不能为空") Long guid,
-                       @Param("password") @NotBlank(message = "登录账号或密码不能为空") String password,@Param("mobilePhone") @NotBlank String mobilePhone);
+    Integer updateUsers(@Param("guid") @NotNull(message = "手机号码不能为空") Long guid,
+                       @Param("password")  String password,@Param("mobilePhone")  String mobilePhone);
 }

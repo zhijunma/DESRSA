@@ -18,7 +18,7 @@
         delete_flag AS deleteFlag
         FROM
         driver_school_user
-        where guid=#{entity.guid} AND delete_flag=FALSE
+        where guid=#{guid} AND delete_flag=FALSE
     </select>
     <update id="updateUsers">
         UPDATE driver_school_user

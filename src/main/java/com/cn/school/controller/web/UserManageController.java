@@ -2,6 +2,7 @@ package com.cn.school.controller.web;
 
 import com.cn.school.dto.forms.user.UserInsertViewForm;
 import com.cn.school.dto.forms.usermanage.GetUserViewForm;
+import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
 import com.cn.school.service.web.UsersService;
 import com.cn.school.utils.request.RestRequest;
 import com.cn.school.utils.response.RestResponse;
@@ -50,8 +51,8 @@ public class UserManageController {
      * @return
      */
     @PostMapping(value = "/updateUsers")
-    public RestResponse updateUsers(@RequestBody @Validated RestRequest<GetUserViewForm> request ){
-        GetUserViewForm viewForm = request.getBody();
+    public RestResponse updateUsers(@RequestBody @Validated RestRequest<UpdateUserViewForm> request ){
+        UpdateUserViewForm viewForm = request.getBody();
         return usersService.updateUsers(viewForm);
     }
 }
