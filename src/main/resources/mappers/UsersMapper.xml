@@ -92,4 +92,16 @@
         </if>
         AND delete_flag=FALSE
     </select>
+    <!--教练员删除,假删除（更新状态）-->
+    <update id="deleteCoach">
+        UPDATE driver_school_user
+        SET
+        delete_flag = true,
+        mod_user_id = #{dsUser.modUserId},
+        mod_user = #{dsUser.modUser},
+        mod_time = #{dsUser.modTime}
+        WHERE
+            id_card = #{dsUser.idCard}
+            AND role = 2 AND delete_flag = FALSE
+</update>
 </mapper>

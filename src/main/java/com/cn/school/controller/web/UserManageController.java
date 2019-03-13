@@ -1,10 +1,7 @@
 package com.cn.school.controller.web;
 
 import com.cn.school.dto.forms.user.UserInsertViewForm;
-import com.cn.school.dto.forms.usermanage.GetCoachViewForm;
-import com.cn.school.dto.forms.usermanage.GetUserViewForm;
-import com.cn.school.dto.forms.usermanage.InsertCoachViewForm;
-import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
+import com.cn.school.dto.forms.usermanage.*;
 import com.cn.school.service.web.UsersService;
 import com.cn.school.utils.request.RestRequest;
 import com.cn.school.utils.response.RestResponse;
@@ -71,6 +68,7 @@ public class UserManageController {
      */
     @PostMapping(value = "/insertCoach")
     public RestResponse insertCoach(@RequestBody @Validated RestRequest<InsertCoachViewForm> request) {
+//        String token=request.getHeader().g;
         InsertCoachViewForm viewForm = request.getBody();
         return usersService.insertCoach(viewForm);
     }
@@ -85,6 +83,17 @@ public class UserManageController {
     public List getCoach(@RequestBody @Validated RestRequest<GetCoachViewForm> request) {
         GetCoachViewForm viewForm = request.getBody();
         return usersService.getCoach(viewForm);
+    }
+
+    /**
+     * 教练员删除,假删除（更新状态）
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/deleteCoach")
+    public RestResponse deleteCoach(@RequestBody @Validated RestRequest<DeleteCoachViewForm> request) {
+        DeleteCoachViewForm viewForm = request.getBody();
+        return usersService.deleteCoach(viewForm);
     }
 
 }

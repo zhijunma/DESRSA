@@ -1,9 +1,6 @@
 package com.cn.school.service.web;
 
-import com.cn.school.dto.forms.usermanage.GetCoachViewForm;
-import com.cn.school.dto.forms.usermanage.GetUserViewForm;
-import com.cn.school.dto.forms.usermanage.InsertCoachViewForm;
-import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
+import com.cn.school.dto.forms.usermanage.*;
 import com.cn.school.utils.response.RestResponse;
 
 import java.util.List;
@@ -42,5 +39,13 @@ public interface UsersService {
      * @return
      */
     List getCoach(GetCoachViewForm getCoachViewForm);
+
+    /**
+     * 教练员删除,假删除（更新状态）
+     *
+     * @param deleteCoachViewForm
+     * @return
+     */
+    RestResponse deleteCoach(DeleteCoachViewForm deleteCoachViewForm);
 
 }

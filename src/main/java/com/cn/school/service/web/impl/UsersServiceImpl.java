@@ -1,9 +1,6 @@
 package com.cn.school.service.web.impl;
 
-import com.cn.school.dto.forms.usermanage.GetCoachViewForm;
-import com.cn.school.dto.forms.usermanage.GetUserViewForm;
-import com.cn.school.dto.forms.usermanage.InsertCoachViewForm;
-import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
+import com.cn.school.dto.forms.usermanage.*;
 import com.cn.school.dto.info.vo.GetUserInfoVO;
 import com.cn.school.entity.DSUser;
 import com.cn.school.mapper.web.UsersMapper;
@@ -92,9 +89,9 @@ public class UsersServiceImpl implements UsersService {
         dsUser.setDeleteFlag(false);
         Integer state = usersMapper.insertCoach(dsUser);
         if (state > 0) {
-            return RestResponse.success("修改个人信息成功！");
+            return RestResponse.success("添加教练员信息成功！");
         } else {
-            return RestResponse.error("修改个人信息失败！");
+            return RestResponse.error("添加教练员信息失败！");
         }
     }
 
@@ -123,6 +120,30 @@ public class UsersServiceImpl implements UsersService {
             getUserInfoVOList.add(getUserInfoVO);
         });
         return getUserInfoVOList;
+    }
+
+    /**
+     * 教练员删除,假删除（更新状态）
+     *
+     * @param deleteCoachViewForm
+     * @return
+     */
+    @Override
+    public RestResponse deleteCoach(DeleteCoachViewForm deleteCoachViewForm) {
+        if (deleteCoachViewForm.getCurrRole() != 3) {
+            return RestResponse.error("权限不足！");
+        }
+        DSUser dsUser = new DSUser();
+        dsUser.setIdCard(deleteCoachViewForm.getIdCard());
+        dsUser.setModUserId(deleteCoachViewForm.getModUserId());
+        dsUser.setModUser(deleteCoachViewForm.getModUser());
+        dsUser.setModTime(LocalDateTime.now());
+        Integer state = usersMapper.deleteCoach(dsUser);
+        if (state > 0) {
+            return RestResponse.success("删除教练员成功！");
+        } else {
+            return RestResponse.error("删除教练员失败！");
+        }
     }
 
 }

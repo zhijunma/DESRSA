@@ -46,4 +46,12 @@ public interface UsersMapper {
      */
     List<DSUser> getCoach(@Param("dsUser") DSUser dsUser);
 
+    /**
+     * 教练员删除,假删除（更新状态）
+     *
+     * @param dsUser
+     * @return
+     */
+    Integer deleteCoach(@Param("dsUser") DSUser dsUser);
+
 }
