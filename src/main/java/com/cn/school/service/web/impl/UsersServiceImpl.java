@@ -7,6 +7,7 @@ import com.cn.school.mapper.web.UsersMapper;
 import com.cn.school.mapstruct.UserMapStruct;
 import com.cn.school.service.web.UsersService;
 import com.cn.school.utils.response.RestResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
@@ -131,6 +133,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public RestResponse deleteCoach(DeleteCoachViewForm deleteCoachViewForm) {
         if (deleteCoachViewForm.getCurrRole() != 3) {
+            log.debug("权限不足!");
             return RestResponse.error("权限不足！");
         }
         DSUser dsUser = new DSUser();
