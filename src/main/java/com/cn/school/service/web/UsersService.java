@@ -1,6 +1,7 @@
 package com.cn.school.service.web;
 
 import com.cn.school.dto.forms.usermanage.GetUserViewForm;
+import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
 import com.cn.school.utils.response.RestResponse;
 
 
@@ -19,5 +20,5 @@ public interface UsersService {
      * @param userViewForm
      * @return
      */
-    RestResponse updateUsers(GetUserViewForm userViewForm);
+    RestResponse updateUsers(UpdateUserViewForm userViewForm);
 }

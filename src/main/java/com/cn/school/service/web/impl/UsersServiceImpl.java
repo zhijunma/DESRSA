@@ -1,6 +1,7 @@
 package com.cn.school.service.web.impl;
 
 import com.cn.school.dto.forms.usermanage.GetUserViewForm;
+import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
 import com.cn.school.dto.info.vo.GetUserInfoVO;
 import com.cn.school.entity.DSUser;
 import com.cn.school.mapper.web.UsersMapper;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+    public class UsersServiceImpl implements UsersService {
 
     @Autowired
     private UsersMapper usersMapper;
@@ -41,16 +42,14 @@ public class UsersServiceImpl implements UsersService {
         return RestResponse.success(getUserInfoVO);
     }
 
+    /**
+     *
+     * @param userViewForm
+     * @return
+     */
     @Override
-    public RestResponse updateUsers(GetUserViewForm userViewForm) {
-        DSUser dsUser = usersMapper.updateUsers(userViewForm.getGuid(),userViewForm.getPassword(),userViewForm.getMobilePhone());
-        GetUserInfoVO getUserInfoVO = new GetUserInfoVO();
-        getUserInfoVO.setPassword(dsUser.getPassword());
-        getUserInfoVO.setIdCard(dsUser.getIdCard());
-        getUserInfoVO.setMobilePhone(dsUser.getMobilePhone());
-        getUserInfoVO.setRole(dsUser.getRole());
-        getUserInfoVO.setStatus(dsUser.getStatus());
-        getUserInfoVO.setUserName(dsUser.getUserName());
-        return RestResponse.success(getUserInfoVO);
+    public RestResponse updateUsers(UpdateUserViewForm userViewForm) {
+        Integer dsUser = usersMapper.updateUsers(userViewForm.getGuid(),userViewForm.getPassword(),userViewForm.getMobilePhone());
+        return RestResponse.success(dsUser);
     }
 }
