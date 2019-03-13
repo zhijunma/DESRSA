@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.school.mapper.web.UsersMapper">
-    <!--查看用户个人信息-->
+    <!--查看用户个人信息（根据guid）-->
     <select id="getUser" resultType="com.cn.school.entity.DSUser">
         SELECT
         user_name AS userName,
@@ -20,6 +20,7 @@
         driver_school_user
         where guid=#{guid} AND delete_flag=FALSE
     </select>
+    <!--用户修改个人信息-->
     <update id="updateUsers">
         UPDATE driver_school_user
         SET
@@ -28,4 +29,67 @@
         where
         guid=#{guid}
     </update>
+    <!--添加教练员，教练员信息只能由管理员添加-->
+    <insert id="insertCoach">
+        INSERT INTO driver_school_user (
+            user_name,
+            mobile_phone,
+            id_card,
+            role,
+            password,
+            status,
+            add_user_id,
+            add_user,
+            add_time,
+            mod_user_id,
+            mod_user,
+            mod_time,
+            delete_flag
+        )
+        VALUES
+            (
+                #{dsUser.userName},
+                #{dsUser.mobilePhone},
+                #{dsUser.idCard},
+                #{dsUser.role},
+                #{dsUser.password},
+                #{dsUser.status},
+                #{dsUser.addUserId},
+                #{dsUser.addUser},
+                #{dsUser.addTime},
+                #{dsUser.modUserId},
+                #{dsUser.modUser},
+                #{dsUser.modTime},
+                #{dsUser.deleteFlag}
+            );
+    </insert>
+    <!--教练员一览-->
+    <select id="getCoach" resultType="com.cn.school.entity.DSUser">
+        SELECT
+        user_name AS userName,
+        mobile_phone AS mobilePhone,
+        id_card AS idCard,
+        status AS status,
+        role AS role,
+        add_user_id AS addUserId,
+        add_user AS addUser,
+        add_time AS addTime,
+        mod_user_id AS modUserId,
+        mod_user AS modUser,
+        mod_time AS modTime,
+        delete_flag AS deleteFlag
+        FROM
+        driver_school_user
+        where role=2
+        <if test="dsUser.userName != null and '' != dsUser.userName">
+            AND user_name=#{dsUser.userName}
+        </if>
+        <if test="dsUser.mobilePhone != null and '' != dsUser.mobilePhone">
+            AND mobile_phone=#{dsUser.mobilePhone}
+        </if>
+        <if test="dsUser.idCard != null and '' != dsUser.idCard">
+            AND id_card=#{dsUser.idCard}
+        </if>
+        AND delete_flag=FALSE
+    </select>
 </mapper>

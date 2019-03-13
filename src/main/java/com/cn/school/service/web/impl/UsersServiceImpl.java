@@ -1,6 +1,8 @@
 package com.cn.school.service.web.impl;
 
+import com.cn.school.dto.forms.usermanage.GetCoachViewForm;
 import com.cn.school.dto.forms.usermanage.GetUserViewForm;
+import com.cn.school.dto.forms.usermanage.InsertCoachViewForm;
 import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
 import com.cn.school.dto.info.vo.GetUserInfoVO;
 import com.cn.school.entity.DSUser;
@@ -11,8 +13,12 @@ import com.cn.school.utils.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-    public class UsersServiceImpl implements UsersService {
+public class UsersServiceImpl implements UsersService {
 
     @Autowired
     private UsersMapper usersMapper;
@@ -24,7 +30,7 @@ import org.springframework.stereotype.Service;
     private final Integer stuRole = 1;
 
     /**
-     * 查看个人信息
+     * 用户查看个人信息
      *
      * @param userViewForm
      * @return
@@ -43,13 +49,80 @@ import org.springframework.stereotype.Service;
     }
 
     /**
+     * 用户修改个人信息
      *
      * @param userViewForm
      * @return
      */
     @Override
     public RestResponse updateUsers(UpdateUserViewForm userViewForm) {
-        Integer dsUser = usersMapper.updateUsers(userViewForm.getGuid(),userViewForm.getPassword(),userViewForm.getMobilePhone());
-        return RestResponse.success(dsUser);
+        Integer state = usersMapper.updateUsers(userViewForm.getGuid(), userViewForm.getPassword(), userViewForm.getMobilePhone());
+        if (state > 0) {
+            return RestResponse.success("修改个人信息成功！");
+        } else {
+            return RestResponse.error("修改个人信息失败！");
+        }
+
     }
+
+    /**
+     * 教练员添加，教练员信息只能由管理员添加
+     *
+     * @param insertCoachViewForm
+     * @return
+     */
+    @Override
+    public RestResponse insertCoach(InsertCoachViewForm insertCoachViewForm) {
+        if (insertCoachViewForm.getCurrRole() != 3) {
+            return RestResponse.error("权限不足！");
+        }
+        DSUser dsUser = new DSUser();
+        dsUser.setUserName(insertCoachViewForm.getUserName());
+        dsUser.setPassword(insertCoachViewForm.getPassword());
+        dsUser.setMobilePhone(insertCoachViewForm.getMobilePhone());
+        dsUser.setIdCard(insertCoachViewForm.getIdCard());
+        dsUser.setRole(insertCoachViewForm.getRole());
+        dsUser.setStatus(insertCoachViewForm.getStatus());
+        dsUser.setAddUserId(insertCoachViewForm.getAddUserId());
+        dsUser.setAddUser(insertCoachViewForm.getAddUser());
+        dsUser.setAddTime(LocalDateTime.now());
+        dsUser.setModUserId(insertCoachViewForm.getModUserId());
+        dsUser.setModUser(insertCoachViewForm.getModUser());
+        dsUser.setModTime(LocalDateTime.now());
+        dsUser.setDeleteFlag(false);
+        Integer state = usersMapper.insertCoach(dsUser);
+        if (state > 0) {
+            return RestResponse.success("修改个人信息成功！");
+        } else {
+            return RestResponse.error("修改个人信息失败！");
+        }
+    }
+
+    /**
+     * 教练员一览
+     *
+     * @param getCoachViewForm
+     * @return
+     */
+    @Override
+    public List getCoach(GetCoachViewForm getCoachViewForm) {
+        DSUser dsUser = new DSUser();
+        dsUser.setUserName(getCoachViewForm.getUserName());
+        dsUser.setMobilePhone(getCoachViewForm.getMobilePhone());
+        dsUser.setIdCard(getCoachViewForm.getIdCard());
+
+        List<DSUser> reDsUser = usersMapper.getCoach(dsUser);
+        List<GetUserInfoVO> getUserInfoVOList = new ArrayList<>(16);
+        reDsUser.forEach(e -> {
+            GetUserInfoVO getUserInfoVO = new GetUserInfoVO();
+            getUserInfoVO.setUserName(e.getUserName());
+            getUserInfoVO.setRole(e.getRole());
+            getUserInfoVO.setMobilePhone(e.getMobilePhone());
+            getUserInfoVO.setIdCard(e.getIdCard());
+            getUserInfoVO.setStatus(e.getStatus());
+            getUserInfoVOList.add(getUserInfoVO);
+        });
+        return getUserInfoVOList;
+    }
+
 }

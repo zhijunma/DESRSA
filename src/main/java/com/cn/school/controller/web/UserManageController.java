@@ -1,7 +1,9 @@
 package com.cn.school.controller.web;
 
 import com.cn.school.dto.forms.user.UserInsertViewForm;
+import com.cn.school.dto.forms.usermanage.GetCoachViewForm;
 import com.cn.school.dto.forms.usermanage.GetUserViewForm;
+import com.cn.school.dto.forms.usermanage.InsertCoachViewForm;
 import com.cn.school.dto.forms.usermanage.UpdateUserViewForm;
 import com.cn.school.service.web.UsersService;
 import com.cn.school.utils.request.RestRequest;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author:HuMin Date:2019/3/4
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserManageController {
     @Autowired
     UsersService usersService;
+
     /**
      * 添加管理員
      *
@@ -36,23 +41,50 @@ public class UserManageController {
 
     /**
      * 查看个人信息
+     *
      * @param request
      * @return
      */
     @PostMapping(value = "/getUser")
-    public RestResponse getUser(@RequestBody @Validated RestRequest<GetUserViewForm> request ){
+    public RestResponse getUser(@RequestBody @Validated RestRequest<GetUserViewForm> request) {
         GetUserViewForm viewForm = request.getBody();
         return usersService.getUser(viewForm);
     }
 
     /**
      * 修改个人信息
+     *
      * @param request
      * @return
      */
     @PostMapping(value = "/updateUsers")
-    public RestResponse updateUsers(@RequestBody @Validated RestRequest<UpdateUserViewForm> request ){
+    public RestResponse updateUsers(@RequestBody @Validated RestRequest<UpdateUserViewForm> request) {
         UpdateUserViewForm viewForm = request.getBody();
         return usersService.updateUsers(viewForm);
     }
+
+    /**
+     * 教练员添加，教练员信息只能由管理员添加
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/insertCoach")
+    public RestResponse insertCoach(@RequestBody @Validated RestRequest<InsertCoachViewForm> request) {
+        InsertCoachViewForm viewForm = request.getBody();
+        return usersService.insertCoach(viewForm);
+    }
+
+    /**
+     * 教练员一览
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getCoach")
+    public List getCoach(@RequestBody @Validated RestRequest<GetCoachViewForm> request) {
+        GetCoachViewForm viewForm = request.getBody();
+        return usersService.getCoach(viewForm);
+    }
+
 }
