@@ -19,4 +19,8 @@ public class UpdateUserViewForm extends UserContextViewForm {
      * 手机号码
      */
     private String mobilePhone;
+    /**
+     * 身份证号
+     */
+    private String idCard;
 }

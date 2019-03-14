@@ -18,14 +18,25 @@
         delete_flag AS deleteFlag
         FROM
         driver_school_user
-        where guid=#{guid} AND delete_flag=FALSE
+        where  delete_flag=FALSE
+        <if test="guid != null and '' != guid">
+            AND guid=#{guid}
+        </if>
     </select>
     <!--用户修改个人信息-->
     <update id="updateUsers">
         UPDATE driver_school_user
-        SET
-        mobile_phone=#{mobilePhone},
-        password=#{password}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="mobilePhone != null and '' != mobilePhone">
+                mobile_phone=#{mobilePhone},
+            </if>
+            <if test="idCard != null and '' != idCard">
+                id_card=#{idCard},
+            </if>
+            <if test="password != null and '' != password">
+                password=#{password},
+            </if>
+        </trim>
         where
         guid=#{guid}
     </update>
@@ -66,6 +77,7 @@
     <!--教练员一览-->
     <select id="getCoachs" resultType="com.cn.school.entity.DSUser">
         SELECT
+        guid AS guid,
         user_name AS userName,
         mobile_phone AS mobilePhone,
         id_card AS idCard,
@@ -137,4 +149,6 @@
         </if>
         AND delete_flag=FALSE
     </select>
+    <!--教练员信息修改（只能由管理员修改）-->
+
 </mapper>

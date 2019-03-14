@@ -56,7 +56,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse updateUsers(UpdateUserViewForm userViewForm) {
-        Integer state = usersMapper.updateUsers(userViewForm.getGuid(), userViewForm.getPassword(), userViewForm.getMobilePhone());
+        Integer state = usersMapper.updateUsers(userViewForm.getGuid(), userViewForm.getPassword(), userViewForm.getMobilePhone(),userViewForm.getIdCard());
         if (state > 0) {
             return RestResponse.success("修改个人信息成功！");
         } else {
@@ -106,6 +106,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public List getCoachs(GetCoachsViewForm GetCoachsViewForm) {
+        //TODO 添加权限模块
         DSUser dsUser = new DSUser();
         dsUser.setUserName(GetCoachsViewForm.getUserName());
         dsUser.setMobilePhone(GetCoachsViewForm.getMobilePhone());
@@ -115,6 +116,7 @@ public class UsersServiceImpl implements UsersService {
         List<GetCoachInfoVO> getCoachInfoVOList = new ArrayList<>(16);
         reDsUser.forEach(e -> {
             GetCoachInfoVO getCoachInfoVO = new GetCoachInfoVO();
+            getCoachInfoVO.setGuid(e.getGuid());
             getCoachInfoVO.setUserName(e.getUserName());
             getCoachInfoVO.setRole(e.getRole());
             getCoachInfoVO.setMobilePhone(e.getMobilePhone());
@@ -158,6 +160,9 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse getCoach(GetCoachViewForm getCoachViewForm) {
+        if (getCoachViewForm.getCurrRole() != 3) {
+            return RestResponse.error("权限不足！");
+        }
         //入参
         DSUser dsUser = new DSUser();
         dsUser.setGuid(getCoachViewForm.getGuid());
@@ -180,6 +185,12 @@ public class UsersServiceImpl implements UsersService {
         getCoachInfoVO.setModUser(dsUser1.getModUser());
         getCoachInfoVO.setModTime(dsUser1.getModTime());
         getCoachInfoVO.setDeleteFlag(dsUser1.getDeleteFlag());
+        //判断是否查询到数据
+//        if (RestResponse.success(getCoachInfoVO) != null) {
+//            return RestResponse.success(getCoachInfoVO);
+//        }else {
+//            return RestResponse.success("没有符合条件的教练信息");
+//        }
         return RestResponse.success(getCoachInfoVO);
     }
 
