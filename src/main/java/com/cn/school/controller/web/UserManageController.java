@@ -109,4 +109,15 @@ public class UserManageController {
         return usersService.getCoach(viewForm);
     }
 
+    /**
+     * 教练员信息修改（只能由管理员修改）
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/updateCoach")
+    public RestResponse updateCoach(@RequestBody @Validated RestRequest<UpdateCoachViewForm> request) {
+        UpdateCoachViewForm viewForm = request.getBody();
+        return usersService.updateCoach(viewForm);
+    }
 }

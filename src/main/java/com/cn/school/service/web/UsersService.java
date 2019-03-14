@@ -56,4 +56,12 @@ public interface UsersService {
      */
     RestResponse getCoach(GetCoachViewForm getCoachViewForm);
 
+    /**
+     * 教练员信息修改（只能由管理员修改）
+     *
+     * @param updateCoachViewForm
+     * @return
+     */
+    RestResponse updateCoach(UpdateCoachViewForm updateCoachViewForm);
+
 }

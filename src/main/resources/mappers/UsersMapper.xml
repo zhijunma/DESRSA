@@ -150,5 +150,31 @@
         AND delete_flag=FALSE
     </select>
     <!--教练员信息修改（只能由管理员修改）-->
-
+    <update id="updateCoach">
+        UPDATE driver_school_user
+        set
+        <if test="dsUser.userName != null and '' != dsUser.userName">
+            user_name=#{dsUser.userName},
+        </if>
+        <if test="dsUser.password != null and '' != dsUser.password">
+            password=#{dsUser.password},
+        </if>
+        <if test="dsUser.mobilePhone != null and '' != dsUser.mobilePhone">
+            mobile_phone=#{dsUser.mobilePhone},
+        </if>
+        <if test="dsUser.idCard != null and '' != dsUser.idCard">
+            id_card=#{dsUser.idCard},
+        </if>
+        <if test="dsUser.status != null and '' != dsUser.status">
+            status=#{dsUser.status},
+        </if>
+        <if test="dsUser.modUserId != null and '' != dsUser.modUserId">
+            mod_user_id=#{dsUser.modUserId},
+        </if>
+        <if test="dsUser.modUser != null and '' != dsUser.modUser">
+            mod_user=#{dsUser.modUser},
+        </if>
+                mod_time=#{dsUser.modTime}
+        where role=2 AND guid=#{dsUser.guid}
+    </update>
 </mapper>

@@ -56,7 +56,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse updateUsers(UpdateUserViewForm userViewForm) {
-        Integer state = usersMapper.updateUsers(userViewForm.getGuid(), userViewForm.getPassword(), userViewForm.getMobilePhone(),userViewForm.getIdCard());
+        Integer state = usersMapper.updateUsers(userViewForm.getGuid(), userViewForm.getPassword(), userViewForm.getMobilePhone(), userViewForm.getIdCard());
         if (state > 0) {
             return RestResponse.success("修改个人信息成功！");
         } else {
@@ -192,6 +192,40 @@ public class UsersServiceImpl implements UsersService {
 //            return RestResponse.success("没有符合条件的教练信息");
 //        }
         return RestResponse.success(getCoachInfoVO);
+    }
+
+    /**
+     * 教练员信息修改（只能由管理员修改）
+     *
+     * @param updateCoachViewForm
+     * @return
+     */
+    @Override
+    public RestResponse updateCoach(UpdateCoachViewForm updateCoachViewForm) {
+        //权限判断
+        if (updateCoachViewForm.getCurrRole() != 3) {
+            log.debug("权限不足!");
+            return RestResponse.error("权限不足！");
+        }
+        //入参
+        DSUser dsUser = new DSUser();
+        dsUser.setGuid(updateCoachViewForm.getGuid());
+        dsUser.setUserName(updateCoachViewForm.getUserName());
+        dsUser.setPassword(updateCoachViewForm.getPassword());
+        dsUser.setMobilePhone(updateCoachViewForm.getMobilePhone());
+        dsUser.setIdCard(updateCoachViewForm.getIdCard());
+        dsUser.setStatus(updateCoachViewForm.getStatus());
+        dsUser.setModUserId(updateCoachViewForm.getModUserId());
+        dsUser.setModUser(updateCoachViewForm.getModUser());
+        dsUser.setModTime(LocalDateTime.now());
+        Integer state = usersMapper.updateCoach(dsUser);
+        System.out.println(dsUser);
+        //出参
+        if (state > 0) {
+            return RestResponse.success("修改教练员信息成功！");
+        } else {
+            return RestResponse.error("修改教练员信息失败！");
+        }
     }
 
 

@@ -28,7 +28,7 @@ public interface UsersMapper {
      * @return
      */
     Integer updateUsers(@Param("guid") @NotNull(message = "编号不能为空") Long guid,
-                        @Param("password") String password, @Param("mobilePhone") String mobilePhone,@Param("idCard") String idCard);
+                        @Param("password") String password, @Param("mobilePhone") String mobilePhone, @Param("idCard") String idCard);
 
     /**
      * 教练员添加，教练员信息只能由管理员添加
@@ -62,4 +62,11 @@ public interface UsersMapper {
      */
     DSUser getCoach(@Param("dsUser") DSUser dsUser);
 
+    /**
+     * 教练员信息修改（只能由管理员修改）
+     *
+     * @param dsUser
+     * @return
+     */
+    Integer updateCoach(@Param("dsUser") DSUser dsUser);
 }
