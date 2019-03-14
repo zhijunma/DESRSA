@@ -120,4 +120,15 @@ public class UserManageController {
         UpdateCoachViewForm viewForm = request.getBody();
         return usersService.updateCoach(viewForm);
     }
+    /**
+     * 学员信息一览
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getStu")
+    public List getStu(@RequestBody @Validated RestRequest<GetStuViewForm> request) {
+        GetStuViewForm viewForm = request.getBody();
+        return usersService.getStu(viewForm);
+    }
 }

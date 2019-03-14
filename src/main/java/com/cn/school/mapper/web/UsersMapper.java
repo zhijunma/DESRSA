@@ -39,7 +39,7 @@ public interface UsersMapper {
     Integer insertCoach(@Param("dsUser") DSUser dsUser);
 
     /**
-     * 教练员一览
+     * 教练员信息一览
      *
      * @param dsUser
      * @return
@@ -69,4 +69,12 @@ public interface UsersMapper {
      * @return
      */
     Integer updateCoach(@Param("dsUser") DSUser dsUser);
+    /**
+     * 学员信息一览
+     *
+     * @param dsUser
+     * @return
+     */
+    List<DSUser> getStu(@Param("dsUser") DSUser dsUser);
+
 }

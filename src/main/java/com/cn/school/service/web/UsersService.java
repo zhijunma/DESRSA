@@ -33,7 +33,7 @@ public interface UsersService {
     RestResponse insertCoach(InsertCoachViewForm insertCoachViewForm);
 
     /**
-     * 教练员一览
+     * 教练员信息一览
      *
      * @param getCoachViewForm
      * @return
@@ -63,5 +63,12 @@ public interface UsersService {
      * @return
      */
     RestResponse updateCoach(UpdateCoachViewForm updateCoachViewForm);
+    /**
+     * 学员信息一览
+     *
+     * @param getStuViewForm
+     * @return
+     */
+    List getStu(GetStuViewForm getStuViewForm);
 
 }
