@@ -79,14 +79,15 @@ public class UserManageController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/getCoach")
-    public List getCoach(@RequestBody @Validated RestRequest<GetCoachViewForm> request) {
-        GetCoachViewForm viewForm = request.getBody();
-        return usersService.getCoach(viewForm);
+    @PostMapping(value = "/getCoachs")
+    public List getCoachs(@RequestBody @Validated RestRequest<GetCoachsViewForm> request) {
+        GetCoachsViewForm viewForm = request.getBody();
+        return usersService.getCoachs(viewForm);
     }
 
     /**
      * 教练员删除,假删除（更新状态）
+     *
      * @param request
      * @return
      */
@@ -94,6 +95,18 @@ public class UserManageController {
     public RestResponse deleteCoach(@RequestBody @Validated RestRequest<DeleteCoachViewForm> request) {
         DeleteCoachViewForm viewForm = request.getBody();
         return usersService.deleteCoach(viewForm);
+    }
+
+    /**
+     * 教练员详情查看（根据身份证号查询教练员）
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getCoach")
+    public RestResponse getCoach(@RequestBody @Validated RestRequest<GetCoachViewForm> request) {
+        GetCoachViewForm viewForm = request.getBody();
+        return usersService.getCoach(viewForm);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.cn.school.service.web.impl;
 
 import com.cn.school.dto.forms.usermanage.*;
+import com.cn.school.dto.info.vo.GetCoachInfoVO;
 import com.cn.school.dto.info.vo.GetUserInfoVO;
 import com.cn.school.entity.DSUser;
 import com.cn.school.mapper.web.UsersMapper;
@@ -100,28 +101,28 @@ public class UsersServiceImpl implements UsersService {
     /**
      * 教练员一览
      *
-     * @param getCoachViewForm
+     * @param GetCoachsViewForm
      * @return
      */
     @Override
-    public List getCoach(GetCoachViewForm getCoachViewForm) {
+    public List getCoachs(GetCoachsViewForm GetCoachsViewForm) {
         DSUser dsUser = new DSUser();
-        dsUser.setUserName(getCoachViewForm.getUserName());
-        dsUser.setMobilePhone(getCoachViewForm.getMobilePhone());
-        dsUser.setIdCard(getCoachViewForm.getIdCard());
+        dsUser.setUserName(GetCoachsViewForm.getUserName());
+        dsUser.setMobilePhone(GetCoachsViewForm.getMobilePhone());
+        dsUser.setIdCard(GetCoachsViewForm.getIdCard());
 
-        List<DSUser> reDsUser = usersMapper.getCoach(dsUser);
-        List<GetUserInfoVO> getUserInfoVOList = new ArrayList<>(16);
+        List<DSUser> reDsUser = usersMapper.getCoachs(dsUser);
+        List<GetCoachInfoVO> getCoachInfoVOList = new ArrayList<>(16);
         reDsUser.forEach(e -> {
-            GetUserInfoVO getUserInfoVO = new GetUserInfoVO();
-            getUserInfoVO.setUserName(e.getUserName());
-            getUserInfoVO.setRole(e.getRole());
-            getUserInfoVO.setMobilePhone(e.getMobilePhone());
-            getUserInfoVO.setIdCard(e.getIdCard());
-            getUserInfoVO.setStatus(e.getStatus());
-            getUserInfoVOList.add(getUserInfoVO);
+            GetCoachInfoVO getCoachInfoVO = new GetCoachInfoVO();
+            getCoachInfoVO.setUserName(e.getUserName());
+            getCoachInfoVO.setRole(e.getRole());
+            getCoachInfoVO.setMobilePhone(e.getMobilePhone());
+            getCoachInfoVO.setIdCard(e.getIdCard());
+            getCoachInfoVO.setStatus(e.getStatus());
+            getCoachInfoVOList.add(getCoachInfoVO);
         });
-        return getUserInfoVOList;
+        return getCoachInfoVOList;
     }
 
     /**
@@ -148,5 +149,39 @@ public class UsersServiceImpl implements UsersService {
             return RestResponse.error("删除教练员失败！");
         }
     }
+
+    /**
+     * 教练员详情查看（根据身份证号查询教练员）
+     *
+     * @param getCoachViewForm
+     * @return
+     */
+    @Override
+    public RestResponse getCoach(GetCoachViewForm getCoachViewForm) {
+        //入参
+        DSUser dsUser = new DSUser();
+        dsUser.setGuid(getCoachViewForm.getGuid());
+        dsUser.setUserName(getCoachViewForm.getUserName());
+        dsUser.setMobilePhone(getCoachViewForm.getMobilePhone());
+        dsUser.setIdCard(getCoachViewForm.getIdCard());
+        DSUser dsUser1 = usersMapper.getCoach(dsUser);
+        //出参
+        GetCoachInfoVO getCoachInfoVO = new GetCoachInfoVO();
+        getCoachInfoVO.setGuid(dsUser1.getGuid());
+        getCoachInfoVO.setUserName(dsUser1.getUserName());
+        getCoachInfoVO.setRole(dsUser1.getRole());
+        getCoachInfoVO.setMobilePhone(dsUser1.getMobilePhone());
+        getCoachInfoVO.setIdCard(dsUser1.getIdCard());
+        getCoachInfoVO.setStatus(dsUser1.getStatus());
+        getCoachInfoVO.setAddTime(dsUser1.getAddTime());
+        getCoachInfoVO.setAddUserId(dsUser1.getAddUserId());
+        getCoachInfoVO.setAddUser(dsUser1.getAddUser());
+        getCoachInfoVO.setModUserId(dsUser1.getModUserId());
+        getCoachInfoVO.setModUser(dsUser1.getModUser());
+        getCoachInfoVO.setModTime(dsUser1.getModTime());
+        getCoachInfoVO.setDeleteFlag(dsUser1.getDeleteFlag());
+        return RestResponse.success(getCoachInfoVO);
+    }
+
 
 }

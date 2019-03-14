@@ -17,7 +17,7 @@ public interface UsersMapper {
      * @param guid
      * @return
      */
-    DSUser getUser(@Param("guid") @NotNull(message = "手机号码不能为空") Long guid);
+    DSUser getUser(@Param("guid") @NotNull(message = "编号不能为空") Long guid);
 
     /**
      * 用户修改个人信息
@@ -44,7 +44,7 @@ public interface UsersMapper {
      * @param dsUser
      * @return
      */
-    List<DSUser> getCoach(@Param("dsUser") DSUser dsUser);
+    List<DSUser> getCoachs(@Param("dsUser") DSUser dsUser);
 
     /**
      * 教练员删除,假删除（更新状态）
@@ -53,5 +53,13 @@ public interface UsersMapper {
      * @return
      */
     Integer deleteCoach(@Param("dsUser") DSUser dsUser);
+
+    /**
+     * 教练员详情查看（根据身份证号查询教练员）
+     *
+     * @param dsUser
+     * @return
+     */
+    DSUser getCoach(@Param("dsUser") DSUser dsUser);
 
 }

@@ -38,7 +38,7 @@ public interface UsersService {
      * @param getCoachViewForm
      * @return
      */
-    List getCoach(GetCoachViewForm getCoachViewForm);
+    List getCoachs(GetCoachsViewForm getCoachViewForm);
 
     /**
      * 教练员删除,假删除（更新状态）
@@ -47,5 +47,13 @@ public interface UsersService {
      * @return
      */
     RestResponse deleteCoach(DeleteCoachViewForm deleteCoachViewForm);
+
+    /**
+     * 教练员详情查看（根据身份证号查询教练员）
+     *
+     * @param getCoachViewForm
+     * @return
+     */
+    RestResponse getCoach(GetCoachViewForm getCoachViewForm);
 
 }
