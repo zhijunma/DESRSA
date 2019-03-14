@@ -35,6 +35,11 @@ public class RestRequestHeader implements Serializable {
     private String app = null;
 
     /**
+     * token
+     */
+    private String token = null;
+
+    /**
      * 分页大小
      */
     private int pageSize;
