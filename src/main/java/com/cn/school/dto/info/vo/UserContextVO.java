@@ -38,13 +38,4 @@ public class UserContextVO implements Serializable {
      */
     private String token;
 
-    /**
-     * 超期时长毫秒
-     */
-    private Long expiredMillis;
-
-    /**
-     * URI
-     */
-    private List<String> uriList;
 }

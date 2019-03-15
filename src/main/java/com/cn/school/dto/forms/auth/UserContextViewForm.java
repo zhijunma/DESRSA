@@ -17,21 +17,21 @@ public class UserContextViewForm implements Serializable {
     /**
      * 用户id
      */
-    private Long currId = 123L;
+    private Long currId;
 
     /**
      * 用户名
      */
-    private String currName = "qwe";
+    private String currName;
 
     /**
      * 用户电话号码
      */
-    private String currTel = "12312312312";
+    private String currTel;
 
     /**
      * 用户角色
      */
-    private Integer currRole = 3;
+    private Integer currRole;
 
 }
