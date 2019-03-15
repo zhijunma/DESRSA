@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.web.StudentManageMapper">
+    <!--学员删除,假删除（更新状态）-->
+    <update id="deleteStudent">
+        UPDATE driver_school_user
+        SET
+        delete_flag = true,
+        mod_user_id = #{dsUser.modUserId},
+        mod_user = #{dsUser.modUser},
+        mod_time = #{dsUser.modTime}
+        WHERE role = 1
+        <if test="dsUser.idCard != null and '' != dsUser.idCard">
+            AND id_card=#{dsUser.idCard}
+        </if>
+        <if test="dsUser.guid != null and '' != dsUser.guid">
+            and guid=#{dsUser.guid}
+        </if>
+        <if test="dsUser.userName != null and '' != dsUser.userName">
+            AND user_name=#{dsUser.userName}
+        </if>
+            AND delete_flag = FALSE
+    </update>
+
+    <!-- 管理员修改学员信息 -->
+    <update id="updateStudent">
+        UPDATE driver_school_user
+        SET
+        <if test="dsUser.userName != null and '' != dsUser.userName">
+            user_name=#{dsUser.userName},
+        </if>
+        <if test="dsUser.mobilePhone != null and '' != dsUser.mobilePhone">
+            mobile_phone=#{dsUser.mobilePhone},
+        </if>
+        <if test="dsUser.idCard != null and '' != dsUser.idCard">
+            id_card=#{dsUser.idCard},
+        </if>
+        <if test="dsUser.status != null and '' != dsUser.status">
+            status=#{dsUser.status},
+        </if>
+        mod_user=#{dsUser.modUser},
+        mod_user_id=#{dsUser.modUserId},
+        mod_time=#{dsUser.modTime}
+        WHERE
+        role = 1
+        <if test="dsUser.idCard != null and '' != dsUser.idCard">
+            AND id_card=#{dsUser.idCard}
+        </if>
+        <if test="dsUser.guid != null and '' != dsUser.guid">
+            and =#{dsUser.guid}
+        </if>
+        AND delete_flag=FALSE
+    </update>
+
+    <!--查看学员信息（根据guid或id_card或username）-->
+    <select id="getStudent" resultType="com.cn.school.entity.DSUser">
+        SELECT
+        guid,
+        user_name AS userName,
+        mobile_phone AS mobilePhone,
+        id_card AS idCard,
+        status
+        FROM
+        driver_school_user
+        where role = 1
+        <if test="dsUser.idCard != null and '' != dsUser.idCard">
+            AND id_card=#{dsUser.idCard}
+        </if>
+        <if test="dsUser.guid != null and '' != dsUser.guid">
+            and guid=#{dsUser.guid}
+        </if>
+        <if test="dsUser.userName != null and '' != dsUser.userName">
+            AND user_name=#{dsUser.userName}
+        </if>
+        AND delete_flag=FALSE
+    </select>
+
+</mapper>
