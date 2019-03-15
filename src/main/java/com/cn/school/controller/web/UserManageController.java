@@ -132,9 +132,9 @@ public class UserManageController {
         return usersService.getStu(viewForm);
     }
 
-    @GetMapping("/docker")
+    /*@GetMapping("/docker")
     public String index() {
         return "你好,docker";
-    }
+    }*/
 
 }
