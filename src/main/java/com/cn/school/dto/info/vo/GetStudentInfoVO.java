@@ -2,6 +2,8 @@ package com.cn.school.dto.info.vo;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class GetStudentInfoVO {
     /**
@@ -28,5 +30,18 @@ public class GetStudentInfoVO {
      * 缴费状态  0：未交费 1 ：以缴费
      */
     private Integer status;
+    /**
+     * 添加人
+     */
+    private Long addUserId;
+    private String addUser;
+    private LocalDateTime addTime;
+
+    /**
+     * 修改人
+     */
+    private Long modUserId;
+    private String modUser;
+    private LocalDateTime modTime;
 
 }

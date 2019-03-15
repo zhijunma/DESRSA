@@ -38,11 +38,10 @@ public class StudentManageServiceImpl implements StudentManageService {
         DSUser dsUser = new DSUser();
         dsUser.setIdCard(deleteStudnetViewForm.getIdCard());
         dsUser.setGuid(deleteStudnetViewForm.getGuid());
-        dsUser.setModUserId(deleteStudnetViewForm.getModUserId());
-        dsUser.setModUser(deleteStudnetViewForm.getModUser());
+        dsUser.setModUserId(deleteStudnetViewForm.getCurrId());
+        dsUser.setModUser(deleteStudnetViewForm.getCurrName());
         dsUser.setModTime(LocalDateTime.now());
         Integer state = studentManageMapper.deleteStudent(dsUser);
-        System.out.println(dsUser+"++++++++++++++++++++++++++++++++++++");
         if (state > 0) {
             return RestResponse.success("删除学员信息成功！");
         } else {
@@ -69,8 +68,8 @@ public class StudentManageServiceImpl implements StudentManageService {
         dsUser.setIdCard(studentViewForm.getIdCard());
         dsUser.setGuid(studentViewForm.getGuid());
         dsUser.setMobilePhone(studentViewForm.getMobilePhone());
-        dsUser.setModUserId(studentViewForm.getModUserId());
-        dsUser.setModUser( studentViewForm.getModUser());
+        dsUser.setModUserId(studentViewForm.getCurrId());
+        dsUser.setModUser( studentViewForm.getCurrName());
         dsUser.setModTime(LocalDateTime.now());
         Integer state = studentManageMapper.updateStudent(dsUser);
         if (state > 0) {
@@ -93,16 +92,20 @@ public class StudentManageServiceImpl implements StudentManageService {
         dsUser.setIdCard(studentViewForm.getIdCard());
         dsUser.setGuid(studentViewForm.getGuid());
         dsUser.setUserName(studentViewForm.getUserName());
-        //dsUser.setMobilePhone(studentViewForm.getMobilePhone());
-        //dsUser.setStatus(studentViewForm.getStatus());
         DSUser student = studentManageMapper.getStudent(dsUser);
 
         GetStudentInfoVO getStudentInfoVO = new GetStudentInfoVO();
-        getStudentInfoVO.setIdCard(student.getIdCard());
         getStudentInfoVO.setGuid(student.getGuid());
+        getStudentInfoVO.setIdCard(student.getIdCard());
         getStudentInfoVO.setUserName(student.getUserName());
         getStudentInfoVO.setMobilePhone(student.getMobilePhone());
         getStudentInfoVO.setStatus(student.getStatus());
+        getStudentInfoVO.setAddTime(student.getAddTime());
+        getStudentInfoVO.setAddUser(student.getAddUser());
+        getStudentInfoVO.setAddUserId(student.getAddUserId());
+        getStudentInfoVO.setModUserId(student.getModUserId());
+        getStudentInfoVO.setModUser(student.getModUser());
+        getStudentInfoVO.setModTime(student.getModTime());
         return RestResponse.success(getStudentInfoVO);
     }
 }

@@ -10,12 +10,14 @@ import com.cn.school.mapstruct.UserMapStruct;
 import com.cn.school.service.web.UsersService;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -26,10 +28,13 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private UserMapStruct userMapStruct;
     /**
-     * 学员
+     * 学员角色
      */
     private final Integer stuRole = 1;
-
+    /**
+     * 教练角色
+     */
+    private final Integer coachRole = 2;
     /**
      * 用户查看个人信息
      *
@@ -38,9 +43,8 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse getUser(GetUserViewForm userViewForm) {
-        DSUser dsUser = usersMapper.getUser(userViewForm.getGuid());
+        DSUser dsUser = usersMapper.getUser(userViewForm.getCurrId());
         GetUserInfoVO getUserInfoVO = new GetUserInfoVO();
-        getUserInfoVO.setPassword(dsUser.getPassword());
         getUserInfoVO.setIdCard(dsUser.getIdCard());
         getUserInfoVO.setMobilePhone(dsUser.getMobilePhone());
         getUserInfoVO.setRole(dsUser.getRole());
@@ -57,7 +61,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse updateUsers(UpdateUserViewForm userViewForm) {
-        Integer state = usersMapper.updateUsers(userViewForm.getGuid(), userViewForm.getPassword(), userViewForm.getMobilePhone(), userViewForm.getIdCard());
+        Integer state = usersMapper.updateUsers(userViewForm.getCurrId(), userViewForm.getPassword(), userViewForm.getMobilePhone(), userViewForm.getIdCard());
         if (state > 0) {
             return RestResponse.success("修改个人信息成功！");
         } else {
@@ -74,21 +78,35 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse insertCoach(InsertCoachViewForm insertCoachViewForm) {
+        //权限判断
         if (insertCoachViewForm.getCurrRole() != 3) {
             return RestResponse.error("权限不足！");
         }
         DSUser dsUser = new DSUser();
+        //入参
         dsUser.setUserName(insertCoachViewForm.getUserName());
-        dsUser.setPassword(insertCoachViewForm.getPassword());
+        //盐
+        String salt = UUID.randomUUID().toString();
+        dsUser.setSalt(salt);
+        //用盐对密码加密getPassword()
+        dsUser.setPassword(DigestUtils.sha256Hex(DigestUtils.sha256Hex(insertCoachViewForm.getPassword()) + salt));
         dsUser.setMobilePhone(insertCoachViewForm.getMobilePhone());
         dsUser.setIdCard(insertCoachViewForm.getIdCard());
-        dsUser.setRole(insertCoachViewForm.getRole());
-        dsUser.setStatus(insertCoachViewForm.getStatus());
-        dsUser.setAddUserId(insertCoachViewForm.getAddUserId());
-        dsUser.setAddUser(insertCoachViewForm.getAddUser());
+        //添加教练员角色为“2”（“2”为教练员角色）
+        dsUser.setRole(coachRole);
+        //状态 3：空闲（教练员） 4：忙碌（教练员）
+        dsUser.setStatus(0);
+        //添加教练员时，获取登录人ID
+        dsUser.setAddUserId(insertCoachViewForm.getCurrId());
+        //添加教练员时，获取登录人名称
+        dsUser.setAddUser(insertCoachViewForm.getCurrName());
+        //添加教练员时，获取当前时间
         dsUser.setAddTime(LocalDateTime.now());
-        dsUser.setModUserId(insertCoachViewForm.getModUserId());
-        dsUser.setModUser(insertCoachViewForm.getModUser());
+        //修改教练员时，获取登录人ID
+        dsUser.setModUserId(insertCoachViewForm.getCurrId());
+        //修改教练员时，获取登录人名称
+        dsUser.setModUser(insertCoachViewForm.getCurrName());
+        //修改教练员时，获取当前时间
         dsUser.setModTime(LocalDateTime.now());
         dsUser.setDeleteFlag(false);
         Integer state = usersMapper.insertCoach(dsUser);
@@ -112,7 +130,7 @@ public class UsersServiceImpl implements UsersService {
         dsUser.setUserName(GetCoachsViewForm.getUserName());
         dsUser.setMobilePhone(GetCoachsViewForm.getMobilePhone());
         dsUser.setIdCard(GetCoachsViewForm.getIdCard());
-
+        dsUser.setStatus(GetCoachsViewForm.getStatus());
         List<DSUser> reDsUser = usersMapper.getCoachs(dsUser);
         List<GetCoachInfoVO> getCoachInfoVOList = new ArrayList<>(16);
         reDsUser.forEach(e -> {
@@ -142,8 +160,8 @@ public class UsersServiceImpl implements UsersService {
         }
         DSUser dsUser = new DSUser();
         dsUser.setIdCard(deleteCoachViewForm.getIdCard());
-        dsUser.setModUserId(deleteCoachViewForm.getModUserId());
-        dsUser.setModUser(deleteCoachViewForm.getModUser());
+        dsUser.setModUserId(deleteCoachViewForm.getCurrId());
+        dsUser.setModUser(deleteCoachViewForm.getCurrName());
         dsUser.setModTime(LocalDateTime.now());
         Integer state = usersMapper.deleteCoach(dsUser);
         if (state > 0) {
@@ -216,8 +234,8 @@ public class UsersServiceImpl implements UsersService {
         dsUser.setMobilePhone(updateCoachViewForm.getMobilePhone());
         dsUser.setIdCard(updateCoachViewForm.getIdCard());
         dsUser.setStatus(updateCoachViewForm.getStatus());
-        dsUser.setModUserId(updateCoachViewForm.getModUserId());
-        dsUser.setModUser(updateCoachViewForm.getModUser());
+        dsUser.setModUserId(updateCoachViewForm.getCurrId());
+        dsUser.setModUser(updateCoachViewForm.getCurrName());
         dsUser.setModTime(LocalDateTime.now());
         Integer state = usersMapper.updateCoach(dsUser);
         System.out.println(dsUser);
@@ -242,7 +260,7 @@ public class UsersServiceImpl implements UsersService {
         dsUser.setUserName(getStuViewForm.getUserName());
         dsUser.setMobilePhone(getStuViewForm.getMobilePhone());
         dsUser.setIdCard(getStuViewForm.getIdCard());
-
+        dsUser.setStatus(getStuViewForm.getStatus());
         List<DSUser> reDsUser = usersMapper.getStu(dsUser);
         List<GetStuInfoVO> getStuInfoVOList = new ArrayList<>(16);
         reDsUser.forEach(e -> {

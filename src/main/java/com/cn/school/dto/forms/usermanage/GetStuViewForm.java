@@ -16,4 +16,8 @@ public class GetStuViewForm {
      * 身份证号
      */
     private String idCard;
+    /**
+     * 缴费状态  0：未交费 1 ：以缴费 3：空闲（教练员） 4：忙碌（教练员）
+     */
+    private Integer status;
 }

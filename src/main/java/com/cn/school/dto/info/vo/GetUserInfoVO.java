@@ -9,10 +9,6 @@ public class GetUserInfoVO {
      */
     private String userName;
 
-    /**
-     * 用户密码
-     */
-    private String password;
 
     /**
      * 电话号码

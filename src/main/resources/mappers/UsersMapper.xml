@@ -103,6 +103,9 @@
         <if test="dsUser.idCard != null and '' != dsUser.idCard">
             AND id_card=#{dsUser.idCard}
         </if>
+        <if test="dsUser.status != null and '' != dsUser.status">
+            AND status=#{dsUser.status}
+        </if>
         AND delete_flag=FALSE
     </select>
     <!--教练员删除,假删除（更新状态）-->
@@ -205,6 +208,9 @@
         </if>
         <if test="dsUser.idCard != null and '' != dsUser.idCard">
             AND id_card=#{dsUser.idCard}
+        </if>
+        <if test="dsUser.status != null and '' != dsUser.status">
+            AND status=#{dsUser.status}
         </if>
         AND delete_flag=FALSE
     </select>

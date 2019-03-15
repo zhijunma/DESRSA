@@ -43,11 +43,11 @@
         mod_time=#{dsUser.modTime}
         WHERE
         role = 1
-        <if test="dsUser.idCard != null and '' != dsUser.idCard">
-            AND id_card=#{dsUser.idCard}
-        </if>
+        <!--<if test="dsUser.idCard != null and '' != dsUser.idCard">-->
+            <!--AND id_card=#{dsUser.idCard}-->
+        <!--</if>-->
         <if test="dsUser.guid != null and '' != dsUser.guid">
-            and =#{dsUser.guid}
+            and guid=#{dsUser.guid}
         </if>
         AND delete_flag=FALSE
     </update>
@@ -55,11 +55,19 @@
     <!--查看学员信息（根据guid或id_card或username）-->
     <select id="getStudent" resultType="com.cn.school.entity.DSUser">
         SELECT
-        guid,
+        guid AS guid,
         user_name AS userName,
         mobile_phone AS mobilePhone,
         id_card AS idCard,
-        status
+        status AS status,
+        role AS role,
+        add_user_id AS addUserId,
+        add_user AS addUser,
+        add_time AS addTime,
+        mod_user_id AS modUserId,
+        mod_user AS modUser,
+        mod_time AS modTime,
+        delete_flag AS deleteFlag
         FROM
         driver_school_user
         where role = 1
