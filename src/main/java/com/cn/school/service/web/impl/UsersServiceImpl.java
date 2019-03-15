@@ -186,7 +186,7 @@ public class UsersServiceImpl implements UsersService {
         getCoachInfoVO.setModUser(dsUser1.getModUser());
         getCoachInfoVO.setModTime(dsUser1.getModTime());
         getCoachInfoVO.setDeleteFlag(dsUser1.getDeleteFlag());
-        //判断是否查询到数据
+        //TODO 判断是否查询到数据 防止程序出现错误
 //        if (RestResponse.success(getCoachInfoVO) != null) {
 //            return RestResponse.success(getCoachInfoVO);
 //        }else {

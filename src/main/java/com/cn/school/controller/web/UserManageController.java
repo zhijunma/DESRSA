@@ -131,4 +131,10 @@ public class UserManageController {
         GetStuViewForm viewForm = request.getBody();
         return usersService.getStu(viewForm);
     }
+
+    @GetMapping("/docker")
+    public String index() {
+        return "你好,docker";
+    }
+
 }

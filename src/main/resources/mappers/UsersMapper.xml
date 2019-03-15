@@ -5,6 +5,7 @@
     <select id="getUser" resultType="com.cn.school.entity.DSUser">
         SELECT
         user_name AS userName,
+        password AS password,
         mobile_phone AS mobilePhone,
         id_card AS idCard,
         status AS status,
