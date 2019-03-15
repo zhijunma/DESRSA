@@ -1,6 +1,7 @@
 
 package com.cn.school.dto.forms.auth;
 
+import com.cn.school.dto.info.UserContextInfo;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -14,12 +15,8 @@ import java.io.Serializable;
  * @Time:10:45
  */
 @Data
-public class UserViewForm implements Serializable {
+public class UserViewForm  extends UserContextViewForm {
 
-    /**
-     * serialVersionUID
-     */
-    private static final long serialVersionUID = -6437934389691602185L;
 
     /**
      * 登陆账号

@@ -1,7 +1,9 @@
 package com.cn.school.service.web.impl;
 
+import com.cn.school.dto.forms.auth.UserContextViewForm;
 import com.cn.school.dto.forms.auth.UserViewForm;
 import com.cn.school.dto.info.po.LoginUserPO;
+import com.cn.school.dto.info.vo.UserContextVO;
 import com.cn.school.entity.DSUser;
 import com.cn.school.mapper.wx.UserMapper;
 import com.cn.school.service.web.LoginService;
@@ -13,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
 /**
@@ -37,7 +38,6 @@ public class LoginServiceImpl implements LoginService {
      * @param viewForm
      * @return
      */
-    @Transactional
     @Override
     public RestResponse login(UserViewForm viewForm) {
         LoginUserPO loginUserPO = new LoginUserPO();
@@ -59,9 +59,22 @@ public class LoginServiceImpl implements LoginService {
             return RestResponse.error("登录失败！");
         }
 
-        String token = jwtUtil.generateToken(user);
         //存入缓存
-        redisUtil.set(token, user, Long.valueOf(redisActiveTime).longValue());
-        return RestResponse.success(user);
+        String token = jwtUtil.generateToken(user);
+        UserContextViewForm userContextViewForm = new UserContextViewForm();
+        userContextViewForm.setCurrName(user.getUserName());
+        userContextViewForm.setCurrId(user.getGuid());
+        userContextViewForm.setCurrRole(user.getRole());
+        userContextViewForm.setCurrTel(user.getMobilePhone());
+        redisUtil.set(token, userContextViewForm, Long.valueOf(redisActiveTime).longValue());
+
+        UserContextVO userContextVO = new UserContextVO();
+        userContextVO.setCurrName(user.getUserName());
+        userContextVO.setCurrId(user.getGuid());
+        userContextVO.setCurrRole(user.getRole());
+        userContextVO.setCurrTel(user.getMobilePhone());
+        userContextVO.setToken(token);
+
+        return RestResponse.success(userContextVO);
     }
 }

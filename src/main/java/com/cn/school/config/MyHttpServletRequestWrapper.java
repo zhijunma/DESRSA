@@ -1,7 +1,5 @@
 package com.cn.school.config;
 
-import org.springframework.stereotype.Component;
-
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
@@ -10,16 +8,15 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 import java.nio.charset.Charset;
 
-/**
- * 保存流
- *
- * @author yefuliang 2017年10月25日
- */
-public class BodyReaderHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
+/**
+ * @author:HuMin Date:2019/3/15
+ * Time:15:06
+ */
+public class MyHttpServletRequestWrapper extends HttpServletRequestWrapper {
     private final byte[] body;
 
-    public BodyReaderHttpServletRequestWrapper(HttpServletRequest request) throws IOException {
+    public MyHttpServletRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         String sessionStream = getBodyString(request);
         body = sessionStream.getBytes(Charset.forName("UTF-8"));
@@ -68,7 +65,7 @@ public class BodyReaderHttpServletRequestWrapper extends HttpServletRequestWrapp
     }
 
     /**
-     * Description: 复制输入流</br>
+     * 复制输入流
      *
      * @param inputStream
      * @return</br>
