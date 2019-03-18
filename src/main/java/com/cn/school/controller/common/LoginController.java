@@ -1,4 +1,4 @@
-package com.cn.school.controller.web;
+package com.cn.school.controller.common;
 
 import com.cn.school.dto.forms.auth.UserViewForm;
 import com.cn.school.service.web.LoginService;
