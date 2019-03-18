@@ -70,6 +70,7 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
             getEvaluateInfoVO.setAddTime(e.getAddTime());
             getEvaluateInfoVO.setScore(e.getScore());
             getEvaluateInfoVO.setData(e.getComments());
+            getEvaluateInfoVOList.add(getEvaluateInfoVO);
         });
         return getEvaluateInfoVOList;
     }
