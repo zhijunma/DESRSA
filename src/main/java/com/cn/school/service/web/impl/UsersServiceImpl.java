@@ -1,5 +1,6 @@
 package com.cn.school.service.web.impl;
 
+import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.usermanage.*;
 import com.cn.school.dto.info.vo.GetCoachInfoVO;
 import com.cn.school.dto.info.vo.GetStuInfoVO;
@@ -30,14 +31,8 @@ public class UsersServiceImpl implements UsersService {
     private UsersMapper usersMapper;
     @Autowired
     private UserMapStruct userMapStruct;
-    /**
-     * 学员角色
-     */
-    private final Integer stuRole = 1;
-    /**
-     * 教练角色
-     */
-    private final Integer coachRole = 2;
+
+
     /**
      * 用户查看个人信息
      *
@@ -82,7 +77,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public RestResponse addCoach(InsertCoachViewForm insertCoachViewForm) {
         //权限判断
-        if (insertCoachViewForm.getCurrRole() != 3) {
+        if (!Constant.MANAGE_ROLE.equals(insertCoachViewForm.getCurrRole())) {
             return RestResponse.error("权限不足！");
         }
         DSUser dsUser = new DSUser();
@@ -96,7 +91,7 @@ public class UsersServiceImpl implements UsersService {
         dsUser.setMobilePhone(insertCoachViewForm.getMobilePhone());
         dsUser.setIdCard(insertCoachViewForm.getIdCard());
         //添加教练员角色为“2”（“2”为教练员角色）
-        dsUser.setRole(coachRole);
+        dsUser.setRole(Constant.COACH_ROLE);
         //状态 3：空闲（教练员） 4：忙碌（教练员）
         dsUser.setStatus(0);
         //添加教练员时，获取登录人ID
@@ -127,7 +122,7 @@ public class UsersServiceImpl implements UsersService {
      * @return
      */
     @Override
-    public List getCoachs(GetCoachsViewForm GetCoachsViewForm) {
+    public List getCoachList(GetCoachsViewForm GetCoachsViewForm) {
         //TODO 添加权限模块 管理员查看所有教练员基本信息
         DSUser dsUser = new DSUser();
         dsUser.setUserName(GetCoachsViewForm.getUserName());
@@ -157,7 +152,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse deleteCoach(DeleteCoachViewForm deleteCoachViewForm) {
-        if (deleteCoachViewForm.getCurrRole() != 3) {
+        if (!Constant.MANAGE_ROLE.equals(deleteCoachViewForm.getCurrRole())) {
             log.debug("权限不足!");
             return RestResponse.error("权限不足！");
         }
@@ -182,7 +177,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public RestResponse getCoach(GetCoachViewForm getCoachViewForm) {
-        if (getCoachViewForm.getCurrRole() != 3) {
+        if (!Constant.MANAGE_ROLE.equals(getCoachViewForm.getCurrRole())) {
             return RestResponse.error("权限不足！");
         }
         //入参
@@ -203,7 +198,7 @@ public class UsersServiceImpl implements UsersService {
         //TODO 判断是否查询到数据 防止程序出现错误
         if (getCoachInfoVO.getGuid() != null) {
             return RestResponse.success(getCoachInfoVO);
-        }else {
+        } else {
             return RestResponse.success("没有符合条件的教练信息");
         }
 //        return RestResponse.success(getCoachInfoVO);
@@ -218,7 +213,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public RestResponse updateCoach(UpdateCoachViewForm updateCoachViewForm) {
         //权限判断
-        if (updateCoachViewForm.getCurrRole() != 3) {
+        if (!Constant.MANAGE_ROLE.equals(updateCoachViewForm.getCurrRole())) {
             log.debug("权限不足!");
             return RestResponse.error("权限不足！");
         }

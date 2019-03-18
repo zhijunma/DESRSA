@@ -42,7 +42,8 @@ public class UserManageController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/getUser")
+    @PostMapping(value = "/getUser",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public RestResponse getUser(@RequestBody @Validated RestRequest<GetUserViewForm> request) {
         GetUserViewForm viewForm = request.getBody();
         return usersService.getUser(viewForm);
@@ -54,7 +55,8 @@ public class UserManageController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/updateUsers")
+    @PostMapping(value = "/updateUsers",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public RestResponse updateUsers(@RequestBody @Validated RestRequest<UpdateUserViewForm> request) {
         UpdateUserViewForm viewForm = request.getBody();
         return usersService.updateUsers(viewForm);
@@ -66,9 +68,8 @@ public class UserManageController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/addCoach")
+    @PostMapping(value = "/addCoach", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public RestResponse addCoach(@RequestBody @Validated RestRequest<InsertCoachViewForm> request) {
-//        String token=request.getHeader().g;
         InsertCoachViewForm viewForm = request.getBody();
         return usersService.addCoach(viewForm);
     }
@@ -79,10 +80,10 @@ public class UserManageController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/getCoachs")
-    public List getCoachs(@RequestBody @Validated RestRequest<GetCoachsViewForm> request) {
+    @PostMapping(value = "/getCoachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List getCoachList(@RequestBody @Validated RestRequest<GetCoachsViewForm> request) {
         GetCoachsViewForm viewForm = request.getBody();
-        return usersService.getCoachs(viewForm);
+        return usersService.getCoachList(viewForm);
     }
 
     /**
@@ -120,6 +121,7 @@ public class UserManageController {
         UpdateCoachViewForm viewForm = request.getBody();
         return usersService.updateCoach(viewForm);
     }
+
     /**
      * 学员信息一览
      *

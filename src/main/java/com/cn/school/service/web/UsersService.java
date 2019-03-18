@@ -38,7 +38,7 @@ public interface UsersService {
      * @param getCoachViewForm
      * @return
      */
-    List getCoachs(GetCoachsViewForm getCoachViewForm);
+    List getCoachList(GetCoachsViewForm getCoachViewForm);
 
     /**
      * 教练员删除,假删除（更新状态）

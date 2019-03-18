@@ -1,5 +1,6 @@
 package com.cn.school.service.web.impl;
 
+import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.usermanage.DeleteStudnetViewForm;
 import com.cn.school.dto.forms.usermanage.GetStudentViewForm;
 import com.cn.school.dto.forms.usermanage.UpdateStudentViewForm;
@@ -22,7 +23,6 @@ public class StudentManageServiceImpl implements StudentManageService {
     private StudentManageMapper studentManageMapper;
 
 
-
     /**
      * 学员删除,假删除（更新状态）
      *
@@ -31,7 +31,7 @@ public class StudentManageServiceImpl implements StudentManageService {
      */
     @Override
     public RestResponse deleteStudent(DeleteStudnetViewForm deleteStudnetViewForm) {
-        if (deleteStudnetViewForm.getCurrRole() != 3) {
+        if (Constant.MANAGE_ROLE.equals(deleteStudnetViewForm.getCurrRole())) {
             log.debug("权限不足!");
             return RestResponse.error("权限不足！");
         }
@@ -50,7 +50,6 @@ public class StudentManageServiceImpl implements StudentManageService {
     }
 
 
-
     /**
      * 管理员修改学员信息
      *
@@ -59,7 +58,7 @@ public class StudentManageServiceImpl implements StudentManageService {
      */
     @Override
     public RestResponse updateStudent(UpdateStudentViewForm studentViewForm) {
-        if (studentViewForm.getCurrRole() != 3) {
+        if (Constant.MANAGE_ROLE.equals(studentViewForm.getCurrRole())) {
             log.debug("权限不足!");
             return RestResponse.error("权限不足！");
         }
@@ -69,7 +68,7 @@ public class StudentManageServiceImpl implements StudentManageService {
         dsUser.setGuid(studentViewForm.getGuid());
         dsUser.setMobilePhone(studentViewForm.getMobilePhone());
         dsUser.setModUserId(studentViewForm.getCurrId());
-        dsUser.setModUser( studentViewForm.getCurrName());
+        dsUser.setModUser(studentViewForm.getCurrName());
         dsUser.setModTime(LocalDateTime.now());
         Integer state = studentManageMapper.updateStudent(dsUser);
         if (state > 0) {
@@ -100,12 +99,6 @@ public class StudentManageServiceImpl implements StudentManageService {
         getStudentInfoVO.setUserName(student.getUserName());
         getStudentInfoVO.setMobilePhone(student.getMobilePhone());
         getStudentInfoVO.setStatus(student.getStatus());
-        getStudentInfoVO.setAddTime(student.getAddTime());
-        getStudentInfoVO.setAddUser(student.getAddUser());
-        getStudentInfoVO.setAddUserId(student.getAddUserId());
-        getStudentInfoVO.setModUserId(student.getModUserId());
-        getStudentInfoVO.setModUser(student.getModUser());
-        getStudentInfoVO.setModTime(student.getModTime());
         return RestResponse.success(getStudentInfoVO);
     }
 }

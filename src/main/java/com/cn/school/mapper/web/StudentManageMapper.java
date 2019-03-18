@@ -27,14 +27,12 @@ public interface StudentManageMapper {
     Integer updateStudent(@Param("dsUser") DSUser dsUser);
 
     /**
+     * 查看学员信息（根据guid或id_card或username）
      *
      * @param dsUser
      * @return
      */
     DSUser getStudent(@Param("dsUser") DSUser dsUser);
-
-
-
 
 
 }
