@@ -1,4 +1,4 @@
-package com.cn.school.service.web;
+package com.cn.school.service.common;
 
 import com.cn.school.dto.forms.auth.UserViewForm;
 import com.cn.school.utils.response.RestResponse;

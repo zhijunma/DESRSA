@@ -1,4 +1,4 @@
-package com.cn.school.service.web.impl;
+package com.cn.school.service.common.impl;
 
 import com.cn.school.dto.forms.auth.UserContextViewForm;
 import com.cn.school.dto.forms.auth.UserViewForm;
@@ -6,7 +6,7 @@ import com.cn.school.dto.info.po.LoginUserPO;
 import com.cn.school.dto.info.vo.UserContextVO;
 import com.cn.school.entity.DSUser;
 import com.cn.school.mapper.wx.UserMapper;
-import com.cn.school.service.web.LoginService;
+import com.cn.school.service.common.LoginService;
 import com.cn.school.utils.JwtUtil;
 import com.cn.school.utils.RedisUtil;
 import com.cn.school.utils.response.RestResponse;
@@ -14,6 +14,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -40,6 +41,7 @@ public class LoginServiceImpl implements LoginService {
      * @return
      */
     @Override
+    @Transactional
     public RestResponse login(UserViewForm viewForm) {
         LoginUserPO loginUserPO = new LoginUserPO();
         //手机号

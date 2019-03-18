@@ -1,7 +1,7 @@
 package com.cn.school.controller.common;
 
 import com.cn.school.dto.forms.auth.UserViewForm;
-import com.cn.school.service.web.LoginService;
+import com.cn.school.service.common.LoginService;
 import com.cn.school.utils.request.RestRequest;
 import com.cn.school.utils.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;

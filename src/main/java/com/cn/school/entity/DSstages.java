@@ -5,29 +5,24 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @author:HuMin Date:2019/3/4
- * Time:15:06
+ * @author:HuMin Date:2019/3/18
+ * Time:20:12
  */
 @Data
-public class DSCode {
+public class DSstages {
 
     /**
-     * 手机号码
+     * 分期活动名称
      */
-    private String mobilePhone;
+    private String name;
 
     /**
-     * 短信验证码
+     * 分期活动名称
      */
-    private String code;
+    private Integer issues;
 
     /**
-     * 短信模板code
-     */
-    private String codeType;
-
-    /**
-     * 验证码状态
+     * 状态
      */
     private Integer status;
 
