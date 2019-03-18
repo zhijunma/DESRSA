@@ -18,9 +18,9 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         // addPathPatterns 添加拦截规则
         // 添加需要拦截请求的路径
         registry.addInterceptor(apiParameterInterceptor())
-                .addPathPatterns("/*");
+                .addPathPatterns("/*")
                 // 去除拦截请求的路径
-//                .excludePathPatterns("/login");
+                .excludePathPatterns("/login");
     }
 
 }

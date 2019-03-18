@@ -28,9 +28,10 @@ public class LoginServiceImpl implements LoginService {
     private String redisActiveTime;
     @Autowired
     private UserMapper userMapper;
-
-    JwtUtil jwtUtil;
-    RedisUtil redisUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 登录
@@ -47,6 +48,7 @@ public class LoginServiceImpl implements LoginService {
         DSUser user = userMapper.getUserInfoByMobilRole(loginUserPO);
         LoginUserPO loginUser = new LoginUserPO();
         loginUser.setMobilePhone(viewForm.getMobile());
+        loginUser.setGuid(user.getGuid());
         //验
         loginUser.setSalt(user.getSalt());
         //密码

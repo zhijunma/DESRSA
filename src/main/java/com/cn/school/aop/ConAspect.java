@@ -9,6 +9,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.beans.BeanInfo;
@@ -30,10 +31,11 @@ public class ConAspect {
     /**
      * 定义切入点,拦截controller包其子包下的所有类的所有方法
      */
-    private final String ExpGetResultDataPonit = "execution(public * com.cn.school.controller..*.*(..))";
+    private final String ExpGetResultDataPonit = "execution(public * com.cn.school.controller.web..*.*(..))";
 
     private static Class<?> clazz;
-    RedisUtil redisUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 拦截指定的方法,这里指只拦截TestService.getResultData这个方法
@@ -64,7 +66,7 @@ public class ConAspect {
                 if (token.isEmpty()) {
                     throw new Exception("token 不能為空！");
                 }
-                
+
                 UserContextViewForm userContextViewForm = (UserContextViewForm) redisUtil.get(token);
                 map.put("currId", userContextViewForm.getCurrId());
                 map.put("currName", userContextViewForm.getCurrName());

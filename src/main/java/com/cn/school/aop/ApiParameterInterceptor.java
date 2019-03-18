@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cn.school.config.MyHttpServletRequestWrapper;
 import com.cn.school.utils.RedisUtil;
 import com.cn.school.utils.request.RestRequestHeader;
+import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -49,8 +50,17 @@ public class ApiParameterInterceptor implements HandlerInterceptor {
 
             // 获取Content-Type=application/json 请求参数
             JSONObject parameterMap = JSON.parseObject(new MyHttpServletRequestWrapper(request).getBodyString(request));
+            if (parameterMap.isEmpty()) {
+                return false;
+            }
             RestRequestHeader header = (RestRequestHeader) parameterMap.get("header");
+            if (header == null) {
+                return false;
+            }
             String token = header.getToken();
+            if (token.isEmpty()) {
+                return false;
+            }
             if (redisUtil.hasKey(token)) {
                 redisUtil.expire(token, Long.valueOf(redisActiveTime).longValue());
             }
@@ -58,8 +68,7 @@ public class ApiParameterInterceptor implements HandlerInterceptor {
         } catch (Exception e) {
             log.error("接口调用异常：", e);
             e.printStackTrace();
-            responseJson.put("retcode", "-1");
-            responseJson.put("retmsg", "接口调用异常");
+            RestResponse.error("接口调用异常");
             ajaxResponseJsonReturn(response, request, responseJson);
             return false;
         }
