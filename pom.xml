@@ -55,6 +55,14 @@
             <artifactId>cglib-nodep</artifactId>
             <version>3.2.4</version>
         </dependency>
+
+        <!-- druid数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
         <!--mapStruct依赖-->
         <dependency>
             <groupId>org.mapstruct</groupId>
