@@ -4,10 +4,10 @@ import com.cn.school.aop.ApiParameterInterceptor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class InterceptorConfig extends WebMvcConfigurerAdapter {
+public class InterceptorConfig  implements WebMvcConfigurer {
     @Bean
     public ApiParameterInterceptor apiParameterInterceptor() {
         return new ApiParameterInterceptor();
@@ -18,9 +18,9 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         // addPathPatterns 添加拦截规则
         // 添加需要拦截请求的路径
         registry.addInterceptor(apiParameterInterceptor())
-                .addPathPatterns("/*")
+//                .addPathPatterns("/*")
                 // 去除拦截请求的路径
-                .excludePathPatterns("/login");
+                .excludePathPatterns("/*");
     }
 
 }

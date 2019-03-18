@@ -1,6 +1,8 @@
 package com.cn.school.service.wx.impl;
 
 import com.cn.school.dto.forms.WxInsertUserViewForm;
+import com.cn.school.dto.forms.usermanage.InsertCoachViewForm;
+import com.cn.school.service.web.UsersService;
 import com.cn.school.service.wx.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -20,6 +22,8 @@ public class UserServiceImplTest {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UsersService usersService;
 
     @Test
     public void insert() {
@@ -31,5 +35,13 @@ public class UserServiceImplTest {
         viewForm.setCode("000000");
         userService.insertUser(viewForm);
 
+    }  @Test
+    public void add() {
+        InsertCoachViewForm viewForm = new InsertCoachViewForm();
+        viewForm.setMobilePhone("13099113151");
+        viewForm.setPassword("123456");
+        viewForm.setIdCard("620121199311303838");
+        viewForm.setUserName("马");
+        usersService.addCoach(viewForm);
     }
 }

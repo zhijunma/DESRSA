@@ -13,5 +13,5 @@ public interface CodeConstant {
     /**
      * 成功
      */
-    String ERRER = "20000";
+    String ERROR = "20000";
 }

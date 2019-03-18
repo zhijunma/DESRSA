@@ -218,7 +218,7 @@ public class RestResponse<T> implements Serializable {
     public static <T> RestResponse<T> error() {
         RestResponse<T> rest = new RestResponse<T>();
         RestResponseHeader header = new RestResponseHeader();
-        header.setCode(CodeConstant.ERRER);
+        header.setCode(CodeConstant.ERROR);
         rest.setHeader(header);
         return rest;
     }
@@ -231,7 +231,7 @@ public class RestResponse<T> implements Serializable {
     public static <T> RestResponse<T> error(T body) {
         RestResponse<T> rest = new RestResponse<T>(body);
         RestResponseHeader header = new RestResponseHeader();
-        header.setCode(CodeConstant.ERRER);
+        header.setCode(CodeConstant.ERROR);
         rest.setHeader(header);
         return rest;
     }

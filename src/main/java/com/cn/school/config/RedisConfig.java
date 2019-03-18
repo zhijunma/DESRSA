@@ -14,7 +14,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * redis配置类
  *
- * @author ZENG.XIAO.YAN
+ * @author
  * @date 2018年6月6日
  *
  * <p>

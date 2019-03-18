@@ -28,7 +28,6 @@ public class LoginController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public RestResponse Login(@RequestBody @Validated RestRequest<UserViewForm> request) {
         UserViewForm viewForm = request.getBody();
-        System.out.println("++++++++++++++++++++++++" + viewForm.getCurrName());
         RestResponse restResponse = loginService.login(viewForm);
         return restResponse;
     }

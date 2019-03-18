@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * Created by yefuliang on 2017/10/25.
+ * Created by
  */
 @WebFilter(filterName = "myFilter", urlPatterns = "/*")
 public class MyFilter implements Filter {

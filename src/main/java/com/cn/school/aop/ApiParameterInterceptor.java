@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.school.config.MyHttpServletRequestWrapper;
 import com.cn.school.utils.RedisUtil;
-import com.cn.school.utils.request.RestRequestHeader;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 /**
  * @author:HuMin Date:2019/3/15
@@ -25,7 +26,8 @@ public class ApiParameterInterceptor implements HandlerInterceptor {
     @Value("${redisActiveTime}")
     private String redisActiveTime;
 
-    RedisUtil redisUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 在controller处理之前首先对请求验证参数验签处理。
@@ -53,11 +55,11 @@ public class ApiParameterInterceptor implements HandlerInterceptor {
             if (parameterMap.isEmpty()) {
                 return false;
             }
-            RestRequestHeader header = (RestRequestHeader) parameterMap.get("header");
+            Map<String,Object> header = (Map<String,Object>)parameterMap.get("header");
             if (header == null) {
                 return false;
             }
-            String token = header.getToken();
+            String token = header.get("token").toString();
             if (token.isEmpty()) {
                 return false;
             }
