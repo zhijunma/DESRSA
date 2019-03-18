@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-
 public interface StudentManageMapper {
 
     /**

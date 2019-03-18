@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.web.EvaluateManageMapper">
+    <!--评价信息删除,假删除（更新状态）-->
+    <update id="deleteEvaluate">
+        UPDATE driver_school_evaluate
+        SET
+        delete_flag = true,
+        mod_user_id = #{dsEvaluate.modUserId},
+        mod_user = #{dsEvaluate.modUser},
+        mod_time = #{dsEvaluate.modTime}
+        WHERE delete_flag = FALSE
+        <if test="dsEvaluate.addUser != null and '' != dsEvaluate.addUser">
+            and add_user=#{dsEvaluate.addUser}
+        </if>
+        <if test="dsEvaluate.addUserId != null and '' != dsEvaluate.addUserId">
+            AND add_user_id=#{dsEvaluate.addUserId}
+        </if>
+    </update>
+
+    <!-- 评价信息一览 -->
+    <select id="getEvaluates" resultType="com.cn.school.entity.DSEvaluate">
+        SELECT
+
+        add_user AS addUser,
+        comments as comments,
+        add_time AS addTime,
+        score as score
+        FROM
+        driver_school_evaluate
+        where show_flag = 1
+        AND delete_flag=FALSE
+    </select>
+
+</mapper>
