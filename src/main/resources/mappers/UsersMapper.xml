@@ -42,9 +42,10 @@
         guid=#{guid}
     </update>
     <!--添加教练员，教练员信息只能由管理员添加-->
-    <insert id="insertCoach">
+    <insert id="addCoach">
         INSERT INTO driver_school_user (
             user_name,
+            salt,
             mobile_phone,
             id_card,
             role,
@@ -61,6 +62,7 @@
         VALUES
             (
                 #{dsUser.userName},
+                #{dsUser.salt},
                 #{dsUser.mobilePhone},
                 #{dsUser.idCard},
                 #{dsUser.role},
