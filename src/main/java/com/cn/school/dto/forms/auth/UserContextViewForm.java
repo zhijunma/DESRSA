@@ -22,7 +22,7 @@ public class UserContextViewForm implements Serializable {
     /**
      * 用户名
      */
-    private String currName = "qwe";
+    private String currName = "user1";
 
     /**
      * 用户电话号码

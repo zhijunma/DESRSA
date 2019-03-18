@@ -36,7 +36,7 @@ public interface UsersMapper {
      * @param dsUser
      * @return
      */
-    Integer insertCoach(@Param("dsUser") DSUser dsUser);
+    Integer addCoach(@Param("dsUser") DSUser dsUser);
 
     /**
      * 教练员信息一览

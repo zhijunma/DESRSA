@@ -66,11 +66,11 @@ public class UserManageController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/insertCoach")
-    public RestResponse insertCoach(@RequestBody @Validated RestRequest<InsertCoachViewForm> request) {
+    @PostMapping(value = "/addCoach")
+    public RestResponse addCoach(@RequestBody @Validated RestRequest<InsertCoachViewForm> request) {
 //        String token=request.getHeader().g;
         InsertCoachViewForm viewForm = request.getBody();
-        return usersService.insertCoach(viewForm);
+        return usersService.addCoach(viewForm);
     }
 
     /**

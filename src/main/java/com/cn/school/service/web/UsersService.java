@@ -30,7 +30,7 @@ public interface UsersService {
      * @param insertCoachViewForm
      * @return
      */
-    RestResponse insertCoach(InsertCoachViewForm insertCoachViewForm);
+    RestResponse addCoach(InsertCoachViewForm insertCoachViewForm);
 
     /**
      * 教练员信息一览

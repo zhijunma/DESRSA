@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 人员管理模块
+ */
 @Service
 @Slf4j
 public class UsersServiceImpl implements UsersService {
@@ -77,7 +80,7 @@ public class UsersServiceImpl implements UsersService {
      * @return
      */
     @Override
-    public RestResponse insertCoach(InsertCoachViewForm insertCoachViewForm) {
+    public RestResponse addCoach(InsertCoachViewForm insertCoachViewForm) {
         //权限判断
         if (insertCoachViewForm.getCurrRole() != 3) {
             return RestResponse.error("权限不足！");
@@ -109,7 +112,7 @@ public class UsersServiceImpl implements UsersService {
         //修改教练员时，获取当前时间
         dsUser.setModTime(LocalDateTime.now());
         dsUser.setDeleteFlag(false);
-        Integer state = usersMapper.insertCoach(dsUser);
+        Integer state = usersMapper.addCoach(dsUser);
         if (state > 0) {
             return RestResponse.success("添加教练员信息成功！");
         } else {
@@ -197,20 +200,13 @@ public class UsersServiceImpl implements UsersService {
         getCoachInfoVO.setMobilePhone(dsUser1.getMobilePhone());
         getCoachInfoVO.setIdCard(dsUser1.getIdCard());
         getCoachInfoVO.setStatus(dsUser1.getStatus());
-        getCoachInfoVO.setAddTime(dsUser1.getAddTime());
-        getCoachInfoVO.setAddUserId(dsUser1.getAddUserId());
-        getCoachInfoVO.setAddUser(dsUser1.getAddUser());
-        getCoachInfoVO.setModUserId(dsUser1.getModUserId());
-        getCoachInfoVO.setModUser(dsUser1.getModUser());
-        getCoachInfoVO.setModTime(dsUser1.getModTime());
-        getCoachInfoVO.setDeleteFlag(dsUser1.getDeleteFlag());
         //TODO 判断是否查询到数据 防止程序出现错误
-//        if (RestResponse.success(getCoachInfoVO) != null) {
-//            return RestResponse.success(getCoachInfoVO);
-//        }else {
-//            return RestResponse.success("没有符合条件的教练信息");
-//        }
-        return RestResponse.success(getCoachInfoVO);
+        if (getCoachInfoVO.getGuid() != null) {
+            return RestResponse.success(getCoachInfoVO);
+        }else {
+            return RestResponse.success("没有符合条件的教练信息");
+        }
+//        return RestResponse.success(getCoachInfoVO);
     }
 
     /**
