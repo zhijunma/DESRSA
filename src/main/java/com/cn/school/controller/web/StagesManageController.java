@@ -1,6 +1,9 @@
 package com.cn.school.controller.web;
 
 import com.cn.school.dto.forms.stagesmanage.AddStagesViewForm;
+import com.cn.school.dto.forms.stagesmanage.GetStagesViewForm;
+import com.cn.school.dto.forms.stagesmanage.StagesViewForm;
+import com.cn.school.dto.forms.stagesmanage.UpStagesViewForm;
 import com.cn.school.service.web.StagesManageService;
 import com.cn.school.utils.request.RestRequest;
 import com.cn.school.utils.response.RestResponse;
@@ -33,5 +36,77 @@ public class StagesManageController {
     public RestResponse addStages(@RequestBody @Validated RestRequest<AddStagesViewForm> request) {
         AddStagesViewForm viewForm = request.getBody();
         return stagesManageService.addStages(viewForm);
+    }
+
+    /**
+     * 删除分期优惠
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/deleteStages", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RestResponse deleteStages(@RequestBody @Validated RestRequest<StagesViewForm> request) {
+        StagesViewForm viewForm = request.getBody();
+        return stagesManageService.deleteStages(viewForm);
+    }
+
+    /**
+     * 修改分期优惠
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/updateStages", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RestResponse updateStages(@RequestBody @Validated RestRequest<UpStagesViewForm> request) {
+        UpStagesViewForm viewForm = request.getBody();
+        return stagesManageService.updateStages(viewForm);
+    }
+
+    /**
+     * 启用分期优惠
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/updateStagesEnable", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RestResponse updateStagesEnable(@RequestBody @Validated RestRequest<StagesViewForm> request) {
+        StagesViewForm viewForm = request.getBody();
+        return stagesManageService.updateStagesEnable(viewForm);
+    }
+
+    /**
+     * 停用分期优惠
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/updateStagesUnEnable", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RestResponse updateStagesUnEnable(@RequestBody @Validated RestRequest<StagesViewForm> request) {
+        StagesViewForm viewForm = request.getBody();
+        return stagesManageService.updateStagesUnEnable(viewForm);
+    }
+
+    /**
+     * 查询分期优惠List
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getStagesList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RestResponse getStagesList(@RequestBody @Validated RestRequest<GetStagesViewForm> request) {
+        GetStagesViewForm viewForm = request.getBody();
+        return stagesManageService.getStagesList(viewForm);
+    }
+
+    /**
+     * 查询分期优惠详情
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getStagesInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RestResponse getStagesInfo(@RequestBody @Validated RestRequest<StagesViewForm> request) {
+        StagesViewForm viewForm = request.getBody();
+        return stagesManageService.getStagesInfo(viewForm);
     }
 }
