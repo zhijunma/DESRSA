@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface GroupPurchaseMapper {
@@ -16,4 +18,12 @@ public interface GroupPurchaseMapper {
      * @return
      */
     Integer addGroupPurchase(@Param("dsGrpPurchase") DSGrpPurchase dsGrpPurchase);
+
+    /**
+     * 全部团购活动一览
+     *
+     * @param dsGrpPurchase
+     * @return
+     */
+    List<DSGrpPurchase> getGroupPurchaseList(@Param("dsGrpPurchase") DSGrpPurchase dsGrpPurchase);
 }

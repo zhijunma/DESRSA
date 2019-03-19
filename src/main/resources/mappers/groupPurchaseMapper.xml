@@ -34,7 +34,45 @@
                 #{dsGrpPurchase.modTime}
             );
     </insert>
-
+    <!--全部团购活动一览(模糊查询)-->
+    <select id="getGroupPurchaseList" resultType="com.cn.school.entity.DSGrpPurchase">
+        SELECT
+        guid AS guid,
+        gp_name AS gpNname,
+        people_num AS peopleNum,
+        driver_level AS driverLevel,
+        aggregate_amount AS aggregateAmount,
+        issue AS issue,
+        coupon AS coupon,
+        add_user_id AS addUserId,
+        add_user AS addUser,
+        add_time AS addTime,
+        mod_user_id AS modUserId,
+        mod_user AS modUser,
+        mod_time AS modTime,
+        delete_flag AS deleteFlag
+        FROM
+        driver_school_grp_purchase
+        where delete_flag=FALSE
+        <if test="dsGrpPurchase.gpNname != null and '' != dsGrpPurchase.gpNname">
+            AND gp_name like concat(concat('%',#{dsGrpPurchase.gpNname}),'%')
+        </if>
+        <if test="dsGrpPurchase.peopleNum != null and '' != dsGrpPurchase.peopleNum">
+            AND people_num like concat(concat('%',#{dsGrpPurchase.peopleNum}),'%')
+        </if>
+        <if test="dsGrpPurchase.driverLevel != null and '' != dsGrpPurchase.driverLevel">
+            AND driver_level like concat(concat('%',#{dsGrpPurchase.driverLevel}),'%')
+        </if>
+        <if test="dsGrpPurchase.aggregateAmount != null and '' != dsGrpPurchase.aggregateAmount">
+            AND aggregate_amount like concat(concat('%',#{dsGrpPurchase.aggregateAmount}),'%')
+        </if>
+        <if test="dsGrpPurchase.issue != null and '' != dsGrpPurchase.issue">
+            AND issue like concat(concat('%',#{dsGrpPurchase.issue}),'%')
+        </if>
+        <if test="dsGrpPurchase.coupon != null and '' != dsGrpPurchase.coupon">
+            AND coupon like concat(concat('%',#{dsGrpPurchase.coupon}),'%')
+        </if>
+    </select>
     <!--查看用户个人信息（根据guid）-->
     <select id="getUser" resultType="com.cn.school.entity.DSGrpPurchase">
         SELECT

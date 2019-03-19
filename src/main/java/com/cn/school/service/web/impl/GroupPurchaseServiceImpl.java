@@ -2,6 +2,7 @@ package com.cn.school.service.web.impl;
 
 import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.usermanage.GroupPurchaseViewForm;
+import com.cn.school.dto.info.vo.getGroupPurchaseInfoVO;
 import com.cn.school.entity.DSGrpPurchase;
 import com.cn.school.mapper.web.GroupPurchaseMapper;
 import com.cn.school.service.web.GroupPurchaseService;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -57,5 +60,38 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
         } else {
             return RestResponse.error("添加团购活动内容失败！");
         }
+    }
+
+    /**
+     * 全部团购活动一览
+     *
+     * @param groupPurchaseViewForm
+     * @return
+     */
+    @Override
+    public List getGroupPurchaseList(GroupPurchaseViewForm groupPurchaseViewForm) {
+        //TODO 添加权限模块 管理员查看全部团购活动
+        DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
+        //入参
+        dsGrpPurchase.setGpNname(groupPurchaseViewForm.getGpNname());
+        dsGrpPurchase.setPeopleNum(groupPurchaseViewForm.getPeopleNum());
+        dsGrpPurchase.setDriverLevel(groupPurchaseViewForm.getDriverLevel());
+        dsGrpPurchase.setAggregateAmount(groupPurchaseViewForm.getAggregateAmount());
+        dsGrpPurchase.setIssue(groupPurchaseViewForm.getIssue());
+        dsGrpPurchase.setCoupon(groupPurchaseViewForm.getCoupon());
+        List<DSGrpPurchase> reDSGrpPurchase = groupPurchaseMapper.getGroupPurchaseList(dsGrpPurchase);
+        List<getGroupPurchaseInfoVO> getGroupPurchaseVOList = new ArrayList<>(16);
+        //出参
+        reDSGrpPurchase.forEach(e -> {
+            getGroupPurchaseInfoVO getGroupPurchaseVO = new getGroupPurchaseInfoVO();
+            getGroupPurchaseVO.setGpNname(e.getGpNname());
+            getGroupPurchaseVO.setPeopleNum(e.getPeopleNum());
+            getGroupPurchaseVO.setDriverLevel(e.getDriverLevel());
+            getGroupPurchaseVO.setAggregateAmount(e.getAggregateAmount());
+            getGroupPurchaseVO.setIssue(e.getIssue());
+            getGroupPurchaseVO.setCoupon(e.getCoupon());
+            getGroupPurchaseVOList.add(getGroupPurchaseVO);
+        });
+        return getGroupPurchaseVOList;
     }
 }

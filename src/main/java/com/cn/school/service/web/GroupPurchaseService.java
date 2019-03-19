@@ -3,6 +3,8 @@ package com.cn.school.service.web;
 import com.cn.school.dto.forms.usermanage.GroupPurchaseViewForm;
 import com.cn.school.utils.response.RestResponse;
 
+import java.util.List;
+
 
 public interface GroupPurchaseService {
 
@@ -13,4 +15,12 @@ public interface GroupPurchaseService {
      * @return
      */
     RestResponse addGroupPurchase(GroupPurchaseViewForm groupPurchaseViewForm);
+
+    /**
+     * 全部团购活动一览
+     *
+     * @param groupPurchaseViewForm
+     * @return
+     */
+    List getGroupPurchaseList(GroupPurchaseViewForm groupPurchaseViewForm);
 }

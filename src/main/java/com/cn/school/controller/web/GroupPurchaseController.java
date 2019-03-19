@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author:HuMin Date:2019/3/4
  * Time:11:02
@@ -34,5 +36,17 @@ public class GroupPurchaseController {
     public RestResponse addGroupPurchase(@RequestBody @Validated RestRequest<GroupPurchaseViewForm> request) {
         GroupPurchaseViewForm viewForm = request.getBody();
         return groupPurchaseService.addGroupPurchase(viewForm);
+    }
+
+    /**
+     * 全部团购活动一览
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getGroupPurchaseList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List getCoachList(@RequestBody @Validated RestRequest<GroupPurchaseViewForm> request) {
+        GroupPurchaseViewForm viewForm = request.getBody();
+        return groupPurchaseService.getGroupPurchaseList(viewForm);
     }
 }
