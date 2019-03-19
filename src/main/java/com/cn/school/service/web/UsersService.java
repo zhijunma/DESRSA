@@ -63,12 +63,6 @@ public interface UsersService {
      * @return
      */
     RestResponse updateCoach(UpdateCoachViewForm updateCoachViewForm);
-    /**
-     * 学员信息一览
-     *
-     * @param getStuViewForm
-     * @return
-     */
-    List getStu(GetStuViewForm getStuViewForm);
+
 
 }

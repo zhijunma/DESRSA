@@ -183,37 +183,4 @@
                 mod_time=#{dsUser.modTime}
         where role=2 AND guid=#{dsUser.guid}
     </update>
-    <!--学员信息一览-->
-    <select id="getStu" resultType="com.cn.school.entity.DSUser">
-        SELECT
-        guid AS guid,
-        user_name AS userName,
-        mobile_phone AS mobilePhone,
-        id_card AS idCard,
-        status AS status,
-        role AS role,
-        add_user_id AS addUserId,
-        add_user AS addUser,
-        add_time AS addTime,
-        mod_user_id AS modUserId,
-        mod_user AS modUser,
-        mod_time AS modTime,
-        delete_flag AS deleteFlag
-        FROM
-        driver_school_user
-        where role=1
-        <if test="dsUser.userName != null and '' != dsUser.userName">
-            AND user_name=#{dsUser.userName}
-        </if>
-        <if test="dsUser.mobilePhone != null and '' != dsUser.mobilePhone">
-            AND mobile_phone=#{dsUser.mobilePhone}
-        </if>
-        <if test="dsUser.idCard != null and '' != dsUser.idCard">
-            AND id_card=#{dsUser.idCard}
-        </if>
-        <if test="dsUser.status != null and '' != dsUser.status">
-            AND status=#{dsUser.status}
-        </if>
-        AND delete_flag=FALSE
-    </select>
 </mapper>

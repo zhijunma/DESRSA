@@ -3,7 +3,6 @@ package com.cn.school.service.web.impl;
 import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.usermanage.*;
 import com.cn.school.dto.info.vo.GetCoachInfoVO;
-import com.cn.school.dto.info.vo.GetStuInfoVO;
 import com.cn.school.dto.info.vo.GetUserInfoVO;
 import com.cn.school.entity.DSUser;
 import com.cn.school.mapper.web.UsersMapper;
@@ -237,35 +236,5 @@ public class UsersServiceImpl implements UsersService {
             return RestResponse.error("修改教练员信息失败！");
         }
     }
-
-    /**
-     * 学员信息一览
-     *
-     * @param getStuViewForm
-     * @return
-     */
-    @Override
-    public List getStu(GetStuViewForm getStuViewForm) {
-        //TODO 添加权限模块 教练员只能查看自己学员，管理员可以查看所有信息
-        DSUser dsUser = new DSUser();
-        dsUser.setUserName(getStuViewForm.getUserName());
-        dsUser.setMobilePhone(getStuViewForm.getMobilePhone());
-        dsUser.setIdCard(getStuViewForm.getIdCard());
-        dsUser.setStatus(getStuViewForm.getStatus());
-        List<DSUser> reDsUser = usersMapper.getStu(dsUser);
-        List<GetStuInfoVO> getStuInfoVOList = new ArrayList<>(16);
-        reDsUser.forEach(e -> {
-            GetStuInfoVO getStuInfoVO = new GetStuInfoVO();
-            getStuInfoVO.setGuid(e.getGuid());
-            getStuInfoVO.setUserName(e.getUserName());
-            getStuInfoVO.setRole(e.getRole());
-            getStuInfoVO.setMobilePhone(e.getMobilePhone());
-            getStuInfoVO.setIdCard(e.getIdCard());
-            getStuInfoVO.setStatus(e.getStatus());
-            getStuInfoVOList.add(getStuInfoVO);
-        });
-        return getStuInfoVOList;
-    }
-
 
 }

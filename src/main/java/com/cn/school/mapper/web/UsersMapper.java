@@ -69,12 +69,6 @@ public interface UsersMapper {
      * @return
      */
     Integer updateCoach(@Param("dsUser") DSUser dsUser);
-    /**
-     * 学员信息一览
-     *
-     * @param dsUser
-     * @return
-     */
-    List<DSUser> getStu(@Param("dsUser") DSUser dsUser);
+
 
 }

@@ -122,18 +122,6 @@ public class UserManageController {
         return usersService.updateCoach(viewForm);
     }
 
-    /**
-     * 学员信息一览
-     *
-     * @param request
-     * @return
-     */
-    @PostMapping(value = "/getStu")
-    public List getStu(@RequestBody @Validated RestRequest<GetStuViewForm> request) {
-        GetStuViewForm viewForm = request.getBody();
-        return usersService.getStu(viewForm);
-    }
-
     /*@GetMapping("/docker")
     public String index() {
         return "你好,docker";
