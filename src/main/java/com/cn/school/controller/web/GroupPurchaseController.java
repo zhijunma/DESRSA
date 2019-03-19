@@ -1,5 +1,6 @@
 package com.cn.school.controller.web;
 
+import com.cn.school.dto.forms.usermanage.AddGroupPurchaseViewForm;
 import com.cn.school.dto.forms.usermanage.GroupPurchaseViewForm;
 import com.cn.school.service.web.GroupPurchaseService;
 import com.cn.school.utils.request.RestRequest;
@@ -33,8 +34,8 @@ public class GroupPurchaseController {
      * @return
      */
     @PostMapping(value = "/addGroupPurchase", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RestResponse addGroupPurchase(@RequestBody @Validated RestRequest<GroupPurchaseViewForm> request) {
-        GroupPurchaseViewForm viewForm = request.getBody();
+    public RestResponse addGroupPurchase(@RequestBody @Validated RestRequest<AddGroupPurchaseViewForm> request) {
+        AddGroupPurchaseViewForm viewForm = request.getBody();
         return groupPurchaseService.addGroupPurchase(viewForm);
     }
 
@@ -49,4 +50,10 @@ public class GroupPurchaseController {
         GroupPurchaseViewForm viewForm = request.getBody();
         return groupPurchaseService.getGroupPurchaseList(viewForm);
     }
+    @PostMapping(value = "/getGroupPurchase")
+    public RestResponse getGroupPurchase(@RequestBody @Validated RestRequest<GroupPurchaseViewForm> request) {
+        GroupPurchaseViewForm viewForm = request.getBody();
+        return groupPurchaseService.getGroupPurchase(viewForm);
+    }
+
 }

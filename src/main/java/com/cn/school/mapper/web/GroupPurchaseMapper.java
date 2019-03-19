@@ -26,4 +26,12 @@ public interface GroupPurchaseMapper {
      * @return
      */
     List<DSGrpPurchase> getGroupPurchaseList(@Param("dsGrpPurchase") DSGrpPurchase dsGrpPurchase);
+
+    /**
+     * 团购活动详细查看
+     *
+     * @param dsGrpPurchase
+     * @return
+     */
+    DSGrpPurchase getGroupPurchase(@Param("dsGrpPurchase") DSGrpPurchase dsGrpPurchase);
 }
