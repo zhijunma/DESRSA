@@ -2,7 +2,7 @@ package com.cn.school.utils.response;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.cn.school.constant.CodeConstant;
-import com.cn.school.utils.StringUtils;
+import com.cn.school.utils.StringUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -283,7 +283,7 @@ public class RestResponse<T> implements Serializable {
     @JSONField(serialize = false)
     @SuppressWarnings("rawtypes")
     public RestResponse withMessage(String messagePattern, Object... argArray) {
-        this.header.setMessage(StringUtils.formatMessage(messagePattern, argArray));
+        this.header.setMessage(StringUtil.formatMessage(messagePattern, argArray));
         return this;
     }
 
@@ -323,7 +323,7 @@ public class RestResponse<T> implements Serializable {
     @JSONField(serialize = false)
     @SuppressWarnings("rawtypes")
     public RestResponse withSubMessage(String subMessagePattern, Object... argArray) {
-        this.header.setSubMessage(StringUtils.formatMessage(subMessagePattern, argArray));
+        this.header.setSubMessage(StringUtil.formatMessage(subMessagePattern, argArray));
         return this;
     }
 

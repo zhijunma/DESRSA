@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class StringUtils {
+public final class StringUtil {
     private static final char DELIM_START = '{';
     private static final char DELIM_STOP = '}';
     private static final String DELIM_STR = "{}";
@@ -16,7 +16,7 @@ public final class StringUtils {
     private static final int DOUBLE_ESCAPED_INDEX = 2;
     private static final int DEFAULT_COLLECTION_CAPACITY = 10;
 
-    public StringUtils() {
+    public StringUtil() {
     }
 
     public static String unicodeToString(String str) {
