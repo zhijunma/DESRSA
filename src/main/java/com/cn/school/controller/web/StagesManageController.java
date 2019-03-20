@@ -1,9 +1,6 @@
 package com.cn.school.controller.web;
 
-import com.cn.school.dto.forms.stagesmanage.AddStagesViewForm;
-import com.cn.school.dto.forms.stagesmanage.GetStagesViewForm;
-import com.cn.school.dto.forms.stagesmanage.StagesViewForm;
-import com.cn.school.dto.forms.stagesmanage.UpStagesViewForm;
+import com.cn.school.dto.forms.stagesmanage.*;
 import com.cn.school.service.web.StagesManageService;
 import com.cn.school.utils.request.RestRequest;
 import com.cn.school.utils.response.RestResponse;
@@ -13,7 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author:HuMin Date:2019/3/18
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
+@RequestMapping("/web/stages")
 public class StagesManageController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class StagesManageController {
 
     /**
      * 新增分期优惠
-     *
+     *已完成
      * @param request
      * @return
      */
@@ -36,18 +37,6 @@ public class StagesManageController {
     public RestResponse addStages(@RequestBody @Validated RestRequest<AddStagesViewForm> request) {
         AddStagesViewForm viewForm = request.getBody();
         return stagesManageService.addStages(viewForm);
-    }
-
-    /**
-     * 删除分期优惠
-     *
-     * @param request
-     * @return
-     */
-    @PostMapping(value = "/deleteStages", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RestResponse deleteStages(@RequestBody @Validated RestRequest<StagesViewForm> request) {
-        StagesViewForm viewForm = request.getBody();
-        return stagesManageService.deleteStages(viewForm);
     }
 
     /**
@@ -63,8 +52,20 @@ public class StagesManageController {
     }
 
     /**
+     * 删除分期优惠
+     *完成80%
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/deleteStages", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RestResponse deleteStages(@RequestBody @Validated RestRequest<DeleteStagesViewForm> request) {
+        DeleteStagesViewForm viewForm = request.getBody();
+        return stagesManageService.deleteStages(viewForm);
+    }
+
+    /**
      * 启用分期优惠
-     *
+     *已完成
      * @param request
      * @return
      */
@@ -76,7 +77,7 @@ public class StagesManageController {
 
     /**
      * 停用分期优惠
-     *
+     *已完成
      * @param request
      * @return
      */
@@ -93,20 +94,20 @@ public class StagesManageController {
      * @return
      */
     @PostMapping(value = "/getStagesList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RestResponse getStagesList(@RequestBody @Validated RestRequest<GetStagesViewForm> request) {
+    public List getStagesList(@RequestBody @Validated RestRequest<GetStagesViewForm> request) {
         GetStagesViewForm viewForm = request.getBody();
         return stagesManageService.getStagesList(viewForm);
     }
 
     /**
      * 查询分期优惠详情
-     *
+     *已完成
      * @param request
      * @return
      */
     @PostMapping(value = "/getStagesInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RestResponse getStagesInfo(@RequestBody @Validated RestRequest<StagesViewForm> request) {
-        StagesViewForm viewForm = request.getBody();
+    public RestResponse getStagesInfo(@RequestBody @Validated RestRequest<GetStagesViewForm> request) {
+        GetStagesViewForm viewForm = request.getBody();
         return stagesManageService.getStagesInfo(viewForm);
     }
 }

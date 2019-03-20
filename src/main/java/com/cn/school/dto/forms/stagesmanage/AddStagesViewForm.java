@@ -16,19 +16,20 @@ public class AddStagesViewForm extends UserContextViewForm {
     /**
      * 分期活动名称
      */
-    @NotBlank
     private String name;
 
     /**
      * 分期活动名称
      */
-    @NotBlank
-    private Integer issues;
 
+    private Integer issues;
+    /**
+     * 状态
+     */
+    private Integer sratus;
     /**
      * 分期活动子表
      */
-    @NotBlank
     @Valid
     private List<AddStagesItemViewForm> itemList;
 }

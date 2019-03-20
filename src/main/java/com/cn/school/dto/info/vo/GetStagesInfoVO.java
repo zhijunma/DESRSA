@@ -1,18 +1,12 @@
-package com.cn.school.dto.forms.stagesmanage;
+package com.cn.school.dto.info.vo;
 
 import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-/**
- * @author:HuMin Date:2019/3/18
- * Time:19:49
- */
 @Data
-public class GetStagesViewForm extends UserContextViewForm {
-
+public class GetStagesInfoVO extends UserContextViewForm {
     /**
      * guid
      */
@@ -44,5 +38,4 @@ public class GetStagesViewForm extends UserContextViewForm {
     private LocalDateTime modTime;
     private String modUser;
     private Long modUserId;
-
 }
