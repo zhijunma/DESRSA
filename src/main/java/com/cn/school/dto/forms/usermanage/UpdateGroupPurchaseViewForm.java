@@ -1,10 +1,12 @@
-package com.cn.school.dto.info.vo;
+package com.cn.school.dto.forms.usermanage;
 
 import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
-public class getGroupPurchaseInfoVO extends UserContextViewForm {
+public class UpdateGroupPurchaseViewForm extends UserContextViewForm {
     /**
      * 主键id
      */
@@ -33,4 +35,11 @@ public class getGroupPurchaseInfoVO extends UserContextViewForm {
      * 优惠券 1：可以使用优惠券 0：不能使用优惠券
      */
     private Integer coupon;
+    /**
+     * 修改人
+     */
+    private Long modUserId;
+    private String modUser;
+    private LocalDateTime modTime;
+
 }

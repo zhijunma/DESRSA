@@ -14,7 +14,6 @@ public class StagesViewForm extends UserContextViewForm {
     /**
      * guid
      */
-    @NotBlank
     private Long guid;
 
 

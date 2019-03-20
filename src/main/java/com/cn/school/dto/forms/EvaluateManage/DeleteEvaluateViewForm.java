@@ -9,7 +9,10 @@ import java.time.LocalDateTime;
 @Data
 public class DeleteEvaluateViewForm extends UserContextViewForm {
 
-
+        /**
+         * guid
+         */
+        private  Long guid;
         /**
          * 添加人
          */

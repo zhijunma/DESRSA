@@ -115,4 +115,47 @@
             AND coupon=#{dsGrpPurchase.coupon}
         </if>
     </select>
+    <!--团购信息修改（只能由管理员修改）-->
+    <update id="updateGroupPurchase">
+        UPDATE driver_school_grp_purchase
+        set
+        <if test="dsGrpPurchase.gpNname != null and '' != dsGrpPurchase.gpNname">
+            gp_name=#{dsGrpPurchase.gpNname},
+        </if>
+        <if test="dsGrpPurchase.peopleNum != null and '' != dsGrpPurchase.peopleNum">
+            people_num=#{dsGrpPurchase.peopleNum},
+        </if>
+        <if test="dsGrpPurchase.driverLevel != null and '' != dsGrpPurchase.driverLevel">
+            driver_level=#{dsGrpPurchase.driverLevel},
+        </if>
+        <if test="dsGrpPurchase.aggregateAmount != null and '' != dsGrpPurchase.aggregateAmount">
+            aggregate_amount=#{dsGrpPurchase.aggregateAmount},
+        </if>
+        <if test="dsGrpPurchase.issue != null and '' != dsGrpPurchase.issue">
+            issue=#{dsGrpPurchase.issue},
+        </if>
+        <if test="dsGrpPurchase.coupon != null and '' != dsGrpPurchase.coupon">
+            coupon=#{dsGrpPurchase.coupon},
+        </if>
+            mod_user_id=#{dsGrpPurchase.modUserId},
+            mod_user=#{dsGrpPurchase.modUser},
+            mod_time=#{dsGrpPurchase.modTime}
+        where guid=#{dsGrpPurchase.guid} AND delete_flag=FALSE
+    </update>
+    <!--团购信息单、批量删除（假删除）-->
+    <update id="deleteGroupPurchase" parameterType="java.util.List">
+
+        <foreach collection="dsGrpPurchase" item="dsGrpPurchase" index="index" open="" close="" separator=";">
+            UPDATE driver_school_grp_purchase
+            <set>
+                delete_flag = true,
+                mod_user_id = #{dsGrpPurchase.modUserId},
+                mod_user = #{dsGrpPurchase.modUser},
+                mod_time = #{dsGrpPurchase.modTime}
+            </set>
+            WHERE guid = #{dsGrpPurchase.guid}
+            AND delete_flag = FALSE
+        </foreach>
+
+    </update>
 </mapper>

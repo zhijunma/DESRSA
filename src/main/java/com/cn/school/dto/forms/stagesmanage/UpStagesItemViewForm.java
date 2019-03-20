@@ -15,13 +15,11 @@ public class UpStagesItemViewForm {
     /**
      * 还款金额
      */
-    @NotBlank
     private BigDecimal repayAmount;
 
     /**
      * 还款期次
      */
-    @NotBlank
     private Integer repayIssue;
 
 }

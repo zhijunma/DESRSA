@@ -1,16 +1,21 @@
 package com.cn.school.config;
 
+import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.alibaba.druid.wall.WallConfig;
+import com.alibaba.druid.wall.WallFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * @author zh
@@ -65,5 +70,36 @@ public class DruidConfiguration {
         //添加不需要忽略的格式信息.
         filterRegistrationBean.addInitParameter("exclusions","*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
+    }
+
+    @Autowired
+    WallFilter wallFilter;
+
+    @Bean     //声明其为Bean实例
+    @Primary  //在同样的DataSource中，首先使用被标注的DataSource
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource(){
+        DruidDataSource datasource = new DruidDataSource();
+
+        List<Filter> filters = new ArrayList<>();
+        filters.add(wallFilter);
+        datasource.setProxyFilters(filters);
+
+        return datasource;
+    }
+
+    @Bean(name = "wallConfig")
+    WallConfig wallFilterConfig(){
+        WallConfig wc = new WallConfig ();
+        wc.setMultiStatementAllow(true);
+        return wc;
+    }
+
+    @Bean(name = "wallFilter")
+    @DependsOn("wallConfig")
+    WallFilter wallFilter(WallConfig wallConfig){
+        WallFilter wfilter = new WallFilter ();
+        wfilter.setConfig(wallConfig);
+        return wfilter;
     }
 }
