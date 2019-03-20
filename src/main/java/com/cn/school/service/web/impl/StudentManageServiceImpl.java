@@ -127,7 +127,6 @@ public class StudentManageServiceImpl implements StudentManageService {
             GetStuInfoVO getStuInfoVO = new GetStuInfoVO();
             getStuInfoVO.setGuid(e.getGuid());
             getStuInfoVO.setUserName(e.getUserName());
-            getStuInfoVO.setRole(e.getRole());
             getStuInfoVO.setMobilePhone(e.getMobilePhone());
             getStuInfoVO.setIdCard(e.getIdCard());
             getStuInfoVO.setStatus(e.getStatus());
