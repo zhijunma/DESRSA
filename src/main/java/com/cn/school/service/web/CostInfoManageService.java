@@ -1,7 +1,10 @@
 package com.cn.school.service.web;
 
 import com.cn.school.dto.forms.costinfo.GetListViewForm;
+import com.cn.school.dto.forms.costinfomanage.AddCostManageViewForm;
+import com.cn.school.dto.forms.costinfomanage.DelCostManageViewForm;
 import com.cn.school.dto.forms.costinfomanage.GetCostManageListViewForm;
+import com.cn.school.dto.forms.costinfomanage.UpCostManageViewForm;
 import com.cn.school.utils.response.RestResponse;
 
 /**
@@ -24,7 +27,7 @@ public interface CostInfoManageService {
      * @param viewForm
      * @return
      */
-    RestResponse addCostInfo(GetListViewForm viewForm);
+    RestResponse addCostInfo(AddCostManageViewForm viewForm);
 
     /**
      * 更新报名费用信息
@@ -32,7 +35,7 @@ public interface CostInfoManageService {
      * @param viewForm
      * @return
      */
-    RestResponse updateCostInfo(GetListViewForm viewForm);
+    RestResponse updateCostInfo(UpCostManageViewForm viewForm);
 
     /**
      * 删除报名费用信息
@@ -40,5 +43,5 @@ public interface CostInfoManageService {
      * @param viewForm
      * @return
      */
-    RestResponse deleteCostInfo(GetListViewForm viewForm);
+    RestResponse deleteCostInfo(DelCostManageViewForm viewForm);
 }
