@@ -34,4 +34,20 @@ public interface GroupPurchaseMapper {
      * @return
      */
     DSGrpPurchase getGroupPurchase(@Param("dsGrpPurchase") DSGrpPurchase dsGrpPurchase);
+
+    /**
+     * 团购信息修改（只能由管理员修改）
+     *
+     * @param dsGrpPurchase
+     * @return
+     */
+    Integer updateGroupPurchase(@Param("dsGrpPurchase") DSGrpPurchase dsGrpPurchase);
+
+    /**
+     * 团购信息单、批量删除（假删除）
+     *
+     * @param dsGrpPurchase
+     * @return
+     */
+    Integer deleteGroupPurchase(@Param("dsGrpPurchase") List<DSGrpPurchase> dsGrpPurchase);
 }

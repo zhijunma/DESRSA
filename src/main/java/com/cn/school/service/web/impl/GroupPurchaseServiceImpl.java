@@ -2,7 +2,9 @@ package com.cn.school.service.web.impl;
 
 import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.usermanage.AddGroupPurchaseViewForm;
+import com.cn.school.dto.forms.usermanage.DeleteGroupPurchaseViewForm;
 import com.cn.school.dto.forms.usermanage.GroupPurchaseViewForm;
+import com.cn.school.dto.forms.usermanage.UpdateGroupPurchaseViewForm;
 import com.cn.school.dto.info.vo.getGroupPurchaseInfoVO;
 import com.cn.school.entity.DSGrpPurchase;
 import com.cn.school.mapper.web.GroupPurchaseMapper;
@@ -125,6 +127,73 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
             return RestResponse.success(getGroupPurchaseVO);
         } else {
             return RestResponse.success("没有符合条件的团购活动");
+        }
+    }
+
+    /**
+     * 团购信息修改（只能由管理员修改）
+     *
+     * @param updateGroupPurchaseViewForm
+     * @return
+     */
+    @Override
+    public RestResponse updateGroupPurchase(UpdateGroupPurchaseViewForm updateGroupPurchaseViewForm) {
+        //权限判断
+        if (!Constant.MANAGE_ROLE.equals(updateGroupPurchaseViewForm.getCurrRole())) {
+            log.debug("权限不足!");
+            return RestResponse.error("权限不足！");
+        }
+        //入参
+        DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
+        dsGrpPurchase.setGuid(updateGroupPurchaseViewForm.getGuid());
+        dsGrpPurchase.setGpNname(updateGroupPurchaseViewForm.getGpNname());
+        dsGrpPurchase.setPeopleNum(updateGroupPurchaseViewForm.getPeopleNum());
+        dsGrpPurchase.setDriverLevel(updateGroupPurchaseViewForm.getDriverLevel());
+        dsGrpPurchase.setAggregateAmount(updateGroupPurchaseViewForm.getAggregateAmount());
+        dsGrpPurchase.setIssue(updateGroupPurchaseViewForm.getIssue());
+        dsGrpPurchase.setCoupon(updateGroupPurchaseViewForm.getCoupon());
+        dsGrpPurchase.setModUserId(updateGroupPurchaseViewForm.getCurrId());
+        dsGrpPurchase.setModUser(updateGroupPurchaseViewForm.getCurrName());
+        dsGrpPurchase.setModTime(LocalDateTime.now());
+        Integer state = groupPurchaseMapper.updateGroupPurchase(dsGrpPurchase);
+        //出参
+        if (state > 0) {
+            return RestResponse.success("修改团购活动内容成功！");
+        } else {
+            return RestResponse.error("修改团购活动内容失败！");
+        }
+    }
+
+    /**
+     * 团购信息单、批量删除（假删除）
+     *
+     * @param viewForms
+     * @return
+     */
+    @Override
+    public RestResponse deleteGroupPurchase(DeleteGroupPurchaseViewForm viewForms) {
+//        DeleteGroupPurchaseViewForm deleteGroupPurchaseViewForm = new DeleteGroupPurchaseViewForm();
+        //权限判断
+        List<Long> gusList = viewForms.getGuidList();
+        if (!Constant.MANAGE_ROLE.equals(viewForms.getCurrRole())) {
+            log.debug("权限不足!");
+            throw new RuntimeException("权限不足");
+        }
+        //传入参数(可以是一个或者多个guid)
+        List<DSGrpPurchase> dsGrpPurchases = new ArrayList<>(16);
+        for (Long e : viewForms.getGuidList()) {
+            DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
+            dsGrpPurchase.setGuid(e);
+            dsGrpPurchase.setModUserId(viewForms.getCurrId());
+            dsGrpPurchase.setModUser(viewForms.getCurrName());
+            dsGrpPurchase.setModTime(LocalDateTime.now());
+            dsGrpPurchases.add(dsGrpPurchase);
+        }
+        Integer integer = groupPurchaseMapper.deleteGroupPurchase(dsGrpPurchases);
+        if (integer > 0) {
+            return RestResponse.success("删除条团购活动内容成功");
+        } else {
+            return RestResponse.error("删除团购活动内容失败！");
         }
     }
 
