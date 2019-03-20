@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.web.GroupPurchaseMapper">
+
+    <!--管理员生成团购活动内容，内容信息只能由管理员添加-->
+    <insert id="addGroupPurchase">
+        INSERT INTO driver_school_grp_purchase(
+            gp_name,
+            people_num,
+            driver_level,
+            aggregate_amount,
+            issue,
+            coupon,
+            add_user_id,
+            add_user,
+            add_time,
+            mod_user_id,
+            mod_user,
+            mod_time
+            )
+            VALUES
+            (
+                #{dsGrpPurchase.gpNname},
+                #{dsGrpPurchase.peopleNum},
+                #{dsGrpPurchase.driverLevel},
+                #{dsGrpPurchase.aggregateAmount},
+                #{dsGrpPurchase.issue},
+                #{dsGrpPurchase.coupon},
+                #{dsGrpPurchase.addUserId},
+                #{dsGrpPurchase.addUser},
+                #{dsGrpPurchase.addTime},
+                #{dsGrpPurchase.modUserId},
+                #{dsGrpPurchase.modUser},
+                #{dsGrpPurchase.modTime}
+            );
+    </insert>
+    <!--全部团购活动一览(模糊查询)-->
+    <select id="getGroupPurchaseList" resultType="com.cn.school.entity.DSGrpPurchase">
+        SELECT
+        guid AS guid,
+        gp_name AS gpNname,
+        people_num AS peopleNum,
+        driver_level AS driverLevel,
+        aggregate_amount AS aggregateAmount,
+        issue AS issue,
+        coupon AS coupon,
+        add_user_id AS addUserId,
+        add_user AS addUser,
+        add_time AS addTime,
+        mod_user_id AS modUserId,
+        mod_user AS modUser,
+        mod_time AS modTime,
+        delete_flag AS deleteFlag
+        FROM
+        driver_school_grp_purchase
+        where delete_flag=FALSE
+        <if test="dsGrpPurchase.gpNname != null and '' != dsGrpPurchase.gpNname">
+            AND gp_name like concat(concat('%',#{dsGrpPurchase.gpNname}),'%')
+        </if>
+        <if test="dsGrpPurchase.peopleNum != null and '' != dsGrpPurchase.peopleNum">
+            AND people_num like concat(concat('%',#{dsGrpPurchase.peopleNum}),'%')
+        </if>
+        <if test="dsGrpPurchase.driverLevel != null and '' != dsGrpPurchase.driverLevel">
+            AND driver_level like concat(concat('%',#{dsGrpPurchase.driverLevel}),'%')
+        </if>
+        <if test="dsGrpPurchase.aggregateAmount != null and '' != dsGrpPurchase.aggregateAmount">
+            AND aggregate_amount like concat(concat('%',#{dsGrpPurchase.aggregateAmount}),'%')
+        </if>
+        <if test="dsGrpPurchase.issue != null and '' != dsGrpPurchase.issue">
+            AND issue like concat(concat('%',#{dsGrpPurchase.issue}),'%')
+        </if>
+        <if test="dsGrpPurchase.coupon != null and '' != dsGrpPurchase.coupon">
+            AND coupon like concat(concat('%',#{dsGrpPurchase.coupon}),'%')
+        </if>
+    </select>
+    <!--团购活动详细查看-->
+    <select id="getGroupPurchase" resultType="com.cn.school.entity.DSGrpPurchase">
+        SELECT
+        guid AS guid,
+        gp_name AS gpNname,
+        people_num AS peopleNum,
+        driver_level AS driverLevel,
+        aggregate_amount AS aggregateAmount,
+        issue AS issue,
+        coupon AS coupon,
+        add_user_id AS addUserId,
+        add_user AS addUser,
+        add_time AS addTime,
+        mod_user_id AS modUserId,
+        mod_user AS modUser,
+        mod_time AS modTime,
+        delete_flag AS deleteFlag
+        FROM
+        driver_school_grp_purchase
+        where delete_flag=FALSE
+        <if test="dsGrpPurchase.guid != null and '' != dsGrpPurchase.guid">
+            AND guid=#{dsGrpPurchase.guid}
+        </if>
+        <if test="dsGrpPurchase.gpNname != null and '' != dsGrpPurchase.gpNname">
+            AND gp_name=#{dsGrpPurchase.gpNname}
+        </if>
+        <if test="dsGrpPurchase.peopleNum != null and '' != dsGrpPurchase.peopleNum">
+            AND people_num=#{dsGrpPurchase.peopleNum}
+        </if>
+        <if test="dsGrpPurchase.driverLevel != null and '' != dsGrpPurchase.driverLevel">
+            AND driver_level=#{dsGrpPurchase.driverLevel}
+        </if>
+        <if test="dsGrpPurchase.aggregateAmount != null and '' != dsGrpPurchase.aggregateAmount">
+            AND aggregate_amount=#{dsGrpPurchase.aggregateAmount}
+        </if>
+        <if test="dsGrpPurchase.issue != null and '' != dsGrpPurchase.issue">
+            AND issue=#{dsGrpPurchase.issue}
+        </if>
+        <if test="dsGrpPurchase.coupon != null and '' != dsGrpPurchase.coupon">
+            AND coupon=#{dsGrpPurchase.coupon}
+        </if>
+    </select>
+</mapper>
