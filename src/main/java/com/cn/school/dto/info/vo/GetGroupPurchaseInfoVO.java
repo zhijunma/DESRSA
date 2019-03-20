@@ -4,7 +4,7 @@ import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 @Data
-public class getGroupPurchaseInfoVO extends UserContextViewForm {
+public class GetGroupPurchaseInfoVO extends UserContextViewForm {
     /**
      * 主键id
      */

@@ -5,7 +5,7 @@ import com.cn.school.dto.forms.usermanage.AddGroupPurchaseViewForm;
 import com.cn.school.dto.forms.usermanage.DeleteGroupPurchaseViewForm;
 import com.cn.school.dto.forms.usermanage.GroupPurchaseViewForm;
 import com.cn.school.dto.forms.usermanage.UpdateGroupPurchaseViewForm;
-import com.cn.school.dto.info.vo.getGroupPurchaseInfoVO;
+import com.cn.school.dto.info.vo.GetGroupPurchaseInfoVO;
 import com.cn.school.entity.DSGrpPurchase;
 import com.cn.school.mapper.web.GroupPurchaseMapper;
 import com.cn.school.service.web.GroupPurchaseService;
@@ -80,10 +80,10 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
         dsGrpPurchase.setIssue(groupPurchaseViewForm.getIssue());
         dsGrpPurchase.setCoupon(groupPurchaseViewForm.getCoupon());
         List<DSGrpPurchase> reDSGrpPurchase = groupPurchaseMapper.getGroupPurchaseList(dsGrpPurchase);
-        List<getGroupPurchaseInfoVO> getGroupPurchaseVOList = new ArrayList<>(16);
+        List<GetGroupPurchaseInfoVO> getGroupPurchaseVOList = new ArrayList<>(16);
         //出参
         reDSGrpPurchase.forEach(e -> {
-            getGroupPurchaseInfoVO getGroupPurchaseVO = new getGroupPurchaseInfoVO();
+            GetGroupPurchaseInfoVO getGroupPurchaseVO = new GetGroupPurchaseInfoVO();
             getGroupPurchaseVO.setGuid(e.getGuid());
             getGroupPurchaseVO.setGpNname(e.getGpNname());
             getGroupPurchaseVO.setPeopleNum(e.getPeopleNum());
@@ -118,7 +118,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
         dsGrpPurchase.setCoupon(groupPurchaseViewForm.getCoupon());
         DSGrpPurchase groupPurchase = groupPurchaseMapper.getGroupPurchase(dsGrpPurchase);
         //出参
-        getGroupPurchaseInfoVO getGroupPurchaseVO = new getGroupPurchaseInfoVO();
+        GetGroupPurchaseInfoVO getGroupPurchaseVO = new GetGroupPurchaseInfoVO();
         getGroupPurchaseVO.setGuid(groupPurchase.getGuid());
         getGroupPurchaseVO.setGpNname(groupPurchase.getGpNname());
         getGroupPurchaseVO.setPeopleNum(groupPurchase.getPeopleNum());
