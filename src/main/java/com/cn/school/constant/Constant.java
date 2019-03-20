@@ -20,9 +20,14 @@ public class Constant {
      */
     public static final Integer MARKETING_ROLE = 4;
 
+    /**
+     * 财务部成员
+     */
+    public static final Integer MONEY_ROLE = 5;
+
 
     /**
-     * 为启用状态
+     * 停用状态
      */
     public static final Integer STATUS_FALSE = 0;
     /**

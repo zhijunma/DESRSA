@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.wx.CostInfoMapper">
+    <select id="getCostInfoList" resultType="com.cn.school.entity.DSCostInfo">
+        SELECT
+            driver_level AS driverLevel,
+            driver_money AS driverMoney
+        FROM
+            driver_school_cost_info
+        WHERE
+            delete_flag = FALSE
+    </select>
+</mapper>

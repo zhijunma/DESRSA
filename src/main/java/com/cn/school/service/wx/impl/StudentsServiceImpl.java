@@ -64,7 +64,7 @@ public class StudentsServiceImpl implements StudentsService {
         if (num > 0) {
             return RestResponse.success("报名成功");
         } else {
-            return RestResponse.error("报名失败");
+            throw new RuntimeException("报名失败");
 
         }
 
