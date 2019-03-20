@@ -35,7 +35,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
     public RestResponse addGroupPurchase(AddGroupPurchaseViewForm addGroupPurchaseViewForm) {
         //权限判断
         if (!Constant.MANAGE_ROLE.equals(addGroupPurchaseViewForm.getCurrRole())) {
-            return RestResponse.error("权限不足！");
+            throw new RuntimeException("权限不足");
         }
         DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
         //入参
@@ -68,6 +68,9 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
     @Override
     public List getGroupPurchaseList(GroupPurchaseViewForm groupPurchaseViewForm) {
         //TODO 添加权限模块 管理员查看全部团购活动
+        if (!Constant.MANAGE_ROLE.equals(groupPurchaseViewForm.getCurrRole())) {
+            throw new RuntimeException("权限不足");
+        }
         DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
         //入参
         dsGrpPurchase.setGpNname(groupPurchaseViewForm.getGpNname());
@@ -81,6 +84,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
         //出参
         reDSGrpPurchase.forEach(e -> {
             getGroupPurchaseInfoVO getGroupPurchaseVO = new getGroupPurchaseInfoVO();
+            getGroupPurchaseVO.setGuid(e.getGuid());
             getGroupPurchaseVO.setGpNname(e.getGpNname());
             getGroupPurchaseVO.setPeopleNum(e.getPeopleNum());
             getGroupPurchaseVO.setDriverLevel(e.getDriverLevel());
@@ -101,7 +105,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
     @Override
     public RestResponse getGroupPurchase(GroupPurchaseViewForm groupPurchaseViewForm) {
         if (!Constant.MANAGE_ROLE.equals(groupPurchaseViewForm.getCurrRole())) {
-            return RestResponse.error("权限不足！");
+            throw new RuntimeException("权限不足");
         }
         DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
         //入参
@@ -141,7 +145,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
         //权限判断
         if (!Constant.MANAGE_ROLE.equals(updateGroupPurchaseViewForm.getCurrRole())) {
             log.debug("权限不足!");
-            return RestResponse.error("权限不足！");
+            throw new RuntimeException("权限不足");
         }
         //入参
         DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
