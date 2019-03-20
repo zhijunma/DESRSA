@@ -15,4 +15,12 @@ public interface SmsService {
      * @return
      */
     RestResponse sendCode(ComSendCodeViewForm viewForm);
+
+    /**
+     * 发送短信验证码
+     *
+     * @param viewForm
+     * @return
+     */
+    Boolean updateCheckMobileCode(ComSendCodeViewForm viewForm);
 }

@@ -64,7 +64,7 @@ public class ConAspect {
                 RestRequestHeader header = restRequest.getHeader();
                 String token = header.getToken();
                 if (token.isEmpty()) {
-                    throw new Exception("token 不能為空！");
+                    throw new RuntimeException("token 不能為空！");
                 }
 
                 UserContextViewForm userContextViewForm = (UserContextViewForm) redisUtil.get(token);

@@ -26,6 +26,18 @@ public class ExceptionHander {
         return RestResponse.error(message);
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public RestResponse RuntimeException(Exception ex) {
+        /**
+         * 描述
+         */
+        String message = ex.getMessage();
+        /**
+         * 返回值
+         */
+        return RestResponse.error(message);
+    }
+
     /**
      * @功能描述: 传值验证
      * @param: 异常

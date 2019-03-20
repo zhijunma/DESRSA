@@ -19,6 +19,6 @@ public interface StudentsMapper {
      * @param dsStudents
      * @return
      */
-    Integer addStudents(@Param("dsStudents") DSStudents dsStudents);
+    Integer addStudents(@Param("po") DSStudents dsStudents);
 
 }

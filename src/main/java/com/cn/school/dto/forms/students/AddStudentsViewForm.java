@@ -22,6 +22,13 @@ public class AddStudentsViewForm {
     @NotBlank
     @Size(min = 11, max = 11, message = "输入正确的电话号码")
     private String mobilePhone;
+
+    /**
+     * 电话号码
+     */
+    @NotBlank
+    @Size(min = 6, max = 6, message = "输入正确的验证码")
+    private String code;
     /**
      * 身份证号
      */

@@ -8,7 +8,6 @@ import com.cn.school.dto.info.bo.GetSystemCodeMessageBO;
 import com.cn.school.entity.DSCode;
 import com.cn.school.mapper.common.ComSendMapper;
 import com.cn.school.service.common.SmsService;
-import com.cn.school.constant.CodeMsg;
 import com.cn.school.utils.SmsUtil;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -102,7 +101,7 @@ public class SmsServiceImpl implements SmsService {
             if (1 > count) {
                 throw new RuntimeException("插入验证码失败！");
             }
-        }else{
+        } else {
             throw new RuntimeException("发送验证码失败！");
         }
 
@@ -116,7 +115,8 @@ public class SmsServiceImpl implements SmsService {
      * @param viewForm
      * @return
      */
-    public RestResponse updateCheckMobileCode(ComSendCodeViewForm viewForm) {
+    @Override
+    public Boolean updateCheckMobileCode(ComSendCodeViewForm viewForm) {
 
         // 校验验证码
         DSCode dsCode = new DSCode();
@@ -128,11 +128,11 @@ public class SmsServiceImpl implements SmsService {
         dsCode.setModUser(viewForm.getMobile());
         int count = comSendMapper.updateMobileCode(dsCode);
 
-        if (1 > count) {
-            return RestResponse.error(CodeMsg.SERVER_EXCEPTION);
+        if (count > 0) {
+            return true;
         }
 
-        return RestResponse.success();
+        return false;
     }
 
     /**
