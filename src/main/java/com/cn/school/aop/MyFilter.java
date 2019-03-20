@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by
  */
-@WebFilter(filterName = "myFilter", urlPatterns = "/*")
+@WebFilter(filterName = "myFilter", urlPatterns = "/web/*")
 public class MyFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

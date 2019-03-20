@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cn.school.mapper.wx.UserMapper">
+<mapper namespace="com.cn.school.mapper.common.LoginMapper">
     <insert id="insertUser">
         INSERT INTO driver_school_user (
             user_name,

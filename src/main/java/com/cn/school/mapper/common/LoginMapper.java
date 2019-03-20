@@ -1,4 +1,4 @@
-package com.cn.school.mapper.wx;
+package com.cn.school.mapper.common;
 
 import com.cn.school.dto.info.po.InsertUserPO;
 import com.cn.school.dto.info.po.LoginUserPO;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface UserMapper {
+public interface LoginMapper {
 
     /**
      * 注册（插入用户）

@@ -5,7 +5,7 @@ import com.cn.school.dto.forms.auth.UserViewForm;
 import com.cn.school.dto.info.po.LoginUserPO;
 import com.cn.school.dto.info.vo.UserContextVO;
 import com.cn.school.entity.DSUser;
-import com.cn.school.mapper.wx.UserMapper;
+import com.cn.school.mapper.common.LoginMapper;
 import com.cn.school.service.common.LoginService;
 import com.cn.school.utils.JwtUtil;
 import com.cn.school.utils.RedisUtil;
@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
     @Value("${redisActiveTime}")
     private String redisActiveTime;
     @Autowired
-    private UserMapper userMapper;
+    private LoginMapper loginMapper;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -47,7 +47,7 @@ public class LoginServiceImpl implements LoginService {
         //手机号
         loginUserPO.setMobilePhone(viewForm.getMobile());
         //查询 user的验
-        DSUser user = userMapper.getUserInfoByMobilRole(loginUserPO);
+        DSUser user = loginMapper.getUserInfoByMobilRole(loginUserPO);
         LoginUserPO loginUser = new LoginUserPO();
         loginUser.setMobilePhone(viewForm.getMobile());
         loginUser.setGuid(user.getGuid());
@@ -58,7 +58,7 @@ public class LoginServiceImpl implements LoginService {
         loginUser.setModTime(LocalDateTime.now());
         loginUser.setModUser(user.getUserName());
         loginUser.setModUserId(user.getGuid());
-        Integer num = userMapper.updateUserLogin(loginUser);
+        Integer num = loginMapper.updateUserLogin(loginUser);
         if (num <= 0) {
             return RestResponse.error("登录失败！");
         }

@@ -20,15 +20,6 @@ public class DSStudents {
      */
     private String userName;
 
-    /**
-     * 用户密码
-     */
-    private String password;
-
-    /**
-     * 盐
-     */
-    private String salt;
 
     /**
      * 电话号码
@@ -44,11 +35,6 @@ public class DSStudents {
      * 缴费状态  0：未交费 1 ：以缴费
      */
     private Integer status;
-
-    /**
-     * 角色   1：学员   2：教练
-     */
-    private Integer role;
 
     /**
      * 添加人

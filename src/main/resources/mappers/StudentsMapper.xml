@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.wx.StudentsMapper">
+    <insert id="addStudents">
+        INSERT INTO driver_school_students (
+            user_name,
+            mobile_phone,
+            id_card,
+            status,
+            add_user_id,
+            add_user,
+            add_time,
+            mod_user_id,
+            mod_user,
+            mod_time,
+            delete_flag
+        )
+        VALUES
+            (
+                #{po.userName},
+                #{po.mobilePhone},
+                #{po.idCard},
+                #{po.status},
+                #{po.addUserId},
+                #{po.addUser},
+                #{po.addTime},
+                #{po.modUserId},
+                #{po.modUser},
+                #{po.modTime},
+                #{po.deleteFlag}
+            );
+    </insert>
+</mapper>
