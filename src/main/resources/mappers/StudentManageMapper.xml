@@ -9,7 +9,7 @@
         mod_user_id = #{dsStudents.modUserId},
         mod_user = #{dsStudents.modUser},
         mod_time = #{dsStudents.modTime}
-        WHERE role = 1
+        WHERE AND delete_flag = FALSE
         <if test="dsStudents.idCard != null and '' != dsStudents.idCard">
             AND id_card=#{dsStudents.idCard}
         </if>
@@ -19,7 +19,7 @@
         <if test="dsStudents.userName != null and '' != dsStudents.userName">
             AND user_name=#{dsStudents.userName}
         </if>
-            AND delete_flag = FALSE
+
     </update>
 
     <!-- 管理员修改学员信息 -->
@@ -42,14 +42,13 @@
         mod_user_id=#{dsStudents.modUserId},
         mod_time=#{dsStudents.modTime}
         WHERE
-        role = 1
+        delete_flag=FALSE
         <!--<if test="dsStudents.idCard != null and '' != dsStudents.idCard">-->
             <!--AND id_card=#{dsStudents.idCard}-->
         <!--</if>-->
         <if test="dsStudents.guid != null and '' != dsStudents.guid">
             and guid=#{dsStudents.guid}
         </if>
-        AND delete_flag=FALSE
     </update>
 
     <!--查看学员信息（根据guid或id_card或username）-->
@@ -60,7 +59,6 @@
         mobile_phone AS mobilePhone,
         id_card AS idCard,
         status AS status,
-        role AS role,
         add_user_id AS addUserId,
         add_user AS addUser,
         add_time AS addTime,
@@ -70,7 +68,7 @@
         delete_flag AS deleteFlag
         FROM
         driver_school_students
-        where role = 1
+        where delete_flag=FALSE
         <if test="dsStudents.idCard != null and '' != dsStudents.idCard">
             AND id_card=#{dsStudents.idCard}
         </if>
@@ -80,7 +78,6 @@
         <if test="dsStudents.userName != null and '' != dsStudents.userName">
             AND user_name=#{dsStudents.userName}
         </if>
-        AND delete_flag=FALSE
     </select>
     <!--学员信息一览L-->
     <select id="getStudentList" resultType="com.cn.school.entity.DSStudents">
@@ -90,7 +87,6 @@
         mobile_phone AS mobilePhone,
         id_card AS idCard,
         status AS status,
-        role AS role,
         add_user_id AS addUserId,
         add_user AS addUser,
         add_time AS addTime,
@@ -100,7 +96,7 @@
         delete_flag AS deleteFlag
         FROM
         driver_school_students
-        where role=1
+        where delete_flag=FALSE
         <if test="dsStudents.userName != null and '' != dsStudents.userName">
             AND user_name=#{dsStudents.userName}
         </if>
@@ -113,7 +109,6 @@
         <if test="dsStudents.status != null and '' != dsStudents.status">
             AND status=#{dsStudents.status}
         </if>
-        AND delete_flag=FALSE
     </select>
 
 </mapper>
