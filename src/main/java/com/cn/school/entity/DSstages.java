@@ -12,6 +12,10 @@ import java.time.LocalDateTime;
 public class DSstages {
 
     /**
+     * guid
+     */
+    private Long guid;
+    /**
      * 分期活动名称
      */
     private String name;

@@ -1,10 +1,9 @@
 package com.cn.school.service.web;
 
-import com.cn.school.dto.forms.stagesmanage.AddStagesViewForm;
-import com.cn.school.dto.forms.stagesmanage.GetStagesViewForm;
-import com.cn.school.dto.forms.stagesmanage.StagesViewForm;
-import com.cn.school.dto.forms.stagesmanage.UpStagesViewForm;
+import com.cn.school.dto.forms.stagesmanage.*;
 import com.cn.school.utils.response.RestResponse;
+
+import java.util.List;
 
 /**
  * @author:HuMin Date:2019/3/18
@@ -22,11 +21,11 @@ public interface StagesManageService {
 
     /**
      * 删除分期优惠
-     *
+     *已完成
      * @param viewForm
      * @return
      */
-    RestResponse deleteStages(StagesViewForm viewForm);
+    RestResponse deleteStages(DeleteStagesViewForm viewForm);
 
     /**
      * 修改分期优惠
@@ -38,7 +37,7 @@ public interface StagesManageService {
 
     /**
      * 启用分期活动
-     *
+     *已完成
      * @param viewForm
      * @return
      */
@@ -46,25 +45,25 @@ public interface StagesManageService {
 
     /**
      * 停用分期活动
-     *
+     *已完成
      * @param viewForm
      * @return
      */
     RestResponse updateStagesUnEnable(StagesViewForm viewForm);
 
     /**
-     * 查询分期活动List
+     * 查询分期活动一览
      *
      * @param viewForm
      * @return
      */
-    RestResponse getStagesList(GetStagesViewForm viewForm);
+    List getStagesList(GetStagesViewForm viewForm);
 
     /**
      * 查询分期活动详情
-     *
+     *已完成
      * @param viewForm
      * @return
      */
-    RestResponse getStagesInfo(StagesViewForm viewForm);
+    RestResponse getStagesInfo(GetStagesViewForm viewForm);
 }

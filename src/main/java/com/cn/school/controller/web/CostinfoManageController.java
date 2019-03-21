@@ -1,7 +1,10 @@
 package com.cn.school.controller.web;
 
 import com.cn.school.dto.forms.costinfo.GetListViewForm;
+import com.cn.school.dto.forms.costinfomanage.AddCostManageViewForm;
+import com.cn.school.dto.forms.costinfomanage.DelCostManageViewForm;
 import com.cn.school.dto.forms.costinfomanage.GetCostManageListViewForm;
+import com.cn.school.dto.forms.costinfomanage.UpCostManageViewForm;
 import com.cn.school.service.web.CostInfoManageService;
 import com.cn.school.utils.request.RestRequest;
 import com.cn.school.utils.response.RestResponse;
@@ -46,8 +49,8 @@ public class CostinfoManageController {
      */
     @PostMapping(value = "/addCostInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public RestResponse addCostInfo(@Validated @RequestBody RestRequest<GetListViewForm> request) {
-        GetListViewForm viewForm = request.getBody();
+    public RestResponse addCostInfo(@Validated @RequestBody RestRequest<AddCostManageViewForm> request) {
+        AddCostManageViewForm viewForm = request.getBody();
         return costInfoManageService.addCostInfo(viewForm);
     }
 
@@ -58,8 +61,8 @@ public class CostinfoManageController {
      */
     @PostMapping(value = "/updateCostInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public RestResponse updateCostInfo(@Validated @RequestBody RestRequest<GetListViewForm> request) {
-        GetListViewForm viewForm = request.getBody();
+    public RestResponse updateCostInfo(@Validated @RequestBody RestRequest<UpCostManageViewForm> request) {
+        UpCostManageViewForm viewForm = request.getBody();
         return costInfoManageService.updateCostInfo(viewForm);
     }
 
@@ -70,8 +73,8 @@ public class CostinfoManageController {
      */
     @PostMapping(value = "/deleteCostInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public RestResponse deleteCostInfo(@Validated @RequestBody RestRequest<GetListViewForm> request) {
-        GetListViewForm viewForm = request.getBody();
+    public RestResponse deleteCostInfo(@Validated @RequestBody RestRequest<DelCostManageViewForm> request) {
+        DelCostManageViewForm viewForm = request.getBody();
         return costInfoManageService.deleteCostInfo(viewForm);
     }
 

@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 @Data
 public class GetEvaluateViewForm extends UserContextViewForm {
     /**
+     * guid
+     */
+    private  Long guid;
+    /**
      * 评价内容
      */
     private String comments;

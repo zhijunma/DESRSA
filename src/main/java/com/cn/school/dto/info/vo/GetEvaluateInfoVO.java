@@ -1,13 +1,17 @@
 package com.cn.school.dto.info.vo;
 
+import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 
 @Data
-public class GetEvaluateInfoVO {
-
+public class GetEvaluateInfoVO extends UserContextViewForm {
+    /**
+     * guid
+     */
+    private Long guid;
     /**
      * 评价内容
      */

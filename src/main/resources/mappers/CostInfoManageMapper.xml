@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.school.mapper.web.CostInfoManageMapper">
+    <insert id="addCostInfo">
+        INSERT INTO driver_school_cost_info (
+        driver_level,
+        driver_money,
+        add_user_id,
+        add_user,
+        add_time,
+        mod_user_id,
+        mod_user,
+        mod_time,
+        delete_flag
+    )
+    VALUES
+        (
+        #{dsCostInfo.driverLevel},
+        #{dsCostInfo.driverMoney},
+        #{dsCostInfo.addUserId},
+        #{dsCostInfo.addUser},
+        #{dsCostInfo.addTime},
+        #{dsCostInfo.modUserId},
+        #{dsCostInfo.modUser},
+        #{dsCostInfo.modTime},
+        #{dsCostInfo.deleteFlag}
+        );
+    </insert>
+    <update id="updateCostInfo">
+        UPDATE driver_school_cost_info
+        SET
+        driver_level = #{dsCostInfo.driverLevel},
+        driver_money = #{dsCostInfo.driverMoney},
+        mod_user_id = #{dsCostInfo.modUserId},
+        mod_user = #{dsCostInfo.modUser},
+        mod_time = #{dsCostInfo.modTime}
+        WHERE
+            guid = #{dsCostInfo.guid}
+            and delete_flag = false
+    </update>
+
+    <update id="deleteCostInfo">
+            UPDATE driver_school_cost_info
+            SET
+            delete_flag = true ,
+            mod_user_id = #{modUserId},
+            mod_user = #{modUser},
+            mod_time = now()
+            WHERE
+            guid in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+             #{item}
+        </foreach>
+    </update>
+
     <select id="getCostInfoList" resultType="com.cn.school.entity.DSCostInfo">
         SELECT
             driver_level AS driverLevel,
@@ -13,5 +65,6 @@
             driver_school_cost_info
         WHERE
             delete_flag = FALSE
+
     </select>
 </mapper>

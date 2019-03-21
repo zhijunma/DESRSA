@@ -16,12 +16,15 @@
         <if test="dsEvaluate.addUserId != null and '' != dsEvaluate.addUserId">
             AND add_user_id=#{dsEvaluate.addUserId}
         </if>
+        <if test="dsEvaluate.guid != null and '' != dsEvaluate.guid">
+            AND guid =#{dsEvaluate.guid}
+        </if>
     </update>
 
     <!-- 评价信息一览 -->
     <select id="getEvaluates" resultType="com.cn.school.entity.DSEvaluate">
         SELECT
-
+        guid,
         add_user AS addUser,
         comments as comments,
         add_time AS addTime,

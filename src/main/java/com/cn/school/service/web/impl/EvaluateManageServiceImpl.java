@@ -1,5 +1,6 @@
 package com.cn.school.service.web.impl;
 
+import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.EvaluateManage.DeleteEvaluateViewForm;
 import com.cn.school.dto.forms.EvaluateManage.GetEvaluateViewForm;
 import com.cn.school.dto.info.vo.GetEvaluateInfoVO;
@@ -30,11 +31,9 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
      */
     @Override
     public RestResponse deleteEvaluate(DeleteEvaluateViewForm deleteEvaluateViewForm) {
-        if (deleteEvaluateViewForm.getCurrRole() != 3) {
-            log.debug("权限不足!");
-            return RestResponse.error("权限不足！");
-        }
+        roleCheck(deleteEvaluateViewForm.getCurrRole());
         DSEvaluate dsEvaluate = new DSEvaluate();
+        dsEvaluate.setGuid(deleteEvaluateViewForm.getGuid());
         dsEvaluate.setAddUser(deleteEvaluateViewForm.getAddUser());
         dsEvaluate.setAddUserId(deleteEvaluateViewForm.getAddUserId());
         dsEvaluate.setModUser(deleteEvaluateViewForm.getCurrName());
@@ -49,15 +48,16 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
     }
 
     /**
-     * 评价一览
+     * 管理员查看评价
      *
      * @param evaluateViewForm
      * @return
      */
     @Override
     public List getEvaluates(GetEvaluateViewForm evaluateViewForm) {
-        //TODO 添加权限模块 管理员查看所有教练员基本信息
+        roleCheck(evaluateViewForm.getCurrRole());
         DSEvaluate dsEvaluate = new DSEvaluate();
+        dsEvaluate.setGuid(evaluateViewForm.getGuid());
         dsEvaluate.setAddUser(evaluateViewForm.getAddUser());
         dsEvaluate.setAddTime(evaluateViewForm.getAddTime());
         dsEvaluate.setComments(evaluateViewForm.getComments());
@@ -66,6 +66,7 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
         List<GetEvaluateInfoVO> getEvaluateInfoVOList = new ArrayList<>(16);
         reDSEva.forEach(e -> {
             GetEvaluateInfoVO getEvaluateInfoVO = new GetEvaluateInfoVO();
+            getEvaluateInfoVO.setGuid(e.getGuid());
             getEvaluateInfoVO.setAddUser(e.getAddUser());
             getEvaluateInfoVO.setAddTime(e.getAddTime());
             getEvaluateInfoVO.setScore(e.getScore());
@@ -74,5 +75,15 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
         });
         return getEvaluateInfoVOList;
     }
-
+    /**
+     * 权限判断
+     */
+    public void roleCheck(Integer role) {
+        if (!Constant.MANAGE_ROLE.equals(role)) {
+            if (!Constant.MARKETING_ROLE.equals(role)) {
+                log.debug("权限不足!");
+                throw new RuntimeException("权限不足！");
+            }
+        }
+    }
 }
