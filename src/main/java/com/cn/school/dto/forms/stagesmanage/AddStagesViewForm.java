@@ -4,7 +4,6 @@ import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -13,6 +12,7 @@ import java.util.List;
  */
 @Data
 public class AddStagesViewForm extends UserContextViewForm {
+
     /**
      * 分期活动名称
      */
@@ -21,12 +21,8 @@ public class AddStagesViewForm extends UserContextViewForm {
     /**
      * 分期活动名称
      */
-
     private Integer issues;
-    /**
-     * 状态
-     */
-    private Integer sratus;
+
     /**
      * 分期活动子表
      */

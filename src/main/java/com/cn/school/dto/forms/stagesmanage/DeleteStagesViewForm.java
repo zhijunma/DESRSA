@@ -3,29 +3,16 @@ package com.cn.school.dto.forms.stagesmanage;
 import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import java.util.List;
 
-
+/**
+ * @author mazhijun
+ */
 @Data
 public class DeleteStagesViewForm extends UserContextViewForm {
     /**
      * guid
      */
-    private Long guid;
-    /**
-     * 分期名字
-     */
-    private String name;
-    /**
-     * 修改人
-     */
-    private Long modUserId;
-    private String modUser;
-    private LocalDateTime modTime;
+    private List<Long> guidList;
 
-    /**
-     * 0：未删除 1：删除
-     */
-    private Boolean deleteFlag;
 }

@@ -2,7 +2,6 @@ package com.cn.school.dto.forms.stagesmanage;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 /**

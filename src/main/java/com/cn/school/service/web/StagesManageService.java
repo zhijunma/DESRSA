@@ -25,7 +25,7 @@ public interface StagesManageService {
      * @param viewForm
      * @return
      */
-    RestResponse deleteStages(DeleteStagesViewForm viewForm);
+    RestResponse deleteStages(StagesViewForm viewForm);
 
     /**
      * 修改分期优惠

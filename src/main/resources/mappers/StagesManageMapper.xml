@@ -10,30 +10,30 @@
         </selectKey>
 
         INSERT INTO driver_school_stages (
-            name,
-            issues,
-            status,
-            add_user_id,
-            add_user,
-            add_time,
-            mod_user_id,
-            mod_user,
-            mod_time,
-            delete_flag
+        name,
+        issues,
+        status,
+        add_user_id,
+        add_user,
+        add_time,
+        mod_user_id,
+        mod_user,
+        mod_time,
+        delete_flag
         )
         VALUES
-            (
-                #{dSstages.name},
-                #{dSstages.issues},
-                #{dSstages.status},
-                #{dSstages.addUserId},
-                #{dSstages.addUser},
-                #{dSstages.addTime},
-                #{dSstages.modUserId},
-                #{dSstages.modUser},
-                #{dSstages.modTime},
-                #{dSstages.deleteFlag}
-            )
+        (
+        #{dSstages.name},
+        #{dSstages.issues},
+        #{dSstages.status},
+        #{dSstages.addUserId},
+        #{dSstages.addUser},
+        #{dSstages.addTime},
+        #{dSstages.modUserId},
+        #{dSstages.modUser},
+        #{dSstages.modTime},
+        #{dSstages.deleteFlag}
+        )
     </insert>
 
     <!--添加分期优惠子表-->
@@ -62,35 +62,40 @@
             #{dsStagesItem.modUserId},
             #{dsStagesItem.modUser},
             #{dsStagesItem.modTime},
-            0
+            false
             )
 
         </foreach>
     </insert>
 
 
-
     <!--删除分期优惠子表-->
     <update id="deleteStagesItem">
         UPDATE driver_school_stages_item
         set
-        delete_flag = 1,
-        mod_user = #{dSstages.modUser},
-        mod_user_id = #{dSstages.modUserId},
-        mod_time = #{dSstages.modTime}
+        delete_flag = true,
+        mod_user = #{modUser},
+        mod_user_id = #{modUserId},
+        mod_time = now()
         where delete_flag = false
-        and stage_guid=#{dSstages.guid}
+        and stage_guid in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
     </update>
 
     <update id="deleteStages">
-        update  driver_school_stages
-            set
-            delete_flag = 1,
-            mod_user_id = #{dSstages.modUserId},
-            mod_user = #{dSstages.modUser},
-            mod_time = #{dSstages.modTime}
-            where delete_flag = 0
-            and guid = #{dSstages.guid}
+        update driver_school_stages
+        set
+        delete_flag = true ,
+        mod_user_id = #{modUserId},
+        mod_user = #{modUser},
+        mod_time = now()
+        where delete_flag = false
+        and guid in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
     </update>
 
     <!--启用分期优惠-->
@@ -98,11 +103,14 @@
         UPDATE driver_school_stages
         set
         status = 1,
-        mod_user = #{dSstages.modUser},
-        mod_user_id = #{dSstages.modUserId},
-        mod_time = #{dSstages.modTime}
-        where delete_flag = 0
-        and guid=#{dSstages.guid}
+        mod_user = #{modUser},
+        mod_user_id = #{modUserId},
+        mod_time = now()
+        where delete_flag = false
+        and guid in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
         and status = 0
     </update>
     <!--停用分期优惠-->
@@ -110,13 +118,16 @@
         UPDATE driver_school_stages
         set
         status = 0,
-        mod_user = #{dSstages.modUser},
-        mod_user_id = #{dSstages.modUserId},
-        mod_time = #{dSstages.modTime}
+        mod_user = #{modUser},
+        mod_user_id = #{modUserId},
+        mod_time = now()
         where
-        guid = #{dSstages.guid}
+        guid in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
         and status = 1
-        and delete_flag = 0
+        and delete_flag = false
     </update>
     <!--查看分期活动详情（根据guid，name）-->
     <select id="getStagesInfo" resultType="com.cn.school.entity.DSstages">
@@ -166,7 +177,6 @@
             and status = #{dSstages.status}
         </if>
     </select>
-
     <!--修改主表-->
     <update id="updateStages">
         UPDATE driver_school_stages

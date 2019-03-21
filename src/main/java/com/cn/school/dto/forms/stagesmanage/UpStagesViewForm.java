@@ -31,5 +31,5 @@ public class UpStagesViewForm extends UserContextViewForm {
     /**
      * 分期活动子表
      */
-    private List<AddStagesItemViewForm> itemList;
+    private List<UpStagesItemViewForm> itemList;
 }

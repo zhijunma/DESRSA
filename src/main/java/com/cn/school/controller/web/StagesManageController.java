@@ -58,8 +58,8 @@ public class StagesManageController {
      * @return
      */
     @PostMapping(value = "/deleteStages", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RestResponse deleteStages(@RequestBody @Validated RestRequest<DeleteStagesViewForm> request) {
-        DeleteStagesViewForm viewForm = request.getBody();
+    public RestResponse deleteStages(@RequestBody @Validated RestRequest<StagesViewForm> request) {
+        StagesViewForm viewForm = request.getBody();
         return stagesManageService.deleteStages(viewForm);
     }
 

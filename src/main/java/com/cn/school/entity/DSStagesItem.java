@@ -23,7 +23,7 @@ public class DSStagesItem {
     /**
      * 还款金额
      */
-    private Integer repayAmount;
+    private BigDecimal repayAmount;
 
     /**
      * 还款期次

@@ -14,13 +14,9 @@ import java.math.BigDecimal;
 public class AddStagesItemViewForm extends UserContextViewForm {
 
     /**
-     * 外键guid
-     */
-    private Long stageGuid;
-    /**
      * 还款金额
      */
-    private Integer repayAmount;
+    private BigDecimal repayAmount;
 
     /**
      * 还款期次

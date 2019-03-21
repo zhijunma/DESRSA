@@ -1,9 +1,7 @@
 package com.cn.school.controller.common;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * @author:HuMin Date:2019/3/8
@@ -11,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Controller
 public class testController {
-    @RequestMapping(value = "/test")
+    @GetMapping(value = {"/","/index","/login"})
     public String sendCode() {
-        return "index.html";
+        System.out.println("______________________");
+        return "index";
     }
+
 
 
 }
