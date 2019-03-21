@@ -13,6 +13,7 @@ import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
      */
     @Override
     public List getGroupPurchaseList(GroupPurchaseViewForm groupPurchaseViewForm) {
-        //TODO 添加权限模块 管理员查看全部团购活动
+        // 添加权限模块 管理员查看全部团购活动
         if (!Constant.MANAGE_ROLE.equals(groupPurchaseViewForm.getCurrRole())) {
             throw new RuntimeException("权限不足");
         }
@@ -175,10 +176,11 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public RestResponse deleteGroupPurchase(DeleteGroupPurchaseViewForm viewForms) {
 //        DeleteGroupPurchaseViewForm deleteGroupPurchaseViewForm = new DeleteGroupPurchaseViewForm();
+//        List<Long> gusList = viewForms.getGuidList();
         //权限判断
-        List<Long> gusList = viewForms.getGuidList();
         if (!Constant.MANAGE_ROLE.equals(viewForms.getCurrRole())) {
             log.debug("权限不足!");
             throw new RuntimeException("权限不足");
@@ -188,6 +190,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
         for (Long e : viewForms.getGuidList()) {
             DSGrpPurchase dsGrpPurchase = new DSGrpPurchase();
             dsGrpPurchase.setGuid(e);
+            //从传进来的参数中获取登陆者的信息
             dsGrpPurchase.setModUserId(viewForms.getCurrId());
             dsGrpPurchase.setModUser(viewForms.getCurrName());
             dsGrpPurchase.setModTime(LocalDateTime.now());

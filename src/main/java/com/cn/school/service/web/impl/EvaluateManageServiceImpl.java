@@ -49,7 +49,7 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
     }
 
     /**
-     * 管理员查看学员信息
+     * 评价一览
      *
      * @param evaluateViewForm
      * @return
