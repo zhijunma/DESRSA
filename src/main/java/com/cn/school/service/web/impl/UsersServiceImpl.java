@@ -122,7 +122,11 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public List getCoachList(GetCoachsViewForm GetCoachsViewForm) {
-        //TODO 添加权限模块 管理员查看所有教练员基本信息
+        // 添加权限L模块 管理员查看所有教练员基本信息
+        if (Constant.MANAGE_ROLE.equals(GetCoachsViewForm.getCurrRole())) {
+            log.debug("权限不足!");
+            throw new RuntimeException("权+限不足");
+        }
         DSUser dsUser = new DSUser();
         dsUser.setUserName(GetCoachsViewForm.getUserName());
         dsUser.setMobilePhone(GetCoachsViewForm.getMobilePhone());
@@ -194,7 +198,7 @@ public class UsersServiceImpl implements UsersService {
         getCoachInfoVO.setMobilePhone(dsUser1.getMobilePhone());
         getCoachInfoVO.setIdCard(dsUser1.getIdCard());
         getCoachInfoVO.setStatus(dsUser1.getStatus());
-        //TODO 判断是否查询到数据 防止程序出现错误
+        // 判断是否查询到数据 防止程序出现错误
         if (getCoachInfoVO.getGuid() != null) {
             return RestResponse.success(getCoachInfoVO);
         } else {
