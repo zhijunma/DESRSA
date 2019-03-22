@@ -65,7 +65,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse addCostInfo(AddCostManageViewForm viewForm) {
 
         DSCostInfo dsCostInfo = new DSCostInfo();
@@ -98,7 +98,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse updateCostInfo(UpCostManageViewForm viewForm) {
         roleCheck(viewForm.getCurrRole());
         DSCostInfo dsCostInfo = new DSCostInfo();
@@ -128,7 +128,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse deleteCostInfo(DelCostManageViewForm viewForm) {
         roleCheck(viewForm.getCurrRole());
         List<Long> guidList = viewForm.getGuidList();

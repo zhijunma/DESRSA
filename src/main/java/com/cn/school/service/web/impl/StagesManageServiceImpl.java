@@ -35,7 +35,7 @@ public class StagesManageServiceImpl implements StagesManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse addStages(AddStagesViewForm viewForm) {
         //权限判断
         roleCheck(viewForm.getCurrRole());
@@ -100,7 +100,7 @@ public class StagesManageServiceImpl implements StagesManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse deleteStages(StagesViewForm viewForm) {
         //权限判断
         roleCheck(viewForm.getCurrRole());
@@ -128,7 +128,7 @@ public class StagesManageServiceImpl implements StagesManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse updateStages(UpStagesViewForm viewForm) {
         //权限判断
         roleCheck(viewForm.getCurrRole());
