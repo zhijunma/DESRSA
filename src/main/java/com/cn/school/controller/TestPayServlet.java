@@ -4,6 +4,7 @@ import com.cn.school.service.GateWayService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * @since [产品/模块版本]
  */
 @Slf4j
+@WebServlet(name = "TestPayServlet",urlPatterns = "/first")
 public class TestPayServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

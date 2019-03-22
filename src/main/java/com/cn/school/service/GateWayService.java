@@ -17,7 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
@@ -49,24 +49,34 @@ public class GateWayService {
         map.put("charset", charset);
         map.put("sign_type", sign_type);
         map.put("is_raw", "1");
-        map.put("mch_id", SwiftpassConfig.mch_id);
-        map.put("notify_url", SwiftpassConfig.notify_url);
-        map.put("nonce_str", String.valueOf(new Date().getTime()));
+//        map.put("sub_openid", "1");
+//        map.put("sub_appid", "wx7a643cf968956196");
+        map.put("mch_id", "7551000001");
+        map.put("notify_url", "www.baidu.com");
+        map.put("nonce_str", String.valueOf(LocalDateTime.now()));
+        map.put("attach", "附加信息");
+        map.put("body", "测试付款");
+        map.put("mch_create_ip", "127.0.0.1");
+        map.put("out_trade_no", "162719924935378");
+        map.put("total_fee", "1");
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
         SignUtils.buildPayParams(buf, params, false);
         String preStr = buf.toString();
-        String sign = MD5.sign(preStr, "&key=" + SwiftpassConfig.key, "utf-8");
+        String sign = MD5.sign(preStr, "&key=" + "9d101c97133837e13dde2d32a5054abb", "utf-8");
+
         map.put("sign", sign);
 
-        String reqUrl = SwiftpassConfig.req_url;
+        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
         log.debug("reqUrl：" + reqUrl);
 
         log.debug("reqParams:" + XmlUtils.parseXML(map));
+
         CloseableHttpResponse response = null;
         CloseableHttpClient client = null;
         String res = null;
+
         Map<String, String> resultMap = null;
         try {
             HttpPost httpPost = new HttpPost(reqUrl);
@@ -79,7 +89,9 @@ public class GateWayService {
                 resultMap = XmlUtils.toMap(EntityUtils.toByteArray(response.getEntity()), "utf-8");
                 res = XmlUtils.toXml(resultMap);
                 log.debug("请求结果：" + res);
-                if (!SignUtils.checkParam(resultMap, SwiftpassConfig.key)) {
+
+                if (!SignUtils.checkParam(resultMap,
+                        "9d101c97133837e13dde2d32a5054abb")) {
                     res = "验证签名不通过";
                 } else {
                     if ("0".equals(resultMap.get("status")) && "0".equals(resultMap.get("result_code"))) {
@@ -134,7 +146,7 @@ public class GateWayService {
 
         String key = SwiftpassConfig.key;
         String reqUrl = SwiftpassConfig.req_url;
-        map.put("nonce_str", String.valueOf(new Date().getTime()));
+        map.put("nonce_str", String.valueOf(LocalDateTime.now()));
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
@@ -224,7 +236,7 @@ public class GateWayService {
         String key = SwiftpassConfig.key;
         String reqUrl = SwiftpassConfig.req_url;
         map.put("mch_id", SwiftpassConfig.mch_id);
-        map.put("nonce_str", String.valueOf(new Date().getTime()));
+        map.put("nonce_str", String.valueOf(LocalDateTime.now()));
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
@@ -301,7 +313,7 @@ public class GateWayService {
         String reqUrl = SwiftpassConfig.req_url;
         map.put("mch_id", SwiftpassConfig.mch_id);
         map.put("op_user_id", SwiftpassConfig.mch_id);
-        map.put("nonce_str", String.valueOf(new Date().getTime()));
+        map.put("nonce_str", String.valueOf(LocalDateTime.now()));
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);

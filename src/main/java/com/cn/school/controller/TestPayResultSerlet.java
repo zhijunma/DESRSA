@@ -1,11 +1,11 @@
 package com.cn.school.controller;
 
-import com.cn.school.config.SwiftpassConfig;
 import com.cn.school.utils.pay.SignUtils;
 import com.cn.school.utils.pay.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +20,7 @@ import java.util.Map;
  * @see [相关类/方法]
  * @since [产品/模块版本]
  */
+@WebServlet(name = "TestPayResultSerlet",urlPatterns = "/second")
 @Slf4j
 public class TestPayResultSerlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -45,9 +46,9 @@ public class TestPayResultSerlet extends HttpServlet {
                 String res = XmlUtils.toXml(map);
                 log.debug("请求结果：" + res);
                 if (map.containsKey("sign")) {
-                    if (!SignUtils.checkParam(map, SwiftpassConfig.key)) {
+                    if (!SignUtils.checkParam(map, "9d101c97133837e13dde2d32a5054abb ")) {
                         res = "验证签名不通过";
-                        respString = "error";
+                        respString = "验证签名不通过";
                     } else {
                         String status = map.get("status");
                         if (status != null && "0".equals(status)) {
