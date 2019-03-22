@@ -4,6 +4,7 @@ import com.cn.school.dto.forms.auth.UserViewForm;
 import com.cn.school.service.common.LoginService;
 import com.cn.school.utils.request.RestRequest;
 import com.cn.school.utils.response.RestResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+@Slf4j
 @RestController
 public class LoginController {
 

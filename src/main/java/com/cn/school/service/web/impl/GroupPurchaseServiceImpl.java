@@ -176,7 +176,7 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse deleteGroupPurchase(DeleteGroupPurchaseViewForm viewForms) {
 //        DeleteGroupPurchaseViewForm deleteGroupPurchaseViewForm = new DeleteGroupPurchaseViewForm();
 //        List<Long> gusList = viewForms.getGuidList();

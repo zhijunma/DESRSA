@@ -80,6 +80,7 @@
             <version>1.1.0.Final</version>
             <scope>provided</scope>
         </dependency>
+        <!--mapStruct依赖-->
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
@@ -144,17 +145,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--&lt;!&ndash;security?&ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-security</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.security</groupId>-->
-        <!--<artifactId>spring-security-test</artifactId>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
         <!-- begin of aliyun sms -->
         <dependency>
             <groupId>com.aliyun</groupId>

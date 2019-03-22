@@ -3,8 +3,7 @@ package com.cn.school.dto.forms.stagesmanage;
 import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -28,6 +27,10 @@ public class UpStagesViewForm extends UserContextViewForm {
      */
     private Integer issues;
 
+    /**
+     * 分期活动金额
+     */
+    private BigDecimal money;
     /**
      * 分期活动子表
      */

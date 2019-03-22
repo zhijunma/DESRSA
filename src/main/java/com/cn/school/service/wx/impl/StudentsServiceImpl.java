@@ -33,7 +33,7 @@ public class StudentsServiceImpl implements StudentsService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse addStudents(AddStudentsViewForm viewForm) {
 
         ComSendCodeViewForm comSendCodeViewForm = new ComSendCodeViewForm();
