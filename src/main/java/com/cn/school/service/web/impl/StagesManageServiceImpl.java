@@ -45,6 +45,8 @@ public class StagesManageServiceImpl implements StagesManageService {
         dsStages.setName(viewForm.getName());
         //分期活动期次
         dsStages.setIssues(viewForm.getIssues());
+        //分期活动金额
+        dsStages.setMoney(viewForm.getMoney());
         //状态（添加不启用）
         dsStages.setStatus(Constant.STATUS_FALSE);
         //添加人
@@ -136,6 +138,8 @@ public class StagesManageServiceImpl implements StagesManageService {
         //入参 要修改的东西
         dSstages.setIssues(viewForm.getIssues());
         dSstages.setName(viewForm.getName());
+        //分期活动金额
+        dSstages.setMoney(viewForm.getMoney());
         //修改人信息
         dSstages.setModUser(viewForm.getCurrName());
         dSstages.setModUserId(viewForm.getCurrId());

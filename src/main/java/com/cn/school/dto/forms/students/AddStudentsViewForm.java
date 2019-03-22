@@ -24,7 +24,7 @@ public class AddStudentsViewForm {
     private String mobilePhone;
 
     /**
-     * 电话号码
+     * 验证码
      */
     @NotBlank
     @Size(min = 6, max = 6, message = "输入正确的验证码")

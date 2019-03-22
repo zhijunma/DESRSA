@@ -52,10 +52,11 @@ public class ApiParameterInterceptor implements HandlerInterceptor {
 
             // 获取Content-Type=application/json 请求参数
             JSONObject parameterMap = JSON.parseObject(new MyHttpServletRequestWrapper(request).getBodyString(request));
+            log.debug(requestMethord + "入参：" + parameterMap.toString());
             if (parameterMap.isEmpty()) {
                 return false;
             }
-            Map<String,Object> header = (Map<String,Object>)parameterMap.get("header");
+            Map<String, Object> header = (Map<String, Object>) parameterMap.get("header");
             if (header == null) {
                 return false;
             }
