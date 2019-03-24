@@ -2,6 +2,7 @@ package com.cn.school.exception;
 
 import com.cn.school.utils.response.RestResponse;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @RestControllerAdvice
 public class ExceptionHander {
     @ExceptionHandler(UserValidationException.class)
@@ -23,6 +24,7 @@ public class ExceptionHander {
         /**
          * 返回值
          */
+        log.debug(message);
         return RestResponse.error(message);
     }
 
@@ -35,6 +37,7 @@ public class ExceptionHander {
         /**
          * 返回值
          */
+        log.debug(message);
         return RestResponse.error(message);
     }
 
@@ -54,6 +57,7 @@ public class ExceptionHander {
         /**
          * 返回值
          */
+        log.debug(message);
         RestResponse result = RestResponse.error(message);
         List<ErrorValid> valids = new ArrayList<>();
         List<ObjectError> allErrors = ex.getBindingResult().getAllErrors();
@@ -84,12 +88,25 @@ public class ExceptionHander {
     public RestResponse HttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         ex.printStackTrace();
         /**
-         * 描述
+         * 返回值
          */
-        String message = ex.getMessage();
+        log.debug("登录错误");
+        return RestResponse.error("登录错误");
+    }
+
+    /**
+     * @功能描述: body值为空
+     * @param: 异常
+     * @return:
+     */
+    @ExceptionHandler(value = {NullPointerException.class})
+    @ResponseBody
+    public RestResponse NullPointerException(NullPointerException ex) {
+        ex.printStackTrace();
         /**
          * 返回值
          */
-        return RestResponse.error("登录错误");
+        log.debug("空指针异常！");
+        return RestResponse.error(ex.getMessage()).withMessage("空指针异常！");
     }
 }
