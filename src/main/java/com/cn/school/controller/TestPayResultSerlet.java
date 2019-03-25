@@ -20,7 +20,7 @@ import java.util.Map;
  * @see [相关类/方法]
  * @since [产品/模块版本]
  */
-@WebServlet(name = "TestPayResultSerlet",urlPatterns = "/second")
+@WebServlet(name = "TestPayResultSerlet",urlPatterns = "/pay/notification")
 @Slf4j
 public class TestPayResultSerlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

@@ -20,7 +20,7 @@ import java.io.IOException;
  * @since [产品/模块版本]
  */
 @Slf4j
-@WebServlet(name = "TestPayServlet",urlPatterns = "/first")
+@WebServlet(name = "TestPayServlet",urlPatterns = "/pay/payment")
 public class TestPayServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

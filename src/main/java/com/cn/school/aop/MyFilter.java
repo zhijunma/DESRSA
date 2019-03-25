@@ -1,6 +1,7 @@
 package com.cn.school.aop;
 
 import com.cn.school.config.MyHttpServletRequestWrapper;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,11 +11,12 @@ import java.io.IOException;
 /**
  * Created by
  */
+@Slf4j
 @WebFilter(filterName = "myFilter", urlPatterns = "/web/*")
 public class MyFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("--------------过滤器初始化------------");
+        log.info("--------------过滤器初始化------------");
     }
 
     @Override

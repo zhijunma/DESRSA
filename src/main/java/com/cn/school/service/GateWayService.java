@@ -1,9 +1,6 @@
 package com.cn.school.service;
 
-import com.cn.school.config.SwiftpassConfig;
-import com.cn.school.utils.pay.MD5;
-import com.cn.school.utils.pay.SignUtils;
-import com.cn.school.utils.pay.XmlUtils;
+import com.cn.school.utils.pay.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -44,21 +41,30 @@ public class GateWayService {
         log.debug("支付请求...");
         SortedMap<String, String> map = XmlUtils.getParameterMap(req);
 
+        //商品描述
+        String body = req.getParameter("body");
         map.put("service", "pay.weixin.jspay");
         map.put("version", version);
         map.put("charset", charset);
         map.put("sign_type", sign_type);
-        map.put("is_raw", "1");
-//        map.put("sub_openid", "1");
-//        map.put("sub_appid", "wx7a643cf968956196");
         map.put("mch_id", "7551000001");
-        map.put("notify_url", "www.baidu.com");
-        map.put("nonce_str", String.valueOf(LocalDateTime.now()));
+        map.put("is_raw", "1");
+        map.put("out_trade_no", Guid.getTradeNo());
+        map.put("body", body);
+        //使用测试号时此参数置空，即不要传这个参数，使用正式商户号时才传入，参数名是sub_openid
+        map.put("sub_openid", "");
+        //map.put("sub_appid", "wx7a643cf968956196");
+        //总金额
+        String total_fee = req.getParameter("total_fee");
+        map.put("total_fee", total_fee);
+        //通知地址
+        String notify_url = req.getParameter("notify_url");
+        map.put("notify_url", notify_url);
+        map.put("nonce_str", Guid.getTradeNo());
         map.put("attach", "附加信息");
-        map.put("body", "测试付款");
-        map.put("mch_create_ip", "127.0.0.1");
-        map.put("out_trade_no", "162719924935378");
-        map.put("total_fee", "1");
+        //IP地址
+        String IP = IpUtil.getIpAddr(req);
+        map.put("mch_create_ip", IP);
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
@@ -139,20 +145,20 @@ public class GateWayService {
         SortedMap<String, String> map = XmlUtils.getParameterMap(req);
 
         map.put("service", "unified.trade.query");
-        map.put("version", version);
-        map.put("charset", charset);
-        map.put("sign_type", sign_type);
-        map.put("mch_id", SwiftpassConfig.mch_id);
-
-        String key = SwiftpassConfig.key;
-        String reqUrl = SwiftpassConfig.req_url;
-        map.put("nonce_str", String.valueOf(LocalDateTime.now()));
+//        map.put("version", version);
+//        map.put("charset", charset);
+//        map.put("sign_type", sign_type);
+        map.put("mch_id", "7551000001");
+        map.put("out_trade_no", "162719924935378");
+//        String key = SwiftpassConfig.key;
+        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
+        map.put("nonce_str", "1553238268281");
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
         SignUtils.buildPayParams(buf, params, false);
         String preStr = buf.toString();
-        String sign = MD5.sign(preStr, "&key=" + key, "utf-8");
+        String sign = MD5.sign(preStr, "&key=" + "9d101c97133837e13dde2d32a5054abb", "utf-8");
         map.put("sign", sign);
 
         log.debug("reqUrl:" + reqUrl);
@@ -173,7 +179,7 @@ public class GateWayService {
                 res = XmlUtils.toXml(resultMap);
                 log.debug("请求结果：" + res);
 
-                if (!SignUtils.checkParam(resultMap, key)) {
+                if (!SignUtils.checkParam(resultMap, "9d101c97133837e13dde2d32a5054abb")) {
                     res = "验证签名不通过";
                 } else {
                     if ("0".equals(resultMap.get("status"))) {
@@ -232,10 +238,10 @@ public class GateWayService {
         map.put("version", version);
         map.put("charset", charset);
         map.put("sign_type", sign_type);
-
-        String key = SwiftpassConfig.key;
-        String reqUrl = SwiftpassConfig.req_url;
-        map.put("mch_id", SwiftpassConfig.mch_id);
+        map.put("out_trade_no", "162719924935378");
+        String key = "9d101c97133837e13dde2d32a5054abb";
+        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
+        map.put("mch_id", "7551000001");
         map.put("nonce_str", String.valueOf(LocalDateTime.now()));
 
         Map<String, String> params = SignUtils.paraFilter(map);
@@ -308,12 +314,15 @@ public class GateWayService {
         map.put("version", version);
         map.put("charset", charset);
         map.put("sign_type", sign_type);
-
-        String key = SwiftpassConfig.key;
-        String reqUrl = SwiftpassConfig.req_url;
-        map.put("mch_id", SwiftpassConfig.mch_id);
-        map.put("op_user_id", SwiftpassConfig.mch_id);
-        map.put("nonce_str", String.valueOf(LocalDateTime.now()));
+        map.put("total_fee", "1000");
+        map.put("refund_fee", "1000");
+        map.put("out_refund_no", "1512318564311");
+        String key = "9d101c97133837e13dde2d32a5054abb";
+        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
+        map.put("mch_id", "7551000001");
+        map.put("op_user_id", "7551000001");
+        map.put("nonce_str", "1553238268281");
+        map.put("out_trade_no", "162719924935378");
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);

@@ -1,10 +1,7 @@
 package com.cn.school.controller.wx;
 
 import com.cn.school.utils.pay.IpUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +27,7 @@ public class AuthController {
      *
      * @return
      */
-    @RequestMapping(value = "/auth",method = RequestMethod.GET)
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
     @ResponseBody
     public void register(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("开始签名校验");
@@ -107,7 +104,14 @@ public class AuthController {
         }
         return "";
     }
-    @RequestMapping(value = "/getIp", method = RequestMethod.POST)
+
+    /**
+     * 获取IP接口
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getIp")
     @ResponseBody
     public String getIp(HttpServletRequest request) {
         return IpUtil.getIpAddr(request);
