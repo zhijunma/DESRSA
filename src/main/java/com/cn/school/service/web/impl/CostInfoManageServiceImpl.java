@@ -67,7 +67,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class,timeout=30)
     public RestResponse addCostInfo(AddCostManageViewForm viewForm) {
-
+        roleCheck(viewForm.getCurrRole());
         DSCostInfo dsCostInfo = new DSCostInfo();
         // 驾照类型（等级）
         dsCostInfo.setDriverLevel(viewForm.getDriverLevel());
