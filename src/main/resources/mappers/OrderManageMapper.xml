@@ -2,79 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.school.mapper.web.OrderManageMapper">
 
-    <!-- 添加订单
-    <insert id="addOrder">
-        INSERT INTO driver_school_order(
-            service,
-            version,
-            charset,
-            sign_type,
-            mch_id,
-            is_raw,
-            is_minipg,
-            out_trade_no,
-            device_info,
-            op_user_id,
-            op_shop_id,
-            body,
-            sub_openid,
-            sub_appid,
-            attach,
-            total_fee,
-            need_receipt,
-            mch_create_ip,
-            notify_url,
-            time_start,
-            time_expire,
-            goods_tag,
-            nonce_str,
-            limit_credit_pay,
-            sign,
-            add_user_id,
-            add_user,
-            add_time,
-            delete_flag
-            )
-            VALUES
-            (
-                #{dsOrder.service},
-                #{dsOrder.version},
-                #{dsOrder.charset},
-                #{dsOrder.signType},
-                #{dsOrder.mchId},
-                #{dsOrder.isRaw},
-                #{dsOrder.isMinipg},
-                #{dsOrder.outTradeNo},
-                #{dsOrder.deviceInfo},
-                #{dsOrder.opUserId},
-                #{dsOrder.opShopId},
-                #{dsOrder.body},
-                #{dsOrder.subOpenid},
-                #{dsOrder.subAppid},
-                #{dsOrder.attach},
-                #{dsOrder.totalFee},
-                #{dsOrder.needReceipt},
-                #{dsOrder.mchCreateIp},
-                #{dsOrder.notifyUrl},
-                #{dsOrder.timeStart},
-                #{dsOrder.timeExpire},
-                #{dsOrder.goodsTag},
-                #{dsOrder.nonceStr},
-                #{dsOrder.limitCreditPay},
-                #{dsOrder.sign},
-
-                #{dsOrder.addUserId},
-                #{dsOrder.addUser},
-                #{dsOrder.addTime},
-                #{dsOrder.modUserId},
-                #{dsOrder.modUser},
-                #{dsOrder.modTime},
-                #{dsOrder.deleteFlag}
-            );
-    </insert>-->
-    <!--查看订单信息（根据guid）-->
+    <!--查看订单信息（可以根据status）-->
     <select id="getOrders" resultType="com.cn.school.entity.DSOrder">
         SELECT
+        guid,
         service as service,
         version as version,
         charset as charset,
@@ -103,14 +34,72 @@
         status as status,
         add_user_id as addUserId,
         add_user as addUser,
-        add_time as addTime,
-        delete_flag
+        add_time as addTime
         FROM
         driver_school_order
         where delete_flag=FALSE
         <if test="dsOrder.status != null and '' != dsOrder.status">
-            AND id_card=#{dsOrder.status}
+            AND status=#{dsOrder.status}
+        </if>
+        <if test="dsOrder.mchId != null and '' != dsOrder.mchId">
+            AND mch_id=#{dsOrder.mchId}
+        </if>
+        <if test="dsOrder.opShopId != null and '' != dsOrder.opShopId">
+            AND op_shop_id=#{dsOrder.opShopId}
         </if>
     </select>
-
+    <!--修改订单状态 0，有效  1，失效-->
+    <update id="updateOrderStatus">
+        UPDATE driver_school_order
+        set
+        status = #{status},
+        mod_user = #{modUser},
+        mod_user_id = #{modUserId},
+        mod_time = now()
+        where
+        guid in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+        and delete_flag = false
+    </update>
+    <!--查看订单信息（根据guid）
+    <select id="getOrder" resultType="com.cn.school.entity.DSOrder">
+        SELECT
+        guid,
+        service as service,
+        version as version,
+        charset as charset,
+        sign_type as signType,
+        mch_id as mchId,
+        is_raw as isRaw,
+        is_minipg as isMinipg,
+        out_trade_no as outTradeNo,
+        device_info as deviceInfo,
+        op_user_id as opUserId,
+        op_shop_id as opShopId,
+        body as body,
+        sub_openid as subOpenid,
+        sub_appid as subAppid,
+        attach as attach,
+        total_fee as totalFee,
+        need_receipt as needReceipt,
+        mch_create_ip as mchCreateIp,
+        notify_url as notifyUrl,
+        time_start as timeStart,
+        time_expire as timeExpire,
+        goods_tag as goodsTag,
+        nonce_str as nonceStr,
+        limit_credit_pay as limitCreditPay,
+        sign as sign,
+        status as status,
+        add_user_id as addUserId,
+        add_user as addUser,
+        add_time as addTime
+        FROM
+        driver_school_order
+        where delete_flag=FALSE
+            AND
+            guid=#{dsOrder.guid}
+    </select>-->
 </mapper>

@@ -16,4 +16,15 @@ public interface OrderManageMapper {
      * @return
      */
     List getOrders(@Param("dsOrder") DSOrder dsOrder);
+
+    /**
+     *
+     * @param list
+     * @param status
+     * @param modUserId
+     * @param modUser
+     * @return
+     */
+    Integer updateOrderStatus(@Param("list") List<Long> list, @Param("status") Integer status, @Param("modUserId") Long modUserId, @Param("modUser") String modUser);
+
 }
