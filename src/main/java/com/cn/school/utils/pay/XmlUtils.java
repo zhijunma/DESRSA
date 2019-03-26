@@ -80,9 +80,9 @@ public class XmlUtils {
      * @param request
      * @return
      */
-    public static SortedMap getParameterMap(HttpServletRequest request) {
+    public static SortedMap getParameterMap() {
         // 参数Map
-        Map properties = request.getParameterMap();
+        Map properties = new HashMap(16);
         // 返回值Map
         SortedMap returnMap = new TreeMap();
         Iterator entries = properties.entrySet().iterator();

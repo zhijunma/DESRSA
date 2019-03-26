@@ -20,7 +20,7 @@ import java.io.IOException;
  * @since [产品/模块版本]
  */
 @Slf4j
-@WebServlet(name = "TestPayServlet",urlPatterns = "/pay/payment")
+@WebServlet(name = "TestPayServlet", urlPatterns = "/pay/payment")
 public class TestPayServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -34,12 +34,14 @@ public class TestPayServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
+        System.out.println("支付请求开始=======================");
+        System.out.println("支付请求开始======================="+req.getParameterNames().toString());
 
         GateWayService service = new GateWayService();
         String method = req.getParameter("method");
         try {
             if ("submitOrderInfo".equals(method)) {
-                service.pay(req, resp);
+//                service.pay(req, resp);
             } else if ("queryOrder".equals(method)) {
                 service.query(req, resp);
             } else if ("queryRefund".equals(method)) {

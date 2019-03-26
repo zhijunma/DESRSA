@@ -1,6 +1,10 @@
 package com.cn.school.service;
 
-import com.cn.school.utils.pay.*;
+import com.cn.school.dto.forms.pay.InitPayViewForm;
+import com.cn.school.utils.pay.Guid;
+import com.cn.school.utils.pay.MD5;
+import com.cn.school.utils.pay.SignUtils;
+import com.cn.school.utils.pay.XmlUtils;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -9,6 +13,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +26,7 @@ import java.util.SortedMap;
 
 @SuppressWarnings("unchecked")
 @Slf4j
+@Service
 public class GateWayService {
 
     private final static String version = "2.0";
@@ -37,12 +43,12 @@ public class GateWayService {
      * @throws IOException
      * @see [类、类#方法、类#成员]
      */
-    public void pay(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public Map<String, String> pay(InitPayViewForm viewForm) throws ServletException, IOException {
         log.debug("支付请求...");
-        SortedMap<String, String> map = XmlUtils.getParameterMap(req);
+        SortedMap<String, String> map = XmlUtils.getParameterMap();
 
         //商品描述
-        String body = req.getParameter("body");
+        String body = viewForm.getBody();
         map.put("service", "pay.weixin.jspay");
         map.put("version", version);
         map.put("charset", charset);
@@ -55,16 +61,16 @@ public class GateWayService {
         map.put("sub_openid", "");
         //map.put("sub_appid", "wx7a643cf968956196");
         //总金额
-        String total_fee = req.getParameter("total_fee");
+        String total_fee = String.valueOf(viewForm.getTotal_fee());
         map.put("total_fee", total_fee);
         //通知地址
-        String notify_url = req.getParameter("notify_url");
+        String notify_url = viewForm.getNotify_url();
         map.put("notify_url", notify_url);
         map.put("nonce_str", Guid.getTradeNo());
         map.put("attach", "附加信息");
         //IP地址
-        String IP = IpUtil.getIpAddr(req);
-        map.put("mch_create_ip", IP);
+//        String IP = IpUtil.getIpAddr(req);
+        map.put("mch_create_ip", "127.0.0.1");
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
@@ -127,7 +133,7 @@ public class GateWayService {
             result.put("status", "500");
             result.put("msg", res);
         }
-        resp.getWriter().write(new Gson().toJson(resultMap));
+        return result;
     }
 
     /**
@@ -142,7 +148,7 @@ public class GateWayService {
      */
     public void query(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("订单查询...");
-        SortedMap<String, String> map = XmlUtils.getParameterMap(req);
+        SortedMap<String, String> map = XmlUtils.getParameterMap();
 
         map.put("service", "unified.trade.query");
 //        map.put("version", version);
@@ -232,7 +238,7 @@ public class GateWayService {
      */
     public void refundQuery(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("退款查询...");
-        SortedMap<String, String> map = XmlUtils.getParameterMap(req);
+        SortedMap<String, String> map = XmlUtils.getParameterMap();
 
         map.put("service", "unified.trade.refundquery");
         map.put("version", version);
@@ -308,7 +314,7 @@ public class GateWayService {
      */
     public void refund(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("退款...");
-        SortedMap<String, String> map = XmlUtils.getParameterMap(req);
+        SortedMap<String, String> map = XmlUtils.getParameterMap();
 
         map.put("service", "unified.trade.refund");
         map.put("version", version);
