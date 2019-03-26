@@ -5,13 +5,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
 @Data
-public class GetEvaluateViewForm extends UserContextViewForm {
-    /**
-     * guid
-     */
-    private  Long guid;
+public class AddEvaluateViewForm extends UserContextViewForm {
+
     /**
      * 评价内容
      */
@@ -21,13 +17,5 @@ public class GetEvaluateViewForm extends UserContextViewForm {
      * 分数
      */
     private Integer score;
-
-    /**
-     * 添加人
-     */
-
-    private String addUser;
-    private Long addUserId;
-    private LocalDateTime addTime;
 
 }

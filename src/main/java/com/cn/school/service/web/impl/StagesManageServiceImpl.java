@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author:HuMin Date:2019/3/18
- * Time:19:46
+ * @author:
  */
 @Slf4j
 @Service
@@ -151,7 +150,7 @@ public class StagesManageServiceImpl implements StagesManageService {
         } else {
 
             Integer state1 = stagesManageMapper.moveStagesItem(dSstages);
-            if (state1 < 0) {
+            if (state1 <= 0) {
                 throw new RuntimeException("修改分期信息失败！");
             } else {
                 List<DSStagesItem> itemList = new ArrayList<>(16);
@@ -175,9 +174,10 @@ public class StagesManageServiceImpl implements StagesManageService {
                     dsStagesItem.setDeleteFlag(false);
                     itemList.add(dsStagesItem);
                 });
+                //添加子表信息
                 Integer num = stagesManageMapper.addStagesItem(itemList);
                 if (num > 0) {
-                    return RestResponse.success("添加分期信息成功！");
+                    return RestResponse.success("修改分期信息成功！");
                 } else {
                     throw new RuntimeException("修改分期信息失败！");
                 }
@@ -222,7 +222,7 @@ public class StagesManageServiceImpl implements StagesManageService {
         if (state > 0) {
             return RestResponse.success("停用分期优惠成功！");
         } else {
-            return RestResponse.error("停用分期优惠失败！");
+            throw new RuntimeException("停用分期优惠失败！");
         }
     }
 
@@ -251,6 +251,7 @@ public class StagesManageServiceImpl implements StagesManageService {
             getStagesInfoVO.setName(e.getName());
             getStagesInfoVO.setIssues(e.getIssues());
             getStagesInfoVO.setStatus(e.getStatus());
+            getStagesInfoVO.setMoney(e.getMoney());
             getStagesInfoVO.setAddUser(e.getAddUser());
             getStagesInfoVO.setAddUserId(e.getAddUserId());
             getStagesInfoVO.setAddTime(e.getAddTime());
@@ -267,15 +268,13 @@ public class StagesManageServiceImpl implements StagesManageService {
     /**
      * 查看分期活动详情
      * 已完成
-     *
      * @param getStagesViewForm
      * @return
      */
     @Override
     public RestResponse getStagesInfo(GetStagesViewForm getStagesViewForm) {
         //权限判断
-        roleCheck(getStagesViewForm.getCurrRole());
-
+ //       roleCheck(getStagesViewForm.getCurrRole());
         DSstages dSstages = new DSstages();
         //入参
         dSstages.setGuid(getStagesViewForm.getGuid());
@@ -287,6 +286,7 @@ public class StagesManageServiceImpl implements StagesManageService {
         getStagesInfoVO.setName(stages.getName());
         getStagesInfoVO.setIssues(stages.getIssues());
         getStagesInfoVO.setStatus(stages.getStatus());
+        getStagesInfoVO.setMoney(stages.getMoney());
         getStagesInfoVO.setAddUser(stages.getAddUser());
         getStagesInfoVO.setAddUserId(stages.getAddUserId());
         getStagesInfoVO.setAddTime(stages.getAddTime());

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.wx.OrderMapper">
+
+    <!-- 添加订单 -->
+    <insert id="addOrder">
+        INSERT INTO driver_school_order(
+            service,
+            version,
+            charset,
+            sign_type,
+            mch_id,
+            is_raw,
+            is_minipg,
+            out_trade_no,
+            device_info,
+            op_user_id,
+            op_shop_id,
+            body,
+            sub_openid,
+            sub_appid,
+            attach,
+            total_fee,
+            need_receipt,
+            mch_create_ip,
+            notify_url,
+            time_start,
+            time_expire,
+            goods_tag,
+            nonce_str,
+            limit_credit_pay,
+            sign,
+            add_user_id,
+            add_user,
+            add_time,
+            mod_user_id,
+            mod_user,
+            mod_time,
+            delete_flag
+            )
+            VALUES
+            (
+                #{dsOrder.service},
+                #{dsOrder.version},
+                #{dsOrder.charset},
+                #{dsOrder.signType},
+                #{dsOrder.mchId},
+                #{dsOrder.isRaw},
+                #{dsOrder.isMinipg},
+                #{dsOrder.outTradeNo},
+                #{dsOrder.deviceInfo},
+                #{dsOrder.opUserId},
+                #{dsOrder.opShopId},
+                #{dsOrder.body},
+                #{dsOrder.subOpenid},
+                #{dsOrder.subAppid},
+                #{dsOrder.attach},
+                #{dsOrder.totalFee},
+                #{dsOrder.needReceipt},
+                #{dsOrder.mchCreateIp},
+                #{dsOrder.notifyUrl},
+                #{dsOrder.timeStart},
+                #{dsOrder.timeExpire},
+                #{dsOrder.goodsTag},
+                #{dsOrder.nonceStr},
+                #{dsOrder.limitCreditPay},
+                #{dsOrder.sign},
+
+                #{dsOrder.addUserId},
+                #{dsOrder.addUser},
+                #{dsOrder.addTime},
+                #{dsOrder.modUserId},
+                #{dsOrder.modUser},
+                #{dsOrder.modTime},
+                #{dsOrder.deleteFlag}
+            );
+    </insert>
+    <!--查看订单信息（根据guid）-->
+    <select id="getStudent" resultType="com.cn.school.entity.DSOrder">
+        SELECT
+        user_name AS userName,
+        mobile_phone AS mobilePhone,
+        id_card AS idCard,
+        status AS status,
+        add_user_id AS addUserId,
+        add_user AS addUser,
+        add_time AS addTime,
+        mod_user_id AS modUserId,
+        mod_user AS modUser,
+        mod_time AS modTime,
+        delete_flag AS deleteFlag
+        FROM
+        driver_school_order
+        where delete_flag=FALSE
+        <if test="dsStudents.idCard != null and '' != dsStudents.idCard">
+            AND id_card=#{dsStudents.idCard}
+        </if>
+        <if test="dsStudents.guid != null and '' != dsStudents.guid">
+            and guid=#{dsStudents.guid}
+        </if>
+        <if test="dsStudents.userName != null and '' != dsStudents.userName">
+            AND user_name=#{dsStudents.userName}
+        </if>
+    </select>
+
+</mapper>

@@ -9,7 +9,7 @@
         mod_user_id = #{dsStudents.modUserId},
         mod_user = #{dsStudents.modUser},
         mod_time = #{dsStudents.modTime}
-        WHERE AND delete_flag = FALSE
+        WHERE delete_flag = FALSE
         <if test="dsStudents.idCard != null and '' != dsStudents.idCard">
             AND id_card=#{dsStudents.idCard}
         </if>
@@ -19,7 +19,6 @@
         <if test="dsStudents.userName != null and '' != dsStudents.userName">
             AND user_name=#{dsStudents.userName}
         </if>
-
     </update>
 
     <!-- 管理员修改学员信息 -->
@@ -43,9 +42,6 @@
         mod_time=#{dsStudents.modTime}
         WHERE
         delete_flag=FALSE
-        <!--<if test="dsStudents.idCard != null and '' != dsStudents.idCard">-->
-            <!--AND id_card=#{dsStudents.idCard}-->
-        <!--</if>-->
         <if test="dsStudents.guid != null and '' != dsStudents.guid">
             and guid=#{dsStudents.guid}
         </if>

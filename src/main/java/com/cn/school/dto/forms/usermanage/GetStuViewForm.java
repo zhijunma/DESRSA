@@ -1,9 +1,10 @@
 package com.cn.school.dto.forms.usermanage;
 
+import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 @Data
-public class GetStuViewForm {
+public class GetStuViewForm extends UserContextViewForm {
     /**
      * 用户名
      */

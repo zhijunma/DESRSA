@@ -1,5 +1,6 @@
 package com.cn.school.service.web;
 
+import com.cn.school.dto.forms.EvaluateManage.AddEvaluateViewForm;
 import com.cn.school.dto.forms.EvaluateManage.DeleteEvaluateViewForm;
 import com.cn.school.dto.forms.EvaluateManage.GetEvaluateViewForm;
 import com.cn.school.utils.response.RestResponse;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface EvaluateManageService {
 
     /**
-     * 学员删除,假删除（更新状态）
+     * 管理员删除评价与投诉,假删除（更新状态）
      *
      * @param deleteEvaluateViewForm
      * @return
@@ -18,11 +19,24 @@ public interface EvaluateManageService {
     RestResponse deleteEvaluate(DeleteEvaluateViewForm deleteEvaluateViewForm);
 
     /**
-     * 管理员查看学员信息
+     * 管理员查看评价与投诉
      *
      * @param getEvaluateViewForm
      * @return
      */
     List getEvaluates(GetEvaluateViewForm getEvaluateViewForm);
+
+    /**
+     * 学员添加评价与投诉
+     * @param addEvaluateViewForm
+     * @return
+     */
+    RestResponse addEvaluate(AddEvaluateViewForm addEvaluateViewForm);
+
+    /**
+     * 学员查看评价与投诉
+     * @return
+     */
+    List stuGetEvaluates();
 
 }

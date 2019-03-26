@@ -8,6 +8,10 @@ import com.cn.school.utils.response.RestResponse;
 
 import java.util.List;
 
+/**
+ * @author:mzj Date:2019/3/25
+ * Time:17:40
+ */
 public interface StudentManageService {
 
 

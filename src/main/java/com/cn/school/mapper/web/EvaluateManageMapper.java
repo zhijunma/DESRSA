@@ -13,18 +13,30 @@ import java.util.List;
 public interface EvaluateManageMapper {
 
     /**
-     *
+     *管理员删除评价与投诉
      * @param dsEvaluate
      * @return
      */
     Integer deleteEvaluate(@Param("dsEvaluate") DSEvaluate dsEvaluate);
 
     /**
-     *
+     *管理员浏览评价与投诉
      * @param dsEvaluate
      * @return
      */
     List<DSEvaluate> getEvaluates(@Param("dsEvaluate") DSEvaluate dsEvaluate);
 
+    /**
+     *学员添加评价与投诉
+     * @param dsEvaluate
+     * @return
+     */
+    Integer addEvaluate(@Param("dsEvaluate") DSEvaluate dsEvaluate);
+
+    /**
+     *学员浏览评价与投诉
+     * @return
+     */
+    List<DSEvaluate> stuGetEvaluates();
 
 }

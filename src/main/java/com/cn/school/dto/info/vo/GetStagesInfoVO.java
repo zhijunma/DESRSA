@@ -3,10 +3,11 @@ package com.cn.school.dto.info.vo;
 import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class GetStagesInfoVO extends UserContextViewForm {
+public class GetStagesInfoVO  {
     /**
      * guid
      */
@@ -20,6 +21,10 @@ public class GetStagesInfoVO extends UserContextViewForm {
      * 分期活动期次
      */
     private Integer issues;
+    /**
+     * 分期活动金额
+     */
+    private BigDecimal money;
 
     /**
      * 状态

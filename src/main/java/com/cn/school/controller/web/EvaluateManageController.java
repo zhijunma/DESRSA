@@ -1,5 +1,6 @@
 package com.cn.school.controller.web;
 
+import com.cn.school.dto.forms.EvaluateManage.AddEvaluateViewForm;
 import com.cn.school.dto.forms.EvaluateManage.DeleteEvaluateViewForm;
 import com.cn.school.dto.forms.EvaluateManage.GetEvaluateViewForm;
 import com.cn.school.service.web.EvaluateManageService;
@@ -28,7 +29,7 @@ public class EvaluateManageController {
 
 
     /**
-     * 评价删除,假删除（更新状态）
+     * 管理员删除评价与投诉，假删除（更新状态）
      * @param request
      * @return
      */
@@ -39,7 +40,7 @@ public class EvaluateManageController {
     }
 
     /**
-     * 评论信息一览
+     * 管理员一览评价与投诉
      *
      * @param request
      * @return
@@ -50,5 +51,24 @@ public class EvaluateManageController {
         return evaluateManageService.getEvaluates(viewForm);
     }
 
+    /**
+     * 学员添加评价与投诉
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/addEvaluate")
+    public RestResponse addEvaluate(@RequestBody @Validated RestRequest <AddEvaluateViewForm> request) {
+        AddEvaluateViewForm viewForm = request.getBody();
+        return evaluateManageService.addEvaluate(viewForm);
+    }
+    /**
+     * 学员一览评价与投诉
+     *
+     * @return
+     */
+    @PostMapping(value = "/stuGetEvaluates")
+    public List stuGetEvaluates() {
+        return evaluateManageService.stuGetEvaluates();
+    }
 
 }

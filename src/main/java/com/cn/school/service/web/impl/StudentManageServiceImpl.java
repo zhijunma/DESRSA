@@ -37,16 +37,18 @@ public class StudentManageServiceImpl implements StudentManageService {
      */
     @Override
     public RestResponse deleteStudent(DeleteStudnetViewForm deleteStudnetViewForm) {
-        if (Constant.MANAGE_ROLE.equals(deleteStudnetViewForm.getCurrRole())) {
-            log.debug("权限不足!");
-            return RestResponse.error("权限不足！");
-        }
+        //权限判断
+        roleCheck(deleteStudnetViewForm.getCurrRole());
         DSStudents dsStudents = new DSStudents();
-        dsStudents.setIdCard(deleteStudnetViewForm.getIdCard());
+        //入参--根据guid进行删除
         dsStudents.setGuid(deleteStudnetViewForm.getGuid());
+        //入参--根据学员身份证信息进行删除
+        dsStudents.setIdCard(deleteStudnetViewForm.getIdCard());
+        //修改人信息
         dsStudents.setModUserId(deleteStudnetViewForm.getCurrId());
         dsStudents.setModUser(deleteStudnetViewForm.getCurrName());
         dsStudents.setModTime(LocalDateTime.now());
+        //执行删除操作
         Integer state = studentManageMapper.deleteStudent(dsStudents);
         if (state > 0) {
             return RestResponse.success("删除学员信息成功！");
@@ -64,18 +66,22 @@ public class StudentManageServiceImpl implements StudentManageService {
      */
     @Override
     public RestResponse updateStudent(UpdateStudentViewForm studentViewForm) {
-        if (Constant.MANAGE_ROLE.equals(studentViewForm.getCurrRole())) {
-            log.debug("权限不足!");
-            return RestResponse.error("权限不足！");
-        }
+        //权限判断
+        roleCheck(studentViewForm.getCurrRole());
         DSStudents dsStudents = new DSStudents();
-        dsStudents.setUserName(studentViewForm.getUserName());
-        dsStudents.setIdCard(studentViewForm.getIdCard());
+        //入参--根据guid来进行修改
         dsStudents.setGuid(studentViewForm.getGuid());
+        //入参--学员修改后的姓名
+        dsStudents.setUserName(studentViewForm.getUserName());
+        //入参--学员修改后的身份证信息
+        dsStudents.setIdCard(studentViewForm.getIdCard());
+        //入参--学员修改后的电话号码
         dsStudents.setMobilePhone(studentViewForm.getMobilePhone());
+        //修改人信息
         dsStudents.setModUserId(studentViewForm.getCurrId());
         dsStudents.setModUser(studentViewForm.getCurrName());
         dsStudents.setModTime(LocalDateTime.now());
+        //执行修改操作并返回是否成功
         Integer state = studentManageMapper.updateStudent(dsStudents);
         if (state > 0) {
             return RestResponse.success("修改学员信息成功！");
@@ -92,19 +98,24 @@ public class StudentManageServiceImpl implements StudentManageService {
      */
     @Override
     public RestResponse getStudent(GetStudentViewForm studentViewForm) {
-
+        //权限判断
+        roleCheck(studentViewForm.getCurrRole());
         DSStudents dsStudents = new DSStudents();
-        dsStudents.setIdCard(studentViewForm.getIdCard());
+        //查询条件学员guid
         dsStudents.setGuid(studentViewForm.getGuid());
+        //查询条件--学员身份证号
+        dsStudents.setIdCard(studentViewForm.getIdCard());
+        //查询条件--学员姓名
         dsStudents.setUserName(studentViewForm.getUserName());
         DSStudents student = studentManageMapper.getStudent(dsStudents);
-
+        //将查询到的信息缓存到getStudentInfoVO中
         GetStudentInfoVO getStudentInfoVO = new GetStudentInfoVO();
         getStudentInfoVO.setGuid(student.getGuid());
         getStudentInfoVO.setIdCard(student.getIdCard());
         getStudentInfoVO.setUserName(student.getUserName());
         getStudentInfoVO.setMobilePhone(student.getMobilePhone());
         getStudentInfoVO.setStatus(student.getStatus());
+        //返回查询到的信息
         return RestResponse.success(getStudentInfoVO);
     }
 
@@ -113,18 +124,25 @@ public class StudentManageServiceImpl implements StudentManageService {
      *
      * @param getStuViewForm
      * @return
-     * @author leiyunlong
+     * @author mazhujun
      */
     @Override
     public List getStudentList(GetStuViewForm getStuViewForm) {
-        //TODO 添加权限模块 教练员只能查看自己学员，管理员可以查看所有信息
+        //权限判断
+        roleCheck(getStuViewForm.getCurrRole());
         DSStudents dsStudents = new DSStudents();
-        dsStudents.setUserName(getStuViewForm.getUserName());
+        //查询条件--电话号码
         dsStudents.setMobilePhone(getStuViewForm.getMobilePhone());
+        //查询条件--学员身份证号
         dsStudents.setIdCard(getStuViewForm.getIdCard());
+        //查询条件--学员姓名
+        dsStudents.setUserName(getStuViewForm.getUserName());
+        //获取学员状态，可以根据状态查询
         dsStudents.setStatus(getStuViewForm.getStatus());
+        //将查询到的学员信息缓存到List中
         List<DSStudents> DSStudents = studentManageMapper.getStudentList(dsStudents);
         List<GetStuInfoVO> getStuInfoVOList = new ArrayList<>(16);
+        //遍历List缓存到getStuInfoVOList中
         DSStudents.forEach(e -> {
             GetStuInfoVO getStuInfoVO = new GetStuInfoVO();
             getStuInfoVO.setGuid(e.getGuid());
@@ -135,6 +153,17 @@ public class StudentManageServiceImpl implements StudentManageService {
             getStuInfoVOList.add(getStuInfoVO);
         });
         return getStuInfoVOList;
+    }
+    /**
+     * 权限判断
+     */
+    public void roleCheck(Integer role) {
+        if (!Constant.MANAGE_ROLE.equals(role)) {
+            if (!Constant.MARKETING_ROLE.equals(role)) {
+                log.debug("权限不足!");
+                throw new RuntimeException("权限不足！");
+            }
+        }
     }
 }
 

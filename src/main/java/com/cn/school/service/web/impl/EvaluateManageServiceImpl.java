@@ -1,9 +1,11 @@
 package com.cn.school.service.web.impl;
 
 import com.cn.school.constant.Constant;
+import com.cn.school.dto.forms.EvaluateManage.AddEvaluateViewForm;
 import com.cn.school.dto.forms.EvaluateManage.DeleteEvaluateViewForm;
 import com.cn.school.dto.forms.EvaluateManage.GetEvaluateViewForm;
 import com.cn.school.dto.info.vo.GetEvaluateInfoVO;
+import com.cn.school.dto.info.vo.StuGetEvaluateInfoVO;
 import com.cn.school.entity.DSEvaluate;
 import com.cn.school.mapper.web.EvaluateManageMapper;
 import com.cn.school.service.web.EvaluateManageService;
@@ -24,7 +26,7 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
     private EvaluateManageMapper evaluateManageMapper;
 
     /**
-     * 评价删除,假删除（更新状态）
+     * 管理员删除评价与投诉,假删除（更新状态）
      *
      * @param deleteEvaluateViewForm
      * @return
@@ -33,12 +35,16 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
     public RestResponse deleteEvaluate(DeleteEvaluateViewForm deleteEvaluateViewForm) {
         roleCheck(deleteEvaluateViewForm.getCurrRole());
         DSEvaluate dsEvaluate = new DSEvaluate();
+        //删除条件-查找主键guid
         dsEvaluate.setGuid(deleteEvaluateViewForm.getGuid());
+        //删除条件-查找添加人
         dsEvaluate.setAddUser(deleteEvaluateViewForm.getAddUser());
         dsEvaluate.setAddUserId(deleteEvaluateViewForm.getAddUserId());
+        //修改人信息
         dsEvaluate.setModUser(deleteEvaluateViewForm.getCurrName());
         dsEvaluate.setModUserId(deleteEvaluateViewForm.getCurrId());
         dsEvaluate.setModTime(LocalDateTime.now());
+        //执行删除操作并进行判断
         Integer state = evaluateManageMapper.deleteEvaluate(dsEvaluate);
         if (state > 0) {
             return RestResponse.success("删除评价信息成功！");
@@ -48,29 +54,81 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
     }
 
     /**
-     * 管理员查看评价
-     *
+     * 管理员查看评价与投诉
      * @param evaluateViewForm
      * @return
      */
     @Override
     public List getEvaluates(GetEvaluateViewForm evaluateViewForm) {
+        //权限判断
         roleCheck(evaluateViewForm.getCurrRole());
         DSEvaluate dsEvaluate = new DSEvaluate();
+        //条件查询-根据guid（若输入guid则根据guid来查询，什么都不输入则查看所有）
         dsEvaluate.setGuid(evaluateViewForm.getGuid());
+        //根据添加人姓名进行查询
         dsEvaluate.setAddUser(evaluateViewForm.getAddUser());
+        //根据添加时间查询
         dsEvaluate.setAddTime(evaluateViewForm.getAddTime());
-        dsEvaluate.setComments(evaluateViewForm.getComments());
-        dsEvaluate.setScore(evaluateViewForm.getScore());
+        //执行查询操作并将搜查到的信息放入List中
         List<DSEvaluate> reDSEva = evaluateManageMapper.getEvaluates(dsEvaluate);
         List<GetEvaluateInfoVO> getEvaluateInfoVOList = new ArrayList<>(16);
+        //遍历List缓存到getEvaluateInfoVOList中
         reDSEva.forEach(e -> {
             GetEvaluateInfoVO getEvaluateInfoVO = new GetEvaluateInfoVO();
             getEvaluateInfoVO.setGuid(e.getGuid());
             getEvaluateInfoVO.setAddUser(e.getAddUser());
             getEvaluateInfoVO.setAddTime(e.getAddTime());
             getEvaluateInfoVO.setScore(e.getScore());
-            getEvaluateInfoVO.setData(e.getComments());
+            getEvaluateInfoVO.setComments(e.getComments());
+            getEvaluateInfoVOList.add(getEvaluateInfoVO);
+        });
+        return getEvaluateInfoVOList;
+    }
+
+    /**
+     * 学员添加评价与投诉
+     * @param addEvaluateViewForm
+     * @return
+     */
+    @Override
+    public RestResponse addEvaluate(AddEvaluateViewForm addEvaluateViewForm) {
+        DSEvaluate dsEvaluate = new DSEvaluate();
+        //获取评与投诉内容
+        dsEvaluate.setComments(addEvaluateViewForm.getComments());
+        //学员对评价或投诉的对象打分
+        dsEvaluate.setScore(addEvaluateViewForm.getScore());
+        //评价与投诉人信息
+        dsEvaluate.setAddUser(addEvaluateViewForm.getCurrName());
+        dsEvaluate.setAddUserId(addEvaluateViewForm.getCurrId());
+        //评价与投诉时间
+        dsEvaluate.setAddTime(LocalDateTime.now());
+        dsEvaluate.setModUserId(addEvaluateViewForm.getCurrId());
+        dsEvaluate.setModUser(addEvaluateViewForm.getCurrName());
+        dsEvaluate.setModTime(LocalDateTime.now());
+        //执行插入操作
+        Integer state = evaluateManageMapper.addEvaluate(dsEvaluate);
+        if (state > 0) {
+            return RestResponse.success("成功！");
+        } else {
+            throw new RuntimeException("失败！");
+        }
+    }
+    /**
+     * 学员查看评价与投诉
+     * @return
+     */
+    @Override
+    public List stuGetEvaluates() {
+        //获取评价与投诉信息并缓存
+        List<DSEvaluate> reDSEva = evaluateManageMapper.stuGetEvaluates();
+        List<StuGetEvaluateInfoVO> getEvaluateInfoVOList = new ArrayList<>(16);
+        //遍历缓存到getEvaluateInfoVOList中
+        reDSEva.forEach(e -> {
+            StuGetEvaluateInfoVO getEvaluateInfoVO = new StuGetEvaluateInfoVO();
+            getEvaluateInfoVO.setAddUser(e.getAddUser());
+            getEvaluateInfoVO.setAddTime(e.getAddTime());
+            getEvaluateInfoVO.setScore(e.getScore());
+            getEvaluateInfoVO.setComments(e.getComments());
             getEvaluateInfoVOList.add(getEvaluateInfoVO);
         });
         return getEvaluateInfoVOList;

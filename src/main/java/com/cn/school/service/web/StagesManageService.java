@@ -6,7 +6,7 @@ import com.cn.school.utils.response.RestResponse;
 import java.util.List;
 
 /**
- * @author:HuMin Date:2019/3/18
+ * @author:mzj Date:2019/3/18
  * Time:19:46
  */
 public interface StagesManageService {

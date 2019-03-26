@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/web/manage")
+@RequestMapping("/web/studentManage")
 public class StudentManageController {
 
     @Autowired
@@ -70,7 +70,6 @@ public class StudentManageController {
      *
      * @param request
      * @return
-     * @author leiyunloing
      * @author leiyunlong
      */
     @PostMapping(value = "/getStudentList")

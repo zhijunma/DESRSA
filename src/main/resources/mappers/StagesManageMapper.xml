@@ -64,7 +64,6 @@
             #{dsStagesItem.modTime},
             false
             )
-
         </foreach>
     </insert>
 
@@ -136,6 +135,7 @@
         name as name,
         issues as issues,
         status AS status,
+        money as money,
         add_user_id AS addUserId,
         add_user AS addUser,
         add_time AS addTime,
@@ -146,7 +146,7 @@
         driver_school_stages
         where delete_flag = false
         <if test="dSstages.name != null and '' != dSstages.name">
-            AND name=#{dSstages.name}
+            AND name like '%#{dSstages.name}%'
         </if>
         <if test="dSstages.guid != null and '' != dSstages.guid">
             and guid = #{dSstages.guid}
@@ -162,6 +162,7 @@
         name as name,
         issues as issues,
         status AS status,
+        money as money,
         add_user_id AS addUserId,
         add_user AS addUser,
         add_time AS addTime,

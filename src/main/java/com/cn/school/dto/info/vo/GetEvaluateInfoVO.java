@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 
 @Data
-public class GetEvaluateInfoVO extends UserContextViewForm {
+public class GetEvaluateInfoVO {
     /**
      * guid
      */
@@ -15,7 +15,7 @@ public class GetEvaluateInfoVO extends UserContextViewForm {
     /**
      * 评价内容
      */
-    private String data;
+    private String comments;
 
     /**
      * 分数
