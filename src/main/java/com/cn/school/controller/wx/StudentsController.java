@@ -1,6 +1,5 @@
 package com.cn.school.controller.wx;
 
-import com.cn.school.dto.forms.WxInsertUserViewForm;
 import com.cn.school.dto.forms.students.AddStudentsViewForm;
 import com.cn.school.service.wx.StudentsService;
 import com.cn.school.utils.request.RestRequest;

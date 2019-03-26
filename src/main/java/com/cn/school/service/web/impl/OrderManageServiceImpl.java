@@ -1,13 +1,15 @@
 package com.cn.school.service.web.impl;
-import com.cn.school.dto.info.bo.AddOrderBO;
+import com.cn.school.constant.Constant;
+import com.cn.school.dto.forms.order.GetOrdersViewForm;
+import com.cn.school.dto.forms.order.OrderViewForm;
 import com.cn.school.dto.info.vo.GetOrderInfoVO;
 import com.cn.school.entity.DSOrder;
 import com.cn.school.mapper.web.OrderManageMapper;
 import com.cn.school.service.web.OrderManageService;
+import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +26,16 @@ public class OrderManageServiceImpl implements OrderManageService {
 
 
     /**
-     * 添加订单
-     * @param addOrderBO
+     * 查看订单
+     * @param viewForm
      * @return
      */
     @Override
-   public List getOrders(AddOrderBO addOrderBO) {
+   public List getOrders(GetOrdersViewForm viewForm) {
 
         DSOrder dsOrder = new DSOrder();
-        dsOrder.setStatus(addOrderBO.getStatus());
+        //入参 可以根据status来查询
+        dsOrder.setStatus(viewForm.getStatus());
          List<DSOrder> reDeOrder = orderManageMapper.getOrders(dsOrder);
          List<GetOrderInfoVO> getOrderInfoVOS = new ArrayList<>(16);
          //缓存信息到VO中
@@ -79,4 +82,35 @@ public class OrderManageServiceImpl implements OrderManageService {
          return getOrderInfoVOS;
 
     }
+    /**
+     *修改订单
+     * @param viewForm
+     * @return
+     */
+    @Override
+    public RestResponse updateOrderStatus(OrderViewForm viewForm) {
+        //权限判断
+        roleCheck(viewForm.getCurrRole());
+        //入参 订单的guidList
+        List<Long> guidList = viewForm.getGuidList();
+        Integer state = orderManageMapper.updateOrderStatus(guidList, viewForm.getStatus(), viewForm.getCurrId(), viewForm.getCurrName());
+        if (state <= 0) {
+            throw new RuntimeException("修改失败！");
+        }
+        return RestResponse.success("修改成功！");
+
+        }
+
+    /**
+     * 权限判断
+     */
+    public void roleCheck(Integer role) {
+        if (!Constant.MANAGE_ROLE.equals(role)) {
+            if (!Constant.MARKETING_ROLE.equals(role)) {
+                log.debug("权限不足!");
+                throw new RuntimeException("权限不足！");
+            }
+        }
+    }
+
 }

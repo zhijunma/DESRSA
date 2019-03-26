@@ -1,8 +1,10 @@
 package com.cn.school.dto.info.vo;
 
+import com.cn.school.dto.forms.auth.UserContextViewForm;
+
 import java.time.LocalDateTime;
 
-public class AddOrderInfoVO {
+public class AddOrderInfoVO extends UserContextViewForm {
     /**
      * 接口类型
      */

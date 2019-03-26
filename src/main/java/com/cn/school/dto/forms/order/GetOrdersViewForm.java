@@ -5,7 +5,7 @@ import lombok.Data;
 
 
 @Data
-public class GetOrderViewForm {
+public class GetOrdersViewForm {
     /**
      * 订单状态
      */

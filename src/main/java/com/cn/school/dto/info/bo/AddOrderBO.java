@@ -6,7 +6,16 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class AddOrderBO extends UserContextViewForm {
+public class AddOrderBO extends UserContextViewForm{
+    /**
+     * 用户id
+     */
+    private Long currId;
+
+    /**
+     * 用户名
+     */
+    private String currName;
     /**
      * 接口类型
      */

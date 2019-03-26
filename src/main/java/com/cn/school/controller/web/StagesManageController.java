@@ -53,7 +53,6 @@ public class StagesManageController {
 
     /**
      * 删除分期优惠
-     *完成80%
      * @param request
      * @return
      */

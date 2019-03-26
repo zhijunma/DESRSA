@@ -2,7 +2,6 @@ package com.cn.school.service.wx.impl;
 import com.cn.school.dto.info.bo.AddOrderBO;
 import com.cn.school.entity.DSOrder;
 import com.cn.school.mapper.wx.OrderMapper;
-import com.cn.school.service.web.OrderManageService;
 import com.cn.school.service.wx.OrderService;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -82,13 +81,15 @@ public class OrderServiceImpl implements OrderService {
         dsOrder.setLimitCreditPay(addOrderBO.getLimitCreditPay());
         //签名
         dsOrder.setSign(addOrderBO.getSign());
+        //订单状态
+         dsOrder.setStatus(addOrderBO.getStatus());
         //添加人
-        dsOrder.setAddUserId(addOrderBO.getCurrId());
-        dsOrder.setAddUser(addOrderBO.getCurrName());
+        dsOrder.setAddUserId(0L);
+        dsOrder.setAddUser("待办...");
         dsOrder.setAddTime(LocalDateTime.now());
         //修改人
-        dsOrder.setModUserId(addOrderBO.getCurrId());
-        dsOrder.setModUser(addOrderBO.getCurrName());
+        dsOrder.setModUserId(0L);
+        dsOrder.setModUser("待办...");
         dsOrder.setModTime(LocalDateTime.now());
         dsOrder.setDeleteFlag(false);
         //插入信息到分期优惠表主表

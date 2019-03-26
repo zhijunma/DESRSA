@@ -30,13 +30,13 @@
             nonce_str,
             limit_credit_pay,
             sign,
+            status,
             add_user_id,
             add_user,
             add_time,
             mod_user_id,
             mod_user,
-            mod_time,
-            delete_flag
+            mod_time
             )
             VALUES
             (
@@ -65,14 +65,13 @@
                 #{dsOrder.nonceStr},
                 #{dsOrder.limitCreditPay},
                 #{dsOrder.sign},
-
+                #{dsOrder.status},
                 #{dsOrder.addUserId},
                 #{dsOrder.addUser},
                 #{dsOrder.addTime},
                 #{dsOrder.modUserId},
                 #{dsOrder.modUser},
-                #{dsOrder.modTime},
-                #{dsOrder.deleteFlag}
+                #{dsOrder.modTime}
             );
     </insert>
     <!--查看订单信息（根据guid）-->
