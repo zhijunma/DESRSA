@@ -123,9 +123,9 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public List getCoachList(GetCoachsViewForm GetCoachsViewForm) {
         // 添加权限L模块 管理员查看所有教练员基本信息
-        if (Constant.MANAGE_ROLE.equals(GetCoachsViewForm.getCurrRole())) {
+        if (!Constant.MANAGE_ROLE.equals(GetCoachsViewForm.getCurrRole())) {
             log.debug("权限不足!");
-            throw new RuntimeException("权+限不足");
+            throw new RuntimeException("权限不足");
         }
         DSUser dsUser = new DSUser();
         dsUser.setUserName(GetCoachsViewForm.getUserName());

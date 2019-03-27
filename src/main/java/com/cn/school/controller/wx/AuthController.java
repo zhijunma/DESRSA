@@ -1,7 +1,9 @@
 package com.cn.school.controller.wx;
 
-import com.cn.school.utils.pay.IpUtil;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -111,10 +113,10 @@ public class AuthController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/getIp")
-    @ResponseBody
-    public String getIp(HttpServletRequest request) {
-        return IpUtil.getIpAddr(request);
-    }
+//    @GetMapping("/getIp")
+//    @ResponseBody
+//    public String getIp(HttpServletRequest request) {
+//        return IpUtil.getIpAddr(request);
+//    }
 
 }

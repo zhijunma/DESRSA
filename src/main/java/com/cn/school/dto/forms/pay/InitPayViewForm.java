@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class InitPayViewForm {
-    @NotBlank(message = "method 不能为为空")
     private String method;
     /**
      * 商品描述

@@ -1,10 +1,8 @@
 package com.cn.school.service;
 
 import com.cn.school.dto.forms.pay.InitPayViewForm;
-import com.cn.school.utils.pay.Guid;
-import com.cn.school.utils.pay.MD5;
-import com.cn.school.utils.pay.SignUtils;
-import com.cn.school.utils.pay.XmlUtils;
+import com.cn.school.dto.forms.pay.queryViewForm;
+import com.cn.school.utils.pay.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -32,13 +30,12 @@ public class GateWayService {
     private final static String version = "2.0";
     private final static String charset = "UTF-8";
     private final static String sign_type = "MD5";
-
+    private final static String KEY="dd98f6da540f7038d0b78d393079838a";
     /**
      * <一句话功能简述>
      * <功能详细描述>支付请求
      *
-     * @param req
-     * @param resp
+     * @param viewForm
      * @throws ServletException
      * @throws IOException
      * @see [类、类#方法、类#成员]
@@ -53,36 +50,33 @@ public class GateWayService {
         map.put("version", version);
         map.put("charset", charset);
         map.put("sign_type", sign_type);
-        map.put("mch_id", "7551000001");
+        map.put("mch_id", "103510093004");
         map.put("is_raw", "1");
+        //商户订单号
         map.put("out_trade_no", Guid.getTradeNo());
         map.put("body", body);
-        //使用测试号时此参数置空，即不要传这个参数，使用正式商户号时才传入，参数名是sub_openid
-        map.put("sub_openid", "");
-        //map.put("sub_appid", "wx7a643cf968956196");
+        //用户openid,使用测试号时此参数置空，即不要传这个参数，使用正式商户号时才传入，参数名是sub_openid
+        map.put("sub_openid", viewForm.getSub_openid());
+        map.put("sub_appid", "wx7a643cf968956196");
         //总金额
         String total_fee = String.valueOf(viewForm.getTotal_fee());
         map.put("total_fee", total_fee);
         //通知地址
-        String notify_url = viewForm.getNotify_url();
-        map.put("notify_url", notify_url);
+        map.put("notify_url", "http://a.hmds.cn/pay/notification");
         map.put("nonce_str", Guid.getTradeNo());
         map.put("attach", "附加信息");
         //IP地址
-//        String IP = IpUtil.getIpAddr(req);
-        map.put("mch_create_ip", "127.0.0.1");
+        map.put("mch_create_ip", IpUtil.getIp());
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
         SignUtils.buildPayParams(buf, params, false);
         String preStr = buf.toString();
-        String sign = MD5.sign(preStr, "&key=" + "9d101c97133837e13dde2d32a5054abb", "utf-8");
-
+        String sign = MD5.sign(preStr, "&key=" + KEY, "utf-8");
         map.put("sign", sign);
-
         String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
-        log.debug("reqUrl：" + reqUrl);
 
+        log.debug("reqUrl：" + reqUrl);
         log.debug("reqParams:" + XmlUtils.parseXML(map));
 
         CloseableHttpResponse response = null;
@@ -90,6 +84,7 @@ public class GateWayService {
         String res = null;
 
         Map<String, String> resultMap = null;
+        String pay_info = null;
         try {
             HttpPost httpPost = new HttpPost(reqUrl);
             StringEntity entityParams = new StringEntity(XmlUtils.parseXML(map), "utf-8");
@@ -101,13 +96,12 @@ public class GateWayService {
                 resultMap = XmlUtils.toMap(EntityUtils.toByteArray(response.getEntity()), "utf-8");
                 res = XmlUtils.toXml(resultMap);
                 log.debug("请求结果：" + res);
-
-                if (!SignUtils.checkParam(resultMap,
-                        "9d101c97133837e13dde2d32a5054abb")) {
+                if (!SignUtils.checkParam(resultMap, KEY)) {
                     res = "验证签名不通过";
                 } else {
                     if ("0".equals(resultMap.get("status")) && "0".equals(resultMap.get("result_code"))) {
-                        String pay_info = resultMap.get("pay_info");
+                        pay_info = resultMap.get("pay_info");
+
                         log.debug("pay_info : " + pay_info);
                         res = "ok";
                     }
@@ -128,7 +122,8 @@ public class GateWayService {
         }
         Map<String, String> result = new HashMap<String, String>();
         if ("ok".equals(res)) {
-            result = resultMap;
+            result.put("status", "200");
+            result.put("pay_info", pay_info);
         } else {
             result.put("status", "500");
             result.put("msg", res);
@@ -140,13 +135,12 @@ public class GateWayService {
      * <一句话功能简述>
      * <功能详细描述>订单查询
      *
-     * @param req
-     * @param resp
+     * @param viewForm
      * @throws ServletException
      * @throws IOException
      * @see [类、类#方法、类#成员]
      */
-    public void query(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public Map<String, Object> query(queryViewForm viewForm) throws ServletException, IOException {
         log.debug("订单查询...");
         SortedMap<String, String> map = XmlUtils.getParameterMap();
 
@@ -154,17 +148,18 @@ public class GateWayService {
 //        map.put("version", version);
 //        map.put("charset", charset);
 //        map.put("sign_type", sign_type);
-        map.put("mch_id", "7551000001");
-        map.put("out_trade_no", "162719924935378");
+        map.put("mch_id", viewForm.getMch_id());
+        map.put("out_trade_no", viewForm.getOut_trade_no());
 //        String key = SwiftpassConfig.key;
         String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
-        map.put("nonce_str", "1553238268281");
+        map.put("nonce_str", viewForm.getNonce_str());
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
         SignUtils.buildPayParams(buf, params, false);
         String preStr = buf.toString();
-        String sign = MD5.sign(preStr, "&key=" + "9d101c97133837e13dde2d32a5054abb", "utf-8");
+        String key = viewForm.getSign();
+        String sign = MD5.sign(preStr, "&key=" + key, "utf-8");
         map.put("sign", sign);
 
         log.debug("reqUrl:" + reqUrl);
@@ -172,6 +167,7 @@ public class GateWayService {
         CloseableHttpResponse response = null;
         CloseableHttpClient client = null;
         String res = null;
+        Map<String, String> resultMap = new HashMap<>();
         try {
             HttpPost httpPost = new HttpPost(reqUrl);
             StringEntity entityParams = new StringEntity(XmlUtils.parseXML(map), "utf-8");
@@ -181,11 +177,11 @@ public class GateWayService {
             response = client.execute(httpPost);
 
             if (response != null && response.getEntity() != null) {
-                Map<String, String> resultMap = XmlUtils.toMap(EntityUtils.toByteArray(response.getEntity()), "utf-8");
+                resultMap = XmlUtils.toMap(EntityUtils.toByteArray(response.getEntity()), "utf-8");
                 res = XmlUtils.toXml(resultMap);
                 log.debug("请求结果：" + res);
 
-                if (!SignUtils.checkParam(resultMap, "9d101c97133837e13dde2d32a5054abb")) {
+                if (!SignUtils.checkParam(resultMap, key)) {
                     res = "验证签名不通过";
                 } else {
                     if ("0".equals(resultMap.get("status"))) {
@@ -215,15 +211,16 @@ public class GateWayService {
                 client.close();
             }
         }
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, Object> result = new HashMap<>();
         if (res.startsWith("<")) {
             result.put("status", "200");
             result.put("msg", "操作成功，请在日志文件中查看");
+            result.put("resultMap", resultMap);
         } else {
             result.put("status", "500");
             result.put("msg", res);
         }
-        resp.getWriter().write(new Gson().toJson(result));
+        return result;
     }
 
     /**

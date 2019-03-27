@@ -20,7 +20,7 @@ import java.io.IOException;
  * @since [产品/模块版本]
  */
 @Slf4j
-@WebServlet(name = "TestPayServlet", urlPatterns = "/pay/payment")
+@WebServlet(name = "TestPayServlet", urlPatterns = "/pay1/payment1")
 public class TestPayServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class TestPayServlet extends HttpServlet {
             if ("submitOrderInfo".equals(method)) {
 //                service.pay(req, resp);
             } else if ("queryOrder".equals(method)) {
-                service.query(req, resp);
+//                service.query(req, resp);
             } else if ("queryRefund".equals(method)) {
                 service.refundQuery(req, resp);
             } else if ("submitRefund".equals(method)) {

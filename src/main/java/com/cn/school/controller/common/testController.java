@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDateTime;
+
 /**
  * @author:HuMin Date:2019/3/8
  * Time:10:50
@@ -18,7 +20,7 @@ public class testController {
     @GetMapping(value = {"/","/index","/login"})
     @ApiOperation(value="跳转到index界面",notes="测试跳转index界面")
     public String sendCode(@ApiParam(name="id",value="用户id",required=true) Long id, @ApiParam(name="username",value="用户名") String username) {
-        System.out.println("______________________");
+        System.out.println("_________"+LocalDateTime.now() +"__________");
         return "index";
     }
 
