@@ -73,7 +73,7 @@ public class GetOrderInfoVO {
     /**
      * 总金额
      */
-    private Long totalFee;
+    private Integer totalFee;
     /**
      *电子发票
      */

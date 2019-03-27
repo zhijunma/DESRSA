@@ -2,6 +2,8 @@ package com.cn.school.service;
 
 import com.cn.school.dto.forms.pay.InitPayViewForm;
 import com.cn.school.dto.forms.pay.queryViewForm;
+import com.cn.school.entity.DSOrder;
+import com.cn.school.mapper.wx.OrderMapper;
 import com.cn.school.utils.pay.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +13,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +34,14 @@ public class GateWayService {
     private final static String version = "2.0";
     private final static String charset = "UTF-8";
     private final static String sign_type = "MD5";
-    private final static String KEY="dd98f6da540f7038d0b78d393079838a";
+    private final static String MCH_ID = "103510093004";
+    private final static String KEY = "dd98f6da540f7038d0b78d393079838a";
+    //    private final static String MCH_ID="7551000001";
+//    private final static String KEY="9d101c97133837e13dde2d32a5054abb";
+    @Autowired
+    private OrderMapper orderMapper;
+
+
     /**
      * <一句话功能简述>
      * <功能详细描述>支付请求
@@ -40,6 +51,7 @@ public class GateWayService {
      * @throws IOException
      * @see [类、类#方法、类#成员]
      */
+    @Transactional(rollbackFor = Exception.class, timeout = 30)
     public Map<String, String> pay(InitPayViewForm viewForm) throws ServletException, IOException {
         log.debug("支付请求...");
         SortedMap<String, String> map = XmlUtils.getParameterMap();
@@ -50,23 +62,29 @@ public class GateWayService {
         map.put("version", version);
         map.put("charset", charset);
         map.put("sign_type", sign_type);
-        map.put("mch_id", "103510093004");
+        map.put("mch_id", MCH_ID);
         map.put("is_raw", "1");
         //商户订单号
-        map.put("out_trade_no", Guid.getTradeNo());
+        String outTradeNo = Guid.getTradeNo();
+        map.put("out_trade_no", outTradeNo);
         map.put("body", body);
         //用户openid,使用测试号时此参数置空，即不要传这个参数，使用正式商户号时才传入，参数名是sub_openid
-        map.put("sub_openid", viewForm.getSub_openid());
+        String subOpenid = viewForm.getSub_openid();
+        map.put("sub_openid", subOpenid);
         map.put("sub_appid", "wx7a643cf968956196");
         //总金额
-        String total_fee = String.valueOf(viewForm.getTotal_fee());
-        map.put("total_fee", total_fee);
+        Integer total_fee = viewForm.getTotal_fee();
+        map.put("total_fee", total_fee.toString());
         //通知地址
         map.put("notify_url", "http://a.hmds.cn/pay/notification");
-        map.put("nonce_str", Guid.getTradeNo());
+        String nonceStr = Guid.getTradeNo();
+        map.put("nonce_str", nonceStr);
         map.put("attach", "附加信息");
+
         //IP地址
-        map.put("mch_create_ip", IpUtil.getIp());
+        String ip = IpUtil.getIp();
+        map.put("mch_create_ip", ip);
+        //map.put("mch_create_ip", "127.0.0.1");
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
@@ -74,8 +92,7 @@ public class GateWayService {
         String preStr = buf.toString();
         String sign = MD5.sign(preStr, "&key=" + KEY, "utf-8");
         map.put("sign", sign);
-        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
-
+        String reqUrl = "https://pay.spdb.swiftpass.cn/pay/gateway";
         log.debug("reqUrl：" + reqUrl);
         log.debug("reqParams:" + XmlUtils.parseXML(map));
 
@@ -97,11 +114,41 @@ public class GateWayService {
                 res = XmlUtils.toXml(resultMap);
                 log.debug("请求结果：" + res);
                 if (!SignUtils.checkParam(resultMap, KEY)) {
+                    //if(!sign.equals(resultMap.get("sign"))){
                     res = "验证签名不通过";
                 } else {
                     if ("0".equals(resultMap.get("status")) && "0".equals(resultMap.get("result_code"))) {
                         pay_info = resultMap.get("pay_info");
-
+                        //订单信息入库
+                        DSOrder dsOrder = new DSOrder();
+                        dsOrder.setService("pay.weixin.jspay");
+                        dsOrder.setVersion(version);
+                        dsOrder.setCharset(charset);
+                        dsOrder.setSignType(sign_type);
+                        dsOrder.setMchId(MCH_ID);
+                        dsOrder.setIsRaw("1");
+                        dsOrder.setOutTradeNo(outTradeNo);
+                        dsOrder.setDeviceInfo("");
+                        dsOrder.setTotalFee(total_fee != null ? total_fee : 0);
+                        dsOrder.setBody(body);
+                        dsOrder.setSubOpenid(subOpenid);
+                        dsOrder.setSubAppid("wx7a643cf968956196");
+                        dsOrder.setMchCreateIp(ip);
+                        dsOrder.setNotifyUrl("http://a.hmds.cn/pay/notification");
+                        dsOrder.setNonceStr(nonceStr);
+                        dsOrder.setSign(sign);
+                        dsOrder.setAddTime(LocalDateTime.now());
+                        dsOrder.setAddUser("user1");
+                        dsOrder.setAddUserId(001L);
+                        dsOrder.setModTime(LocalDateTime.now());
+                        dsOrder.setModUser("user1");
+                        dsOrder.setModUserId(001L);
+                        /*Integer status = orderMapper.addOrder(dsOrder);
+                        if (status > 0) {
+                            log.info("添加订单信息成功！");
+                        } else {
+                            throw new RuntimeException("添加订单信息失败！");
+                        }*/
                         log.debug("pay_info : " + pay_info);
                         res = "ok";
                     }
@@ -124,6 +171,7 @@ public class GateWayService {
         if ("ok".equals(res)) {
             result.put("status", "200");
             result.put("pay_info", pay_info);
+
         } else {
             result.put("status", "500");
             result.put("msg", res);
@@ -151,7 +199,7 @@ public class GateWayService {
         map.put("mch_id", viewForm.getMch_id());
         map.put("out_trade_no", viewForm.getOut_trade_no());
 //        String key = SwiftpassConfig.key;
-        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
+        String reqUrl = "https://pay.spdb.swiftpass.cn/pay/gateway";
         map.put("nonce_str", viewForm.getNonce_str());
 
         Map<String, String> params = SignUtils.paraFilter(map);
@@ -243,7 +291,7 @@ public class GateWayService {
         map.put("sign_type", sign_type);
         map.put("out_trade_no", "162719924935378");
         String key = "9d101c97133837e13dde2d32a5054abb";
-        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
+        String reqUrl = "https://pay.spdb.swiftpass.cn/pay/gateway";
         map.put("mch_id", "7551000001");
         map.put("nonce_str", String.valueOf(LocalDateTime.now()));
 
@@ -321,7 +369,7 @@ public class GateWayService {
         map.put("refund_fee", "1000");
         map.put("out_refund_no", "1512318564311");
         String key = "9d101c97133837e13dde2d32a5054abb";
-        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
+        String reqUrl = "https://pay.spdb.swiftpass.cn/pay/gateway";
         map.put("mch_id", "7551000001");
         map.put("op_user_id", "7551000001");
         map.put("nonce_str", "1553238268281");

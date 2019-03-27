@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 报名
+ *
  *
  * @author:HuMin Date:2019/3/1
  * Time:15:25

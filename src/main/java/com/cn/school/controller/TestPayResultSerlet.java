@@ -46,7 +46,7 @@ public class TestPayResultSerlet extends HttpServlet {
                 String res = XmlUtils.toXml(map);
                 log.debug("请求结果：" + res);
                 if (map.containsKey("sign")) {
-                    if (!SignUtils.checkParam(map, "9d101c97133837e13dde2d32a5054abb ")) {
+                    if (!SignUtils.checkParam(map, "dd98f6da540f7038d0b78d393079838a ")) {
                         res = "验证签名不通过";
                         respString = "验证签名不通过";
                     } else {

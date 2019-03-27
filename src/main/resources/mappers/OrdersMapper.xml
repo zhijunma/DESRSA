@@ -74,32 +74,5 @@
                 #{dsOrder.modTime}
             );
     </insert>
-    <!--查看订单信息（根据guid）-->
-    <select id="getStudent" resultType="com.cn.school.entity.DSOrder">
-        SELECT
-        user_name AS userName,
-        mobile_phone AS mobilePhone,
-        id_card AS idCard,
-        status AS status,
-        add_user_id AS addUserId,
-        add_user AS addUser,
-        add_time AS addTime,
-        mod_user_id AS modUserId,
-        mod_user AS modUser,
-        mod_time AS modTime,
-        delete_flag AS deleteFlag
-        FROM
-        driver_school_order
-        where delete_flag=FALSE
-        <if test="dsStudents.idCard != null and '' != dsStudents.idCard">
-            AND id_card=#{dsStudents.idCard}
-        </if>
-        <if test="dsStudents.guid != null and '' != dsStudents.guid">
-            and guid=#{dsStudents.guid}
-        </if>
-        <if test="dsStudents.userName != null and '' != dsStudents.userName">
-            AND user_name=#{dsStudents.userName}
-        </if>
-    </select>
 
 </mapper>
