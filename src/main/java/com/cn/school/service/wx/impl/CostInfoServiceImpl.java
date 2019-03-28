@@ -23,7 +23,7 @@ public class CostInfoServiceImpl implements CostInfoService {
     private CostInfoMapper costInfoMapper;
 
     /**
-     * 学员报名
+     * 报名费用查询
      *
      * @param viewForm
      * @return
@@ -36,7 +36,8 @@ public class CostInfoServiceImpl implements CostInfoService {
         if (!list.isEmpty()) {
             list.forEach(e -> {
                 GetCostInfoVO Info = new GetCostInfoVO();
-                //驾照登记
+                Info.setGuid(e.getGuid());
+                //驾照等级
                 Info.setDriverLevel(e.getDriverLevel());
                 //金额
                 Info.setDriverMoney(e.getDriverMoney());

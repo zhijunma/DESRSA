@@ -4,7 +4,7 @@ import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.stagesmanage.*;
 import com.cn.school.dto.info.vo.GetStagesInfoVO;
 import com.cn.school.entity.DSStagesItem;
-import com.cn.school.entity.DSstages;
+import com.cn.school.entity.DSStages;
 import com.cn.school.mapper.web.StagesManageMapper;
 import com.cn.school.service.web.StagesManageService;
 import com.cn.school.utils.response.RestResponse;
@@ -39,7 +39,7 @@ public class StagesManageServiceImpl implements StagesManageService {
         //权限判断
         roleCheck(viewForm.getCurrRole());
         //主表
-        DSstages dsStages = new DSstages();
+        DSStages dsStages = new DSStages();
         //分期活动名称
         dsStages.setName(viewForm.getName());
         //分期活动期次
@@ -131,7 +131,7 @@ public class StagesManageServiceImpl implements StagesManageService {
     public RestResponse updateStages(UpStagesViewForm viewForm) {
         //权限判断
         roleCheck(viewForm.getCurrRole());
-        DSstages dSstages = new DSstages();
+        DSStages dSstages = new DSStages();
         //入参 guid
         dSstages.setGuid(viewForm.getGuid());
         //入参 要修改的东西
@@ -238,11 +238,11 @@ public class StagesManageServiceImpl implements StagesManageService {
         //权限验证
         roleCheck(viewForm.getCurrRole());
 
-        DSstages dSstages = new DSstages();
+        DSStages dSstages = new DSStages();
         //入参 可有可无
         dSstages.setStatus(viewForm.getStatus());
         //获取信息存入list
-        List<DSstages> reDsStages = stagesManageMapper.getStagesList(dSstages);
+        List<DSStages> reDsStages = stagesManageMapper.getStagesList(dSstages);
         List<GetStagesInfoVO> getStagesInfoVOList = new ArrayList<>(16);
         //缓存信息到VO中
         reDsStages.forEach(e -> {
@@ -252,12 +252,6 @@ public class StagesManageServiceImpl implements StagesManageService {
             getStagesInfoVO.setIssues(e.getIssues());
             getStagesInfoVO.setStatus(e.getStatus());
             getStagesInfoVO.setMoney(e.getMoney());
-            getStagesInfoVO.setAddUser(e.getAddUser());
-            getStagesInfoVO.setAddUserId(e.getAddUserId());
-            getStagesInfoVO.setAddTime(e.getAddTime());
-            getStagesInfoVO.setModUser(e.getModUser());
-            getStagesInfoVO.setModUserId(e.getModUserId());
-            getStagesInfoVO.setModTime(e.getModTime());
             //将缓存的信息放入list中
             getStagesInfoVOList.add(getStagesInfoVO);
         });
@@ -275,11 +269,11 @@ public class StagesManageServiceImpl implements StagesManageService {
     public RestResponse getStagesInfo(GetStagesViewForm getStagesViewForm) {
         //权限判断
  //       roleCheck(getStagesViewForm.getCurrRole());
-        DSstages dSstages = new DSstages();
+        DSStages dSstages = new DSStages();
         //入参
         dSstages.setGuid(getStagesViewForm.getGuid());
         dSstages.setName(getStagesViewForm.getName());
-        DSstages stages = stagesManageMapper.getStagesInfo(dSstages);
+        DSStages stages = stagesManageMapper.getStagesInfo(dSstages);
         GetStagesInfoVO getStagesInfoVO = new GetStagesInfoVO();
         //缓存信息
         getStagesInfoVO.setGuid(stages.getGuid());
@@ -287,12 +281,6 @@ public class StagesManageServiceImpl implements StagesManageService {
         getStagesInfoVO.setIssues(stages.getIssues());
         getStagesInfoVO.setStatus(stages.getStatus());
         getStagesInfoVO.setMoney(stages.getMoney());
-        getStagesInfoVO.setAddUser(stages.getAddUser());
-        getStagesInfoVO.setAddUserId(stages.getAddUserId());
-        getStagesInfoVO.setAddTime(stages.getAddTime());
-        getStagesInfoVO.setModUser(stages.getModUser());
-        getStagesInfoVO.setModUserId(stages.getModUserId());
-        getStagesInfoVO.setModTime(stages.getModTime());
         //返回信息
         return RestResponse.success(getStagesInfoVO);
     }

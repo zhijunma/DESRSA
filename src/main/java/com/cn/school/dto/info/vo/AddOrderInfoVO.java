@@ -1,10 +1,11 @@
 package com.cn.school.dto.info.vo;
 
-import com.cn.school.dto.forms.auth.UserContextViewForm;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-public class AddOrderInfoVO extends UserContextViewForm {
+@Data
+public class AddOrderInfoVO {
     /**
      * 接口类型
      */
@@ -54,7 +55,7 @@ public class AddOrderInfoVO extends UserContextViewForm {
      */
     private String body;
     /**
-     *用户openid
+     * 用户openid
      */
     private String subOpenid;
     /**
@@ -70,7 +71,7 @@ public class AddOrderInfoVO extends UserContextViewForm {
      */
     private String totalFee;
     /**
-     *电子发票
+     * 电子发票
      */
     private String needReceipt;
     /**

@@ -10,12 +10,16 @@ import java.time.LocalDateTime;
  * Time:20:12
  */
 @Data
-public class DSstages {
+public class DSStages {
 
     /**
      * guid
      */
     private Long guid;
+    /**
+     * 驾照等级
+     */
+    private Long costId;
     /**
      * 分期活动名称
      */

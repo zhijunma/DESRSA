@@ -3,6 +3,7 @@
 <mapper namespace="com.cn.school.mapper.wx.CostInfoMapper">
     <select id="getCostInfoList" resultType="com.cn.school.entity.DSCostInfo">
         SELECT
+            guid,
             driver_level AS driverLevel,
             driver_money AS driverMoney
         FROM

@@ -12,6 +12,11 @@ import java.math.BigDecimal;
 public class GetCostInfoVO {
 
     /**
+     * guid
+     */
+    private Long guid;
+
+    /**
      * 驾照类型（等级）
      */
     private String driverLevel;

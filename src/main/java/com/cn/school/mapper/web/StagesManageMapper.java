@@ -2,7 +2,7 @@ package com.cn.school.mapper.web;
 
 
 import com.cn.school.entity.DSStagesItem;
-import com.cn.school.entity.DSstages;
+import com.cn.school.entity.DSStages;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ public interface StagesManageMapper {
      * @param dSstages
      * @return
      */
-    Long addStages(@Param("dSstages") DSstages dSstages);
+    Long addStages(@Param("dSstages") DSStages dSstages);
 
     /**
      * 添加分期活动子表
@@ -57,7 +57,7 @@ public interface StagesManageMapper {
      * @param dSstages
      * @return
      */
-    Integer updateStages(@Param("dSstages") DSstages dSstages);
+    Integer updateStages(@Param("dSstages") DSStages dSstages);
 
     /**
      * 移除分期优惠子表
@@ -65,7 +65,7 @@ public interface StagesManageMapper {
      * @param dSstages
      * @return
      */
-    Integer moveStagesItem(@Param("dSstages") DSstages dSstages);
+    Integer moveStagesItem(@Param("dSstages") DSStages dSstages);
 
     /**
      * 启用分期活动
@@ -92,7 +92,7 @@ public interface StagesManageMapper {
      * @param dSstages
      * @return
      */
-    List getStagesList(@Param("dSstages") DSstages dSstages);
+    List getStagesList(@Param("dSstages") DSStages dSstages);
 
     /**
      * 查询分期活动详情
@@ -101,6 +101,6 @@ public interface StagesManageMapper {
      * @param dSstages
      * @return
      */
-    DSstages getStagesInfo(@Param("dSstages") DSstages dSstages);
+    DSStages getStagesInfo(@Param("dSstages") DSStages dSstages);
 
 }

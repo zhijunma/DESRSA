@@ -27,7 +27,7 @@ public class CostinfoController {
     private CostInfoService costInfoService;
 
     /**
-     * 报名
+     * 报名费用查询
      *
      * @return
      */

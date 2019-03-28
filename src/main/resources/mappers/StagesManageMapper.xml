@@ -129,7 +129,7 @@
         and delete_flag = false
     </update>
     <!--查看分期活动详情（根据guid，name）-->
-    <select id="getStagesInfo" resultType="com.cn.school.entity.DSstages">
+    <select id="getStagesInfo" resultType="com.cn.school.entity.DSStages">
         SELECT
         guid as guid,
         name as name,
@@ -156,7 +156,7 @@
         </if>
     </select>
     <!--分期信息一览L-->
-    <select id="getStagesList" resultType="com.cn.school.entity.DSstages">
+    <select id="getStagesList" resultType="com.cn.school.entity.DSStages">
         SELECT
         guid as guid,
         name as name,

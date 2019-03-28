@@ -1,10 +1,9 @@
 package com.cn.school.dto.info.vo;
 
-import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 @Data
-public class GetCoachInfoVO extends UserContextViewForm {
+public class GetCoachInfoVO {
     /**
      * 主键id
      */

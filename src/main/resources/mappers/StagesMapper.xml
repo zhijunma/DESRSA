@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.wx.StagesMapper">
+
+    <select id="getStagesListByCost" resultType="com.cn.school.entity.DSStages">
+        SELECT
+            guid,
+            cost_id AS costId,
+            name,
+            issues,
+            money
+        FROM
+            driver_school_stages
+        WHERE
+            cost_id = #{costId}
+        AND status = 1
+        AND delete_flag = FALSE
+    </select>
+    <select id="getStagesInfoByGuid" resultType="com.cn.school.entity.DSStagesItem">
+
+        SELECT
+            guid,
+            stage_guid as stageGuid,
+            repay_amount as repayAmount,
+            Repay_issue as repayIssue
+        FROM
+            driver_school_stages_item
+        WHERE
+            stage_guid = #{guid}
+        AND delete_flag = FALSE
+
+    </select>
+</mapper>

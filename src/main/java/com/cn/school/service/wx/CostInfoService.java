@@ -10,7 +10,7 @@ import com.cn.school.utils.response.RestResponse;
 public interface CostInfoService {
 
     /**
-     * 学员报名
+     * 报名费用查询
      *
      * @param viewForm
      * @return
