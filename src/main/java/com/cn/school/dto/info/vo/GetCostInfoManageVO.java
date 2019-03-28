@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Data
 public class GetCostInfoManageVO {
 
+    private Long guid;
+
     /**
      * 驾照类型（等级）
      */

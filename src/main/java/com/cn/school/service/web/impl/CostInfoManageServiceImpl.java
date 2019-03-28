@@ -44,6 +44,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
         if (!list.isEmpty()) {
             list.forEach(e -> {
                 GetCostInfoManageVO Info = new GetCostInfoManageVO();
+                Info.setGuid(e.getGuid());
                 //驾照登记
                 Info.setDriverLevel(e.getDriverLevel());
                 //金额
@@ -65,7 +66,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse addCostInfo(AddCostManageViewForm viewForm) {
         roleCheck(viewForm.getCurrRole());
         DSCostInfo dsCostInfo = new DSCostInfo();
@@ -98,7 +99,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse updateCostInfo(UpCostManageViewForm viewForm) {
         roleCheck(viewForm.getCurrRole());
         DSCostInfo dsCostInfo = new DSCostInfo();
@@ -128,7 +129,7 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse deleteCostInfo(DelCostManageViewForm viewForm) {
         roleCheck(viewForm.getCurrRole());
         List<Long> guidList = viewForm.getGuidList();

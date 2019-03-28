@@ -55,6 +55,7 @@
 
     <select id="getCostInfoList" resultType="com.cn.school.entity.DSCostInfo">
         SELECT
+            guid,
             driver_level AS driverLevel,
             driver_money AS driverMoney,
             add_user AS addUser,
