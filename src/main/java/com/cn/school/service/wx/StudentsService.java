@@ -1,5 +1,6 @@
 package com.cn.school.service.wx;
 
+import com.cn.school.dto.forms.students.AddInfoViewForm;
 import com.cn.school.dto.forms.students.AddStudentsViewForm;
 import com.cn.school.utils.response.RestResponse;
 
@@ -16,4 +17,12 @@ public interface StudentsService {
      * @return
      */
     RestResponse addStudents(AddStudentsViewForm viewForm);
+
+    /**
+     * 添加报名信息
+     *
+     * @param viewForm
+     * @return
+     */
+    RestResponse addInfo(AddInfoViewForm viewForm);
 }

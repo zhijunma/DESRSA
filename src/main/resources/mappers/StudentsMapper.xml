@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.school.mapper.wx.StudentsMapper">
     <insert id="addStudents">
+
+        <selectKey keyProperty="po.guid" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO driver_school_students (
             user_name,
             mobile_phone,
@@ -30,4 +34,17 @@
                 #{po.deleteFlag}
             );
     </insert>
+
+    <update id="updateStudentInfo">
+        UPDATE driver_school_students
+            SET driver_level = #{po.driverLevel},
+            payable = #{po.payable},
+            mod_user_id=#{po.modUserId},
+            mod_user=#{po.modUser},
+            mod_time=#{po.modTime}
+            WHERE
+                guid = #{po.guid}
+            AND delete_flag = FALSE
+    </update>
+
 </mapper>

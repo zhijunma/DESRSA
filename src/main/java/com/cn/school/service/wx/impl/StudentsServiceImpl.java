@@ -1,6 +1,7 @@
 package com.cn.school.service.wx.impl;
 
 import com.cn.school.dto.forms.ComSendCodeViewForm;
+import com.cn.school.dto.forms.students.AddInfoViewForm;
 import com.cn.school.dto.forms.students.AddStudentsViewForm;
 import com.cn.school.entity.DSStudents;
 import com.cn.school.mapper.wx.StudentsMapper;
@@ -33,7 +34,7 @@ public class StudentsServiceImpl implements StudentsService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse addStudents(AddStudentsViewForm viewForm) {
 
         ComSendCodeViewForm comSendCodeViewForm = new ComSendCodeViewForm();
@@ -62,9 +63,35 @@ public class StudentsServiceImpl implements StudentsService {
         dsStudents.setModUserId(0L);
         Integer num = studentsMapper.addStudents(dsStudents);
         if (num > 0) {
-            return RestResponse.success("报名成功");
+            return RestResponse.success(dsStudents.getGuid());
         } else {
             throw new RuntimeException("报名失败");
+
+        }
+
+    }
+
+    /**
+     * 添加报名信息
+     *
+     * @param viewForm
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
+    public RestResponse addInfo(AddInfoViewForm viewForm) {
+
+        DSStudents dsStudents = new DSStudents();
+        dsStudents.setDriverLevel(viewForm.getDriverLevel());
+        dsStudents.setPayable(viewForm.getPayable());
+        dsStudents.setModTime(LocalDateTime.now());
+        dsStudents.setModUser("self");
+        dsStudents.setModUserId(0L);
+        Integer num = studentsMapper.updateStudentInfo(dsStudents);
+        if (num > 0) {
+            return RestResponse.success("添加成功");
+        } else {
+            throw new RuntimeException("添加失败");
 
         }
 

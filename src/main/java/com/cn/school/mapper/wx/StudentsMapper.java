@@ -21,4 +21,10 @@ public interface StudentsMapper {
      */
     Integer addStudents(@Param("po") DSStudents dsStudents);
 
+    /**
+     * 添加报名信息
+     * @param dsStudents
+     * @return
+     */
+    Integer updateStudentInfo(@Param("po") DSStudents dsStudents);
 }

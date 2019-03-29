@@ -1,5 +1,6 @@
 package com.cn.school.controller.wx;
 
+import com.cn.school.dto.forms.students.AddInfoViewForm;
 import com.cn.school.dto.forms.students.AddStudentsViewForm;
 import com.cn.school.service.wx.StudentsService;
 import com.cn.school.utils.request.RestRequest;
@@ -41,6 +42,18 @@ public class StudentsController {
     public RestResponse register(@Validated @RequestBody RestRequest<AddStudentsViewForm> request) {
         AddStudentsViewForm viewForm = request.getBody();
         return studentsService.addStudents(viewForm);
+    }
+
+    /**
+     * 添加报名信息
+     *
+     * @return
+     */
+    @PostMapping(value = "/addInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public RestResponse addInfo(@Validated @RequestBody RestRequest<AddInfoViewForm> request) {
+        AddInfoViewForm viewForm = request.getBody();
+        return studentsService.addInfo(viewForm);
     }
 
     @RequestMapping("loginInit.do")
