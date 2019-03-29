@@ -105,8 +105,8 @@ public class StagesManageController {
      * @return
      */
     @PostMapping(value = "/getStagesInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RestResponse getStagesInfo(@RequestBody @Validated RestRequest<GetStagesViewForm> request) {
-        GetStagesViewForm viewForm = request.getBody();
+    public RestResponse getStagesInfo(@RequestBody @Validated RestRequest<GetStagesInfoViewForm> request) {
+        GetStagesInfoViewForm viewForm = request.getBody();
         return stagesManageService.getStagesInfo(viewForm);
     }
 }

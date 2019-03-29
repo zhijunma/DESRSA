@@ -11,5 +11,5 @@ public class GetStagesListViewForm {
     /**
      * 驾照类型
      */
-    private Long cosId;
+    private Long costId;
 }

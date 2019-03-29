@@ -3,8 +3,8 @@ package com.cn.school.service.web.impl;
 import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.stagesmanage.*;
 import com.cn.school.dto.info.vo.GetStagesInfoVO;
-import com.cn.school.entity.DSStagesItem;
 import com.cn.school.entity.DSStages;
+import com.cn.school.entity.DSStagesItem;
 import com.cn.school.mapper.web.StagesManageMapper;
 import com.cn.school.service.web.StagesManageService;
 import com.cn.school.utils.response.RestResponse;
@@ -34,7 +34,7 @@ public class StagesManageServiceImpl implements StagesManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse addStages(AddStagesViewForm viewForm) {
         //权限判断
         roleCheck(viewForm.getCurrRole());
@@ -44,8 +44,6 @@ public class StagesManageServiceImpl implements StagesManageService {
         dsStages.setName(viewForm.getName());
         //分期活动期次
         dsStages.setIssues(viewForm.getIssues());
-        //分期活动金额
-        dsStages.setMoney(viewForm.getMoney());
         //状态（添加不启用）
         dsStages.setStatus(Constant.STATUS_FALSE);
         //添加人
@@ -99,7 +97,7 @@ public class StagesManageServiceImpl implements StagesManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse deleteStages(StagesViewForm viewForm) {
         //权限判断
         roleCheck(viewForm.getCurrRole());
@@ -127,7 +125,7 @@ public class StagesManageServiceImpl implements StagesManageService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,timeout=30)
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse updateStages(UpStagesViewForm viewForm) {
         //权限判断
         roleCheck(viewForm.getCurrRole());
@@ -137,8 +135,6 @@ public class StagesManageServiceImpl implements StagesManageService {
         //入参 要修改的东西
         dSstages.setIssues(viewForm.getIssues());
         dSstages.setName(viewForm.getName());
-        //分期活动金额
-        dSstages.setMoney(viewForm.getMoney());
         //修改人信息
         dSstages.setModUser(viewForm.getCurrName());
         dSstages.setModUserId(viewForm.getCurrId());
@@ -241,6 +237,8 @@ public class StagesManageServiceImpl implements StagesManageService {
         DSStages dSstages = new DSStages();
         //入参 可有可无
         dSstages.setStatus(viewForm.getStatus());
+
+        dSstages.setCostId(viewForm.getCostId());
         //获取信息存入list
         List<DSStages> reDsStages = stagesManageMapper.getStagesList(dSstages);
         List<GetStagesInfoVO> getStagesInfoVOList = new ArrayList<>(16);
@@ -251,7 +249,6 @@ public class StagesManageServiceImpl implements StagesManageService {
             getStagesInfoVO.setName(e.getName());
             getStagesInfoVO.setIssues(e.getIssues());
             getStagesInfoVO.setStatus(e.getStatus());
-            getStagesInfoVO.setMoney(e.getMoney());
             //将缓存的信息放入list中
             getStagesInfoVOList.add(getStagesInfoVO);
         });
@@ -262,17 +259,18 @@ public class StagesManageServiceImpl implements StagesManageService {
     /**
      * 查看分期活动详情
      * 已完成
-     * @param getStagesViewForm
+     *
+     * @param viewForm
      * @return
      */
     @Override
-    public RestResponse getStagesInfo(GetStagesViewForm getStagesViewForm) {
+    public RestResponse getStagesInfo(GetStagesInfoViewForm viewForm) {
         //权限判断
- //       roleCheck(getStagesViewForm.getCurrRole());
+        roleCheck(viewForm.getCurrRole());
         DSStages dSstages = new DSStages();
         //入参
-        dSstages.setGuid(getStagesViewForm.getGuid());
-        dSstages.setName(getStagesViewForm.getName());
+        dSstages.setGuid(viewForm.getGuid());
+        dSstages.setName(viewForm.getName());
         DSStages stages = stagesManageMapper.getStagesInfo(dSstages);
         GetStagesInfoVO getStagesInfoVO = new GetStagesInfoVO();
         //缓存信息
@@ -280,7 +278,6 @@ public class StagesManageServiceImpl implements StagesManageService {
         getStagesInfoVO.setName(stages.getName());
         getStagesInfoVO.setIssues(stages.getIssues());
         getStagesInfoVO.setStatus(stages.getStatus());
-        getStagesInfoVO.setMoney(stages.getMoney());
         //返回信息
         return RestResponse.success(getStagesInfoVO);
     }

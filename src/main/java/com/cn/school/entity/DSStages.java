@@ -2,7 +2,6 @@ package com.cn.school.entity;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -29,11 +28,6 @@ public class DSStages {
      * 分期活动名称
      */
     private Integer issues;
-
-    /**
-     * 分期活动金额
-     */
-    private BigDecimal money;
 
     /**
      * 状态

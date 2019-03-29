@@ -8,6 +8,7 @@ import com.cn.school.dto.forms.costinfomanage.UpCostManageViewForm;
 import com.cn.school.dto.info.vo.GetCostInfoManageVO;
 import com.cn.school.entity.DSCostInfo;
 import com.cn.school.mapper.web.CostInfoManageMapper;
+import com.cn.school.mapper.web.StagesManageMapper;
 import com.cn.school.service.web.CostInfoManageService;
 import com.cn.school.utils.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,8 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
 
     @Autowired
     private CostInfoManageMapper costInfoManageMapper;
+    @Autowired
+    private StagesManageMapper stagesManageMapper;
 
     /**
      * 获取报名信息list
@@ -138,6 +141,9 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
         if (num <= 0) {
             throw new RuntimeException("删除失败");
         }
+        stagesManageMapper.deleteStagesByCostId(guidList,viewForm.getCurrId(), viewForm.getCurrName());
+        List<Long> stagesList = stagesManageMapper.getStagesIdByCostId(guidList);
+        stagesManageMapper.deleteStages(stagesList, viewForm.getCurrId(), viewForm.getCurrName());
         return RestResponse.success("删除成功");
     }
 

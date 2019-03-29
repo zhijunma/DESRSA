@@ -65,5 +65,5 @@ public interface StagesManageService {
      * @param viewForm
      * @return
      */
-    RestResponse getStagesInfo(GetStagesViewForm viewForm);
+    RestResponse getStagesInfo(GetStagesInfoViewForm viewForm);
 }

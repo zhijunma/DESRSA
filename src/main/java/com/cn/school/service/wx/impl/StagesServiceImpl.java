@@ -36,12 +36,11 @@ public class StagesServiceImpl implements StagesService {
     @Override
     public RestResponse getStagesListByCost(GetStagesListViewForm viewForm) {
         List<GetStagesListByCostVO> voList = new ArrayList<>(16);
-        List<DSStages> list = stagesMapper.getStagesListByCost(viewForm.getCosId());
+        List<DSStages> list = stagesMapper.getStagesListByCost(viewForm.getCostId());
         list.forEach(e -> {
             GetStagesListByCostVO getStagesListByCostVO = new GetStagesListByCostVO();
             getStagesListByCostVO.setGuid(e.getGuid());
             getStagesListByCostVO.setCostId(e.getCostId());
-            getStagesListByCostVO.setMoney(e.getMoney());
             getStagesListByCostVO.setIssues(e.getIssues());
             getStagesListByCostVO.setName(e.getName());
             voList.add(getStagesListByCostVO);

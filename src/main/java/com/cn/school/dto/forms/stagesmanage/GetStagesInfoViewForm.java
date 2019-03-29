@@ -8,13 +8,15 @@ import lombok.Data;
  * Time:19:49
  */
 @Data
-public class GetStagesViewForm extends UserContextViewForm {
+public class GetStagesInfoViewForm extends UserContextViewForm {
 
     /**
-     * 状态
+     * guid
      */
-    private Integer status;
+    private Long guid;
 
-
-    private Long costId;
+    /**
+     * name
+     */
+    private String name;
 }

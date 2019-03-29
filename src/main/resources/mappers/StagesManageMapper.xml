@@ -135,7 +135,6 @@
         name as name,
         issues as issues,
         status AS status,
-        money as money,
         add_user_id AS addUserId,
         add_user AS addUser,
         add_time AS addTime,
@@ -156,20 +155,12 @@
         </if>
     </select>
     <!--分期信息一览L-->
-    <select id="getStagesList" resultType="com.cn.school.entity.DSStages">
+    <select id="getStagesList" resultType="java.util.List">
         SELECT
         guid as guid,
         name as name,
         issues as issues,
         status AS status,
-        money as money,
-        add_user_id AS addUserId,
-        add_user AS addUser,
-        add_time AS addTime,
-        mod_user_id AS modUserId,
-        mod_user AS modUser,
-        mod_time AS modTime,
-        delete_flag AS deleteFlag
         FROM
         driver_school_stages
         where
@@ -177,6 +168,24 @@
         <if test="dSstages.status != null and '' != dSstages.status">
             and status = #{dSstages.status}
         </if>
+        <if test="dSstages.costId != null and '' != dSstages.costId">
+            and cost_id = #{dSstages.costId}
+        </if>
+    </select>
+    <!--根据costid 获取分期id-->
+    <select id="getStagesIdByCostId" resultType="java.lang.Long">
+
+        SELECT
+            guid
+        FROM
+            driver_school_stages
+        WHERE
+            cost_id in
+            <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+            </foreach>
+        AND delete_flag = FALSE
+
     </select>
     <!--修改主表-->
     <update id="updateStages">
@@ -198,6 +207,19 @@
         from driver_school_stages_item
         where
         stage_guid = #{dSstages.guid}
+    </delete>
+    <delete id="deleteStagesByCostId">
+        update driver_school_stages
+        set
+        delete_flag = true ,
+        mod_user_id = #{modUserId},
+        mod_user = #{modUser},
+        mod_time = now()
+        where delete_flag = false
+        and cost_id in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
     </delete>
 
 </mapper>

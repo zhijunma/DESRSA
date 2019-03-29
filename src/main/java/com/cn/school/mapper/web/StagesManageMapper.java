@@ -1,8 +1,8 @@
 package com.cn.school.mapper.web;
 
 
-import com.cn.school.entity.DSStagesItem;
 import com.cn.school.entity.DSStages;
+import com.cn.school.entity.DSStagesItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -69,6 +69,7 @@ public interface StagesManageMapper {
 
     /**
      * 启用分期活动
+     *
      * @param list
      * @param modUserId
      * @param modUser
@@ -78,6 +79,7 @@ public interface StagesManageMapper {
 
     /**
      * 停用分期活动
+     *
      * @param list
      * @param modUserId
      * @param modUser
@@ -102,5 +104,23 @@ public interface StagesManageMapper {
      * @return
      */
     DSStages getStagesInfo(@Param("dSstages") DSStages dSstages);
+
+    /**
+     * 根据costId 删除分期活动主表
+     *
+     * @param costIdList
+     * @param modUserId
+     * @param modUser
+     * @return
+     */
+    Integer deleteStagesByCostId(@Param("list") List<Long> costIdList, @Param("modUserId") Long modUserId, @Param("modUser") String modUser);
+
+    /**
+     * 根据costid 获取分期id
+     *
+     * @param guidList
+     * @return
+     */
+    List<Long> getStagesIdByCostId(@Param("list") List<Long> guidList);
 
 }
