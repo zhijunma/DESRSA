@@ -33,7 +33,7 @@ public class OrdersManageController {
      * @return
      */
     @PostMapping(value = "/getOrders")
-    public List getOrders(@RequestBody @Validated RestRequest<GetOrdersViewForm> request) {
+    public RestResponse getOrders(@RequestBody @Validated RestRequest<GetOrdersViewForm> request) {
         GetOrdersViewForm viewForm = request.getBody();
         return orderManageService.getOrders(viewForm);
     }

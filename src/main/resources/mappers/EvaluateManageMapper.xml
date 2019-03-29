@@ -72,4 +72,17 @@
         where show_flag = 1
         AND delete_flag=FALSE
     </select>
+    <!-- 学员查看评价与投诉详细 -->
+    <select id="getEvaluate" resultType="com.cn.school.entity.DSEvaluate">
+        SELECT
+        comments as comments,
+        add_user AS addUser,
+        add_time AS addTime,
+        score as score
+        FROM
+        driver_school_evaluate
+        where show_flag = 1
+        AND add_user = #{dsEvaluate.addUser}
+        AND delete_flag=FALSE
+    </select>
 </mapper>

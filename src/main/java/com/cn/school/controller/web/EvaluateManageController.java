@@ -46,11 +46,21 @@ public class EvaluateManageController {
      * @return
      */
     @PostMapping(value = "/getEvaluates")
-    public List getEvaluates(@RequestBody @Validated RestRequest<GetEvaluateViewForm> request) {
+    public RestResponse getEvaluates(@RequestBody @Validated RestRequest<GetEvaluateViewForm> request) {
         GetEvaluateViewForm viewForm = request.getBody();
         return evaluateManageService.getEvaluates(viewForm);
     }
-
+    /**
+     * 管理员查看评价与投诉详细
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/getEvaluate")
+    public RestResponse getEvaluate(@RequestBody @Validated RestRequest<GetEvaluateViewForm> request) {
+        GetEvaluateViewForm viewForm = request.getBody();
+        return evaluateManageService.getEvaluate(viewForm);
+    }
     /**
      * 学员添加评价与投诉
      * @param request
@@ -67,7 +77,7 @@ public class EvaluateManageController {
      * @return
      */
     @PostMapping(value = "/stuGetEvaluates")
-    public List stuGetEvaluates() {
+    public RestResponse stuGetEvaluates() {
         return evaluateManageService.stuGetEvaluates();
     }
 

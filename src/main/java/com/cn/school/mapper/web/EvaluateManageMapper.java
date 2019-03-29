@@ -25,6 +25,12 @@ public interface EvaluateManageMapper {
      * @return
      */
     List<DSEvaluate> getEvaluates(@Param("dsEvaluate") DSEvaluate dsEvaluate);
+    /**
+     *管理员查看评价与投诉详细
+     * @param dsEvaluate
+     * @return
+     */
+    List<DSEvaluate> getEvaluate(@Param("dsEvaluate") DSEvaluate dsEvaluate);
 
     /**
      *学员添加评价与投诉

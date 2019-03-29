@@ -19,12 +19,19 @@ public interface EvaluateManageService {
     RestResponse deleteEvaluate(DeleteEvaluateViewForm deleteEvaluateViewForm);
 
     /**
-     * 管理员查看评价与投诉
+     * 管理员一览评价与投诉
      *
      * @param getEvaluateViewForm
      * @return
      */
-    List getEvaluates(GetEvaluateViewForm getEvaluateViewForm);
+    RestResponse getEvaluates(GetEvaluateViewForm getEvaluateViewForm);
+    /**
+     * 管理员一览评价与投诉
+     *
+     * @param getEvaluateViewForm
+     * @return
+     */
+    RestResponse getEvaluate(GetEvaluateViewForm getEvaluateViewForm);
 
     /**
      * 学员添加评价与投诉
@@ -37,6 +44,6 @@ public interface EvaluateManageService {
      * 学员查看评价与投诉
      * @return
      */
-    List stuGetEvaluates();
+    RestResponse stuGetEvaluates();
 
 }

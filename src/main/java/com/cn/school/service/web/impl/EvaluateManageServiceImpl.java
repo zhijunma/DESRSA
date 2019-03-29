@@ -59,7 +59,7 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
      * @return
      */
     @Override
-    public List getEvaluates(GetEvaluateViewForm evaluateViewForm) {
+    public RestResponse getEvaluates(GetEvaluateViewForm evaluateViewForm) {
         //权限判断
         roleCheck(evaluateViewForm.getCurrRole());
         DSEvaluate dsEvaluate = new DSEvaluate();
@@ -82,9 +82,34 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
             getEvaluateInfoVO.setComments(e.getComments());
             getEvaluateInfoVOList.add(getEvaluateInfoVO);
         });
-        return getEvaluateInfoVOList;
+        return RestResponse.success(getEvaluateInfoVOList) ;
     }
-
+    /**
+     * 管理员查看评价与投诉详细
+     * @param evaluateViewForm
+     * @return
+     */
+    @Override
+    public RestResponse getEvaluate(GetEvaluateViewForm evaluateViewForm) {
+        //权限判断
+        roleCheck(evaluateViewForm.getCurrRole());
+        DSEvaluate dsEvaluate = new DSEvaluate();
+        dsEvaluate.setAddUser(evaluateViewForm.getAddUser());
+        //执行查询操作并将搜查到的信息放入List中
+        List<DSEvaluate> reDSEva = evaluateManageMapper.getEvaluate(dsEvaluate);
+        List<GetEvaluateInfoVO> getEvaluateInfoVOList = new ArrayList<>(16);
+        //遍历List缓存到getEvaluateInfoVOList中
+        reDSEva.forEach(e -> {
+            GetEvaluateInfoVO getEvaluateInfoVO = new GetEvaluateInfoVO();
+            getEvaluateInfoVO.setGuid(e.getGuid());
+            getEvaluateInfoVO.setAddUser(e.getAddUser());
+            getEvaluateInfoVO.setAddTime(e.getAddTime());
+            getEvaluateInfoVO.setScore(e.getScore());
+            getEvaluateInfoVO.setComments(e.getComments());
+            getEvaluateInfoVOList.add(getEvaluateInfoVO);
+        });
+        return RestResponse.success(getEvaluateInfoVOList) ;
+    }
     /**
      * 学员添加评价与投诉
      * @param addEvaluateViewForm
@@ -114,11 +139,11 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
         }
     }
     /**
-     * 学员查看评价与投诉
+     * 学员一览评价与投诉
      * @return
      */
     @Override
-    public List stuGetEvaluates() {
+    public RestResponse stuGetEvaluates() {
         //获取评价与投诉信息并缓存
         List<DSEvaluate> reDSEva = evaluateManageMapper.stuGetEvaluates();
         List<StuGetEvaluateInfoVO> getEvaluateInfoVOList = new ArrayList<>(16);
@@ -131,7 +156,7 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
             getEvaluateInfoVO.setComments(e.getComments());
             getEvaluateInfoVOList.add(getEvaluateInfoVO);
         });
-        return getEvaluateInfoVOList;
+        return RestResponse.success(getEvaluateInfoVOList) ;
     }
     /**
      * 权限判断

@@ -31,7 +31,7 @@ public class OrderManageServiceImpl implements OrderManageService {
      * @return
      */
     @Override
-   public List getOrders(GetOrdersViewForm viewForm) {
+   public RestResponse getOrders(GetOrdersViewForm viewForm) {
 
         DSOrder dsOrder = new DSOrder();
         //入参 可以根据status来查询
@@ -79,7 +79,7 @@ public class OrderManageServiceImpl implements OrderManageService {
               getOrderInfoVOS.add(getOrderInfoVO);
          });
          //返回VOList中的说有数据
-         return getOrderInfoVOS;
+         return RestResponse.success(getOrderInfoVOS) ;
 
     }
     /**

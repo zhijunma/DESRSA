@@ -15,7 +15,7 @@ public interface OrderManageService {
      * @param viewForm
      * @return
      */
-    List getOrders(GetOrdersViewForm viewForm);
+    RestResponse getOrders(GetOrdersViewForm viewForm);
     /**
      * 修改订单
      * @param viewForm
