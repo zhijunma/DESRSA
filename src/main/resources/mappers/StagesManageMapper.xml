@@ -155,7 +155,7 @@
         </if>
     </select>
     <!--分期信息一览L-->
-    <select id="getStagesList" resultType="java.util.List">
+    <select id="getStagesList" resultType="com.cn.school.entity.DSStages">
         SELECT
         guid as guid,
         name as name,

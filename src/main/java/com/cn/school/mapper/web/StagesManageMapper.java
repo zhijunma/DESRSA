@@ -94,7 +94,7 @@ public interface StagesManageMapper {
      * @param dSstages
      * @return
      */
-    List getStagesList(@Param("dSstages") DSStages dSstages);
+    List<DSStages> getStagesList(@Param("dSstages") DSStages dSstages);
 
     /**
      * 查询分期活动详情
