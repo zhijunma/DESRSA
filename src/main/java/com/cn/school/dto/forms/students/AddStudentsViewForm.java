@@ -35,4 +35,6 @@ public class AddStudentsViewForm {
     @NotBlank
     @Size(min = 18, max = 18, message = "输入正确的身份证号码")
     private String idCard;
+
+
 }

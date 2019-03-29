@@ -160,7 +160,7 @@
         guid as guid,
         name as name,
         issues as issues,
-        status AS status,
+        status AS status
         FROM
         driver_school_stages
         where
