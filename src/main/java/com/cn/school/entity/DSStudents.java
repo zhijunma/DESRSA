@@ -2,6 +2,7 @@ package com.cn.school.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -30,6 +31,21 @@ public class DSStudents {
      * 身份证号
      */
     private String idCard;
+
+    /**
+     * 应缴费
+     */
+    private BigDecimal payable;
+
+    /**
+     * 已缴费
+     */
+    private BigDecimal paid;
+
+    /**
+     * 驾照等级
+     */
+    private String driverLevel;
 
     /**
      * 缴费状态  0：未交费 1 ：以缴费

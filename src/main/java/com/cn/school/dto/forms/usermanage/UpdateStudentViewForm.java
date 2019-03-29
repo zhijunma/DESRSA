@@ -29,6 +29,11 @@ public class UpdateStudentViewForm extends UserContextViewForm {
     private String idCard;
 
     /**
+     * 缴费状态  0：未交费 1 ：以缴费
+     */
+    private Integer status;
+
+    /**
      * 修改人
      */
     private Long modUserId;

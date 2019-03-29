@@ -3,6 +3,7 @@ package com.cn.school.dto.info.vo;
 import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -32,4 +33,18 @@ public class GetStudentInfoVO extends UserContextViewForm {
      */
     private Integer status;
 
+    /**
+     * 应缴费
+     */
+    private BigDecimal payable;
+
+    /**
+     * 已缴费
+     */
+    private BigDecimal paid;
+
+    /**
+     * 驾照等级
+     */
+    private String driverLevel;
 }

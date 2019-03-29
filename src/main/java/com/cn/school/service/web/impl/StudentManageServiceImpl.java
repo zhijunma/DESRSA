@@ -75,6 +75,9 @@ public class StudentManageServiceImpl implements StudentManageService {
         dsStudents.setIdCard(studentViewForm.getIdCard());
         //入参--学员修改后的电话号码
         dsStudents.setMobilePhone(studentViewForm.getMobilePhone());
+
+        //入参--学员修改后的状态
+        dsStudents.setStatus(studentViewForm.getStatus());
         //修改人信息
         dsStudents.setModUserId(studentViewForm.getCurrId());
         dsStudents.setModUser(studentViewForm.getCurrName());
@@ -112,7 +115,15 @@ public class StudentManageServiceImpl implements StudentManageService {
         getStudentInfoVO.setIdCard(student.getIdCard());
         getStudentInfoVO.setUserName(student.getUserName());
         getStudentInfoVO.setMobilePhone(student.getMobilePhone());
+        //应缴费信息
+        getStudentInfoVO.setPayable(student.getPayable());
+        //已缴费信息
+        getStudentInfoVO.setPaid(student.getPaid());
+        //驾照等级
+        getStudentInfoVO.setDriverLevel(student.getDriverLevel());
+        //状态
         getStudentInfoVO.setStatus(student.getStatus());
+
         //返回查询到的信息
         return RestResponse.success(getStudentInfoVO);
     }
@@ -147,6 +158,14 @@ public class StudentManageServiceImpl implements StudentManageService {
             getStuInfoVO.setUserName(e.getUserName());
             getStuInfoVO.setMobilePhone(e.getMobilePhone());
             getStuInfoVO.setIdCard(e.getIdCard());
+            getStuInfoVO.setStatus(e.getStatus());
+            //应缴费信息
+            getStuInfoVO.setPayable(e.getPayable());
+            //已缴费信息
+            getStuInfoVO.setPaid(e.getPaid());
+            //驾照等级
+            getStuInfoVO.setDriverLevel(e.getDriverLevel());
+            //状态
             getStuInfoVO.setStatus(e.getStatus());
             getStuInfoVOList.add(getStuInfoVO);
         });

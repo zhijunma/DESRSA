@@ -42,7 +42,7 @@ public class StudentManageController {
     }
 
     /**
-     * 修改个人信息
+     * 修改学员信息
      *
      * @param request
      * @return
@@ -54,7 +54,7 @@ public class StudentManageController {
     }
 
     /**
-     * 查看个人信息
+     * 查看学员信息
      *
      * @param request
      * @return
