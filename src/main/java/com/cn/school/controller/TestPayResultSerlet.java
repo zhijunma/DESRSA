@@ -61,7 +61,7 @@ public class TestPayResultSerlet extends HttpServlet {
                 dsOrder.setOutTradeNo(outTradeNo);
                 dsOrder.setTotalFee(totalFee);
                 DSOrder order = orderMapper.getOrder(dsOrder);
-                System.out.println("数据库里的金额" + order.getTotalFee());
+                System.out.println("数据库里的金额是：" + order.getTotalFee());
                 System.out.println("传过来的金额" + totalFee);
                 System.out.println("guidshiduoshao" + order.getGuid());
                 if (order == null) {
