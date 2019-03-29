@@ -230,7 +230,7 @@ public class StagesManageServiceImpl implements StagesManageService {
      * @return
      */
     @Override
-    public List getStagesList(GetStagesViewForm viewForm) {
+    public RestResponse getStagesList(GetStagesViewForm viewForm) {
         //权限验证
         roleCheck(viewForm.getCurrRole());
 
@@ -253,7 +253,7 @@ public class StagesManageServiceImpl implements StagesManageService {
             getStagesInfoVOList.add(getStagesInfoVO);
         });
         //返回VOList中的说有数据
-        return getStagesInfoVOList;
+        return RestResponse.success(getStagesInfoVOList);
     }
 
     /**

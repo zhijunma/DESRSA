@@ -93,7 +93,7 @@ public class StagesManageController {
      * @return
      */
     @PostMapping(value = "/getStagesList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List getStagesList(@RequestBody @Validated RestRequest<GetStagesViewForm> request) {
+    public RestResponse getStagesList(@RequestBody @Validated RestRequest<GetStagesViewForm> request) {
         GetStagesViewForm viewForm = request.getBody();
         return stagesManageService.getStagesList(viewForm);
     }

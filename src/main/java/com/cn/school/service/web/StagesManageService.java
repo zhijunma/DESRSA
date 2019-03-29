@@ -57,7 +57,7 @@ public interface StagesManageService {
      * @param viewForm
      * @return
      */
-    List getStagesList(GetStagesViewForm viewForm);
+    RestResponse getStagesList(GetStagesViewForm viewForm);
 
     /**
      * 查询分期活动详情
