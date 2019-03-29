@@ -119,7 +119,7 @@ public class GateWayService {
                 } else {
                     if ("0".equals(resultMap.get("status")) && "0".equals(resultMap.get("result_code"))) {
                         pay_info = resultMap.get("pay_info");
-                        //订单信息入库
+                        // TODO 订单信息入库
                         DSOrder dsOrder = new DSOrder();
                         dsOrder.setService("pay.weixin.jspay");
                         dsOrder.setVersion(version);
@@ -137,18 +137,19 @@ public class GateWayService {
                         dsOrder.setNotifyUrl("http://a.hmds.cn/pay/notification");
                         dsOrder.setNonceStr(nonceStr);
                         dsOrder.setSign(sign);
+                        dsOrder.setStatus(0);
                         dsOrder.setAddTime(LocalDateTime.now());
                         dsOrder.setAddUser("user1");
                         dsOrder.setAddUserId(001L);
                         dsOrder.setModTime(LocalDateTime.now());
                         dsOrder.setModUser("user1");
                         dsOrder.setModUserId(001L);
-                        /*Integer status = orderMapper.addOrder(dsOrder);
+                        Integer status = orderMapper.addOrder(dsOrder);
                         if (status > 0) {
                             log.info("添加订单信息成功！");
                         } else {
                             throw new RuntimeException("添加订单信息失败！");
-                        }*/
+                        }
                         log.debug("pay_info : " + pay_info);
                         res = "ok";
                     }

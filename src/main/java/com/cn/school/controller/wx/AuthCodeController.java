@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ *
  * @Author: leiyunlong
  * @Date: 2019/3/26 18:51
  * @Version 1.0
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthCodeController {
     @Autowired
     private RedisUtil redisUtil;
-    ;
+
     @Autowired
     private AuthCodeService authCodeService;
 

@@ -74,5 +74,59 @@
                 #{dsOrder.modTime}
             );
     </insert>
-
+<!--对接收到通知参数里的订单号out_trade_no和订单金额total_fee和自身业务系统的订单和金额做校验-->
+    <select id="getOrder" resultType="com.cn.school.entity.DSOrder">
+        SELECT
+        guid,
+        service as service,
+        version as version,
+        charset as charset,
+        sign_type as signType,
+        mch_id as mchId,
+        is_raw as isRaw,
+        is_minipg as isMinipg,
+        out_trade_no as outTradeNo,
+        device_info as deviceInfo,
+        op_user_id as opUserId,
+        op_shop_id as opShopId,
+        body as body,
+        sub_openid as subOpenid,
+        sub_appid as subAppid,
+        attach as attach,
+        total_fee as totalFee,
+        need_receipt as needReceipt,
+        mch_create_ip as mchCreateIp,
+        notify_url as notifyUrl,
+        time_start as timeStart,
+        time_expire as timeExpire,
+        goods_tag as goodsTag,
+        nonce_str as nonceStr,
+        limit_credit_pay as limitCreditPay,
+        sign as sign,
+        status as status,
+        add_user_id as addUserId,
+        add_user as addUser,
+        add_time as addTime
+        FROM
+        driver_school_order
+        where delete_flag=FALSE
+        <if test="dsOrder.outTradeNo != null and '' != dsOrder.outTradeNo">
+            AND out_trade_no=#{dsOrder.outTradeNo}
+        </if>
+        <if test="dsOrder.totalFee != null and '' != dsOrder.totalFee">
+            AND total_fee=#{dsOrder.totalFee}
+        </if>
+    </select>
+    <!--修改订单状态-->
+    <update id="updateOrderStatus">
+        UPDATE driver_school_order
+        set
+        status = 1,
+        bank_type=#{dsOrder.bankType}
+        where
+        <if test="dsOrder.guid != null and '' != dsOrder.guid">
+            guid=#{dsOrder.guid}
+        </if>
+        and delete_flag = false
+    </update>
 </mapper>

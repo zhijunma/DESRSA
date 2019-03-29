@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class DSOrder {
     /**
-     * guid
+     * guidtotalFee
      */
     private Long guid;
     /**
@@ -111,9 +111,13 @@ public class DSOrder {
      */
     private String sign;
     /**
-     * 订单状态 0，有效 1，失效
+     * 订单状态 0，生成订单 1，支付成功
      */
     private Integer status;
+    /**
+     * 银行名称
+     */
+    private String bankType;
     /**
      * 添加人
      */
