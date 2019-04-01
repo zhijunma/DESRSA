@@ -47,7 +47,7 @@ public interface StudentManageService {
      * @param getStuViewForm
      * @return
      */
-    List getStudentList(GetStuViewForm getStuViewForm);
+    RestResponse getStudentList(GetStuViewForm getStuViewForm);
 }
 
 

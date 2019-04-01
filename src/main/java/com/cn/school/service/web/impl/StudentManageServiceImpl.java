@@ -136,7 +136,7 @@ public class StudentManageServiceImpl implements StudentManageService {
      * @author mazhujun
      */
     @Override
-    public List getStudentList(GetStuViewForm getStuViewForm) {
+    public RestResponse getStudentList(GetStuViewForm getStuViewForm) {
         //权限判断
         roleCheck(getStuViewForm.getCurrRole());
         DSStudents dsStudents = new DSStudents();
@@ -169,7 +169,7 @@ public class StudentManageServiceImpl implements StudentManageService {
             getStuInfoVO.setStatus(e.getStatus());
             getStuInfoVOList.add(getStuInfoVO);
         });
-        return getStuInfoVOList;
+        return RestResponse.success(getStuInfoVOList);
     }
     /**
      * 权限判断

@@ -73,8 +73,8 @@ public class StudentManageController {
      * @author leiyunlong
      */
     @PostMapping(value = "/getStudentList")
-    public List getStudentList(@RequestBody @Validated RestRequest<GetStuViewForm> request) {
+    public RestResponse getStudentList(@RequestBody @Validated RestRequest<GetStuViewForm> request) {
         GetStuViewForm viewForm = request.getBody();
-        return studentManageService.getStudentList(viewForm);
+        return  studentManageService.getStudentList(viewForm);
     }
 }
