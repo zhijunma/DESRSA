@@ -7,8 +7,7 @@
             guid,
             cost_id AS costId,
             name,
-            issues,
-            money
+            issues
         FROM
             driver_school_stages
         WHERE

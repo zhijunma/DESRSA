@@ -27,8 +27,4 @@ public class GetStagesListByCostVO {
      * 分期活动期次
      */
     private Integer issues;
-    /**
-     * 分期活动金额
-     */
-    private BigDecimal money;
 }

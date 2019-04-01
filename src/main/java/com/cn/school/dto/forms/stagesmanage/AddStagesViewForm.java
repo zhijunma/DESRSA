@@ -25,10 +25,6 @@ public class AddStagesViewForm extends UserContextViewForm {
     private Integer issues;
 
     /**
-     * 分期活动金额
-     */
-    private BigDecimal money;
-    /**
      * 分期活动子表
      */
     @Valid
