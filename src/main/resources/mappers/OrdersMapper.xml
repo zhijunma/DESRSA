@@ -4,6 +4,9 @@
 
     <!-- 添加订单 -->
     <insert id="addOrder">
+        <selectKey keyProperty="dsOrder.guid" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO driver_school_order(
             service,
             version,

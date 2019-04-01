@@ -23,4 +23,9 @@ public class InitPayViewForm {
      */
     @NotNull(message="总金额不能为空")
     private Integer total_fee;
+    /**
+     * L传报名的学生guid
+     */
+    private Long studentsGuid;
+
 }

@@ -10,6 +10,9 @@
             user_name,
             mobile_phone,
             id_card,
+            payable,
+            paid,
+            driver_level,
             status,
             add_user_id,
             add_user,
@@ -24,6 +27,9 @@
                 #{po.userName},
                 #{po.mobilePhone},
                 #{po.idCard},
+                #{po.payable},
+                #{po.paid},
+                #{po.driverLevel},
                 #{po.status},
                 #{po.addUserId},
                 #{po.addUser},
@@ -46,5 +52,6 @@
                 guid = #{po.guid}
             AND delete_flag = FALSE
     </update>
+
 
 </mapper>

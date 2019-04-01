@@ -62,8 +62,8 @@ public class TestPayResultSerlet extends HttpServlet {
                 dsOrder.setTotalFee(totalFee);
                 DSOrder order = orderMapper.getOrder(dsOrder);
                 System.out.println("数据库里的金额是：" + order.getTotalFee());
-                System.out.println("传过来的金额" + totalFee);
-                System.out.println("guidshiduoshao" + order.getGuid());
+                System.out.println("传过来的金额：" + totalFee);
+                System.out.println("guid是多少：" + order.getGuid());
                 if (order == null) {
                     System.out.println("没有相关订单");
                     throw new RuntimeException("没有相关订单");

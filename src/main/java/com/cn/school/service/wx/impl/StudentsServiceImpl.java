@@ -51,6 +51,9 @@ public class StudentsServiceImpl implements StudentsService {
         dsStudents.setMobilePhone(viewForm.getMobilePhone());
         //身份证
         dsStudents.setIdCard(viewForm.getIdCard());
+        dsStudents.setPayable(viewForm.getPayable());
+        dsStudents.setPaid(viewForm.getPaid());
+        dsStudents.setDriverLevel(viewForm.getDriverLevel());
         //缴费状态
         dsStudents.setStatus(0);
         //删除

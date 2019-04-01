@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 /**
  * @author:HuMin Date:2019/3/19
@@ -35,6 +36,21 @@ public class AddStudentsViewForm {
     @NotBlank
     @Size(min = 18, max = 18, message = "输入正确的身份证号码")
     private String idCard;
+
+    /**
+     * 应缴费
+     */
+    private BigDecimal payable;
+
+    /**
+     * 已缴费
+     */
+    private BigDecimal paid;
+
+    /**
+     * 驾照等级
+     */
+    private String driverLevel;
 
 
 }

@@ -1,9 +1,12 @@
 package com.cn.school.mapper.wx;
 
 import com.cn.school.entity.DSStudents;
+import com.cn.school.entity.DSStudentsOrder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author:HuMin Date:2019/3/1
@@ -27,4 +30,5 @@ public interface StudentsMapper {
      * @return
      */
     Integer updateStudentInfo(@Param("po") DSStudents dsStudents);
+
 }

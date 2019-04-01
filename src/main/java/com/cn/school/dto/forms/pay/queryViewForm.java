@@ -16,19 +16,19 @@ public class queryViewForm {
     /**
      * 商户号
      */
-    private String mch_id;
+    private String mchId;
     /**
      * 商户订单号
      */
-    private String out_trade_no;
+    private String outTradeNo;
     /**
      * 平台订单号
      */
-    private String transaction_id;
+    private String transactionId;
     /**
      * 随机字符串
      */
-    private String nonce_str;
+    private String nonceStr;
     /**
      * 签名
      */

@@ -3,7 +3,9 @@ package com.cn.school.service;
 import com.cn.school.dto.forms.pay.InitPayViewForm;
 import com.cn.school.dto.forms.pay.queryViewForm;
 import com.cn.school.entity.DSOrder;
+import com.cn.school.entity.DSStudentsOrder;
 import com.cn.school.mapper.wx.OrderMapper;
+import com.cn.school.mapper.wx.StudentsOrderMapper;
 import com.cn.school.utils.pay.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +42,8 @@ public class GateWayService {
 //    private final static String KEY="9d101c97133837e13dde2d32a5054abb";
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private StudentsOrderMapper studentsOrderMapper;
 
 
     /**
@@ -55,7 +59,6 @@ public class GateWayService {
     public Map<String, String> pay(InitPayViewForm viewForm) throws ServletException, IOException {
         log.debug("支付请求...");
         SortedMap<String, String> map = XmlUtils.getParameterMap();
-
         //商品描述
         String body = viewForm.getBody();
         map.put("service", "pay.weixin.jspay");
@@ -147,6 +150,18 @@ public class GateWayService {
                         Integer status = orderMapper.addOrder(dsOrder);
                         if (status > 0) {
                             log.info("添加订单信息成功！");
+                            //学员订单表入库 获取报名学生的GUID 和 上面生成订单的guid
+                            DSStudentsOrder dsStudentsOrder = new DSStudentsOrder();
+                            dsStudentsOrder.setOrderGuid(dsOrder.getGuid());
+                            dsStudentsOrder.setStudentsGuid(viewForm.getStudentsGuid());
+                            dsStudentsOrder.setAddTime(LocalDateTime.now());
+                            dsStudentsOrder.setAddUser("user1");
+                            dsStudentsOrder.setAddUserId(001L);
+                            dsStudentsOrder.setModTime(LocalDateTime.now());
+                            dsStudentsOrder.setModUser("user1");
+                            dsStudentsOrder.setModUserId(001L);
+                            studentsOrderMapper.addStudentsOrder(dsStudentsOrder);
+
                         } else {
                             throw new RuntimeException("添加订单信息失败！");
                         }
@@ -193,25 +208,24 @@ public class GateWayService {
         log.debug("订单查询...");
         SortedMap<String, String> map = XmlUtils.getParameterMap();
 
-        map.put("service", "unified.trade.query");
-//        map.put("version", version);
-//        map.put("charset", charset);
-//        map.put("sign_type", sign_type);
-        map.put("mch_id", viewForm.getMch_id());
-        map.put("out_trade_no", viewForm.getOut_trade_no());
+        map.put("service", "pay.weixin.jspay");
+        map.put("version", version);
+        map.put("charset", charset);
+        map.put("sign_type", sign_type);
+        map.put("mch_id", MCH_ID);
+        map.put("out_trade_no", viewForm.getOutTradeNo());
 //        String key = SwiftpassConfig.key;
-        String reqUrl = "https://pay.spdb.swiftpass.cn/pay/gateway";
-        map.put("nonce_str", viewForm.getNonce_str());
+        String reqUrl = "https://pay.swiftpass.cn/pay/gateway";
+        map.put("nonce_str", viewForm.getNonceStr());
 
         Map<String, String> params = SignUtils.paraFilter(map);
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
         SignUtils.buildPayParams(buf, params, false);
         String preStr = buf.toString();
-        String key = viewForm.getSign();
-        String sign = MD5.sign(preStr, "&key=" + key, "utf-8");
+        String sign = MD5.sign(preStr, "&key=" + KEY, "utf-8");
         map.put("sign", sign);
 
-        log.debug("reqUrl:" + reqUrl);
+//        log.debug("reqUrl:" + reqUrl);
 
         CloseableHttpResponse response = null;
         CloseableHttpClient client = null;
@@ -230,7 +244,7 @@ public class GateWayService {
                 res = XmlUtils.toXml(resultMap);
                 log.debug("请求结果：" + res);
 
-                if (!SignUtils.checkParam(resultMap, key)) {
+                if (!SignUtils.checkParam(resultMap, KEY)) {
                     res = "验证签名不通过";
                 } else {
                     if ("0".equals(resultMap.get("status"))) {
