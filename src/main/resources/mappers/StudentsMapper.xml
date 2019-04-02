@@ -7,53 +7,64 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO driver_school_students (
-            user_name,
-            mobile_phone,
-            id_card,
-            driver_level,
-            payable,
-            status,
-            stages_guid,
-            add_user_id,
-            add_user,
-            add_time,
-            mod_user_id,
-            mod_user,
-            mod_time,
-            delete_flag
+        openid,
+        user_name,
+        mobile_phone,
+        id_card,
+        driver_level,
+        payable,
+        status,
+        stages_guid,
+        add_user_id,
+        add_user,
+        add_time,
+        mod_user_id,
+        mod_user,
+        mod_time,
+        delete_flag
         )
         VALUES
-            (
-                #{po.userName},
-                #{po.mobilePhone},
-                #{po.idCard},
-                #{po.driverLevel},
-                #{po.payable},
-                #{po.status},
-                #{po.stagesGuid},
-                #{po.addUserId},
-                #{po.addUser},
-                #{po.addTime},
-                #{po.modUserId},
-                #{po.modUser},
-                #{po.modTime},
-                #{po.deleteFlag}
-            );
+        (
+        #{po.openid},
+        #{po.userName},
+        #{po.mobilePhone},
+        #{po.idCard},
+        #{po.driverLevel},
+        #{po.payable},
+        #{po.status},
+        #{po.stagesGuid},
+        #{po.addUserId},
+        #{po.addUser},
+        #{po.addTime},
+        #{po.modUserId},
+        #{po.modUser},
+        #{po.modTime},
+        #{po.deleteFlag}
+        );
     </insert>
 
     <update id="updateStudentInfo">
         UPDATE driver_school_students
-            SET driver_level = #{po.driverLevel},
-            payable = #{po.payable},
-            <if test="po.stagesGuid != null and '' != po.stagesGuid">
+        SET driver_level = #{po.driverLevel},
+        payable = #{po.payable},
+        <if test="po.stagesGuid != null and '' != po.stagesGuid">
             stages_guid=#{po.stagesGuid},
-            </if>
-            mod_user_id=#{po.modUserId},
-            mod_user=#{po.modUser},
-            mod_time=#{po.modTime}
-            WHERE
-                guid = #{po.guid}
-            AND delete_flag = FALSE
+        </if>
+        mod_user_id=#{po.modUserId},
+        mod_user=#{po.modUser},
+        mod_time=#{po.modTime}
+        WHERE
+        guid = #{po.guid}
+        AND delete_flag = FALSE
     </update>
+    <select id="getMobileOnly" resultType="java.lang.Integer">
+        SELECT
+            COUNT(mobile_phone) as count
+        FROM
+            driver_school_students
+        WHERE
+            delete_flag = FALSE
+        AND mobile_phone = #{mobilePhone} OR id_card=#{idCard} OR openid=#{openId}
+    </select>
 
 </mapper>

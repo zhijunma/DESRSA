@@ -11,16 +11,21 @@ import java.time.LocalDateTime;
  */
 @Data
 public class DSStudents {
+
     /**
      * 主键id
      */
     private Long guid;
 
     /**
+     * openid 微信唯一标识
+     */
+    private String openId;
+
+    /**
      * 用户名
      */
     private String userName;
-
 
     /**
      * 电话号码

@@ -16,6 +16,11 @@ public class AddStudentsViewForm {
      * 用户名
      */
     @NotBlank
+    private String openId;
+    /**
+     * 用户名
+     */
+    @NotBlank
     private String userName;
     /**
      * 电话号码

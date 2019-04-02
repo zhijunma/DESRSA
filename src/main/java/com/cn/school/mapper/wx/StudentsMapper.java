@@ -1,12 +1,9 @@
 package com.cn.school.mapper.wx;
 
 import com.cn.school.entity.DSStudents;
-import com.cn.school.entity.DSStudentsOrder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @author:HuMin Date:2019/3/1
@@ -26,9 +23,19 @@ public interface StudentsMapper {
 
     /**
      * 添加报名信息
+     *
      * @param dsStudents
      * @return
      */
     Integer updateStudentInfo(@Param("po") DSStudents dsStudents);
 
+    /**
+     * 查询电话号码,openid,身份证号是否使用
+     *
+     * @param mobilePhone
+     * @param openId
+     * @param idCard
+     * @return
+     */
+    Integer getMobileOnly(@Param("mobilePhone") String mobilePhone, @Param("openId") String openId, @Param("idCard") String idCard);
 }
