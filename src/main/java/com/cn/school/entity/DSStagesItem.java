@@ -1,5 +1,6 @@
 package com.cn.school.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ public class DSStagesItem {
     /**
      * guid
      */
+    @ApiModelProperty(value = "主键guid")
     private Long guid;
     /**
      * 外键guid

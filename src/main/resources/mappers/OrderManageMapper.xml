@@ -2,39 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.school.mapper.web.OrderManageMapper">
 
-    <!--查看订单信息（可以根据status）-->
+    <!--查看订单信息（可以根据status）
     <select id="getOrders" resultType="com.cn.school.entity.DSOrder">
         SELECT
         guid,
-        service as service,
-        version as version,
-        charset as charset,
-        sign_type as signType,
         mch_id as mchId,
-        is_raw as isRaw,
-        is_minipg as isMinipg,
         out_trade_no as outTradeNo,
-        device_info as deviceInfo,
-        op_user_id as opUserId,
-        op_shop_id as opShopId,
         body as body,
-        sub_openid as subOpenid,
-        sub_appid as subAppid,
         attach as attach,
         total_fee as totalFee,
-        need_receipt as needReceipt,
-        mch_create_ip as mchCreateIp,
         notify_url as notifyUrl,
         time_start as timeStart,
         time_expire as timeExpire,
         goods_tag as goodsTag,
-        nonce_str as nonceStr,
-        limit_credit_pay as limitCreditPay,
-        sign as sign,
         status as status,
         add_user_id as addUserId,
-        add_user as addUser,
-        add_time as addTime
+        add_user as addUser
         FROM
         driver_school_order
         where delete_flag=FALSE
@@ -47,6 +30,28 @@
         <if test="dsOrder.opShopId != null and '' != dsOrder.opShopId">
             AND op_shop_id=#{dsOrder.opShopId}
         </if>
+    </select>-->
+    <select id="getOrders" resultType="com.cn.school.entity.DSOrder">
+    SELECT
+    DSO.guid AS guid,
+    DSS.user_name AS userName,
+    DSS.mobile_phone AS mobilePhone,
+    DSS.id_card AS idCard,
+    DSS.driver_level AS driverLevel,
+    DSS.payable AS payable,
+    DSS.paid AS paid,
+    DSO.out_trade_no AS outTradeNo,
+    DSO.attach,
+    DSO.time_expire AS timeExpire,
+    DSO.time_start AS timeStart,
+    DSO.body,
+    DSO.status,
+    DSO.add_time AS dso_add_time,
+    DSO.total_fee AS totalFee
+    FROM
+    driver_school_students DSS
+    INNER JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
+    INNER JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid ORDER BY guid ASC
     </select>
     <!--修改订单状态 0，有效  1，失效-->
     <update id="updateOrderStatus">

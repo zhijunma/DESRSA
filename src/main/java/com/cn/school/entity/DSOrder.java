@@ -2,6 +2,7 @@ package com.cn.school.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -134,4 +135,25 @@ public class DSOrder {
      * 是否删除 0，否  1，是
      */
     private Boolean deleteFlag;
+    /**
+     * 用户姓名
+     */
+    private String userName;
+    /**
+     * 电话号码
+     */
+    private String mobilePhone;
+    /**
+     * 应缴费
+     */
+    private BigDecimal payable;
+
+    /**
+     * 已缴费
+     */
+    private BigDecimal paid;
+    /**
+     * 身份证号
+     */
+    private String idCard;
 }

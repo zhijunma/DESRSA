@@ -42,39 +42,21 @@ public class OrderManageServiceImpl implements OrderManageService {
          reDeOrder.forEach(e -> {
               GetOrderInfoVO getOrderInfoVO = new GetOrderInfoVO();
               getOrderInfoVO.setGuid(e.getGuid());
-              getOrderInfoVO.setService(e.getService());
-              getOrderInfoVO.setVersion(e.getVersion());
-              getOrderInfoVO.setCharset(e.getCharset());
-              getOrderInfoVO.setSignType(e.getSignType());
-              getOrderInfoVO.setMchId(e.getMchId());
-              getOrderInfoVO.setIsRaw(e.getIsRaw());
-              getOrderInfoVO.setIsMinipg(e.getIsMinipg());
               getOrderInfoVO.setOutTradeNo(e.getOutTradeNo());
-              getOrderInfoVO.setDeviceInfo(e.getDeviceInfo());
-              getOrderInfoVO.setOpUserId(e.getOpUserId());
-              getOrderInfoVO.setOpShopId(e.getOpShopId());
               getOrderInfoVO.setBody(e.getBody());
-              getOrderInfoVO.setSubOpenid(e.getSubOpenid());
-              getOrderInfoVO.setSubAppid(e.getSubAppid());
               getOrderInfoVO.setAttach(e.getAttach());
               getOrderInfoVO.setTotalFee(e.getTotalFee());
-              getOrderInfoVO.setNeedReceipt(e.getNeedReceipt());
-              getOrderInfoVO.setMchCreateIp(e.getMchCreateIp());
-              getOrderInfoVO.setNotifyUrl(e.getNotifyUrl());
               getOrderInfoVO.setTimeStart(e.getTimeStart());
               getOrderInfoVO.setTimeExpire(e.getTimeExpire());
-              getOrderInfoVO.setGoodsTag(e.getGoodsTag());
-              getOrderInfoVO.setNonceStr(e.getNonceStr());
-              getOrderInfoVO.setLimitCreditPay(e.getLimitCreditPay());
-              getOrderInfoVO.setSign(e.getSign());
               getOrderInfoVO.setStatus(e.getStatus());
+              getOrderInfoVO.setMobilePhone(e.getMobilePhone());
+              getOrderInfoVO.setIdCard(e.getIdCard());
+              getOrderInfoVO.setUserName(e.getUserName());
+              getOrderInfoVO.setPaid(e.getPaid());
+              getOrderInfoVO.setPayable(e.getPayable());
 
               getOrderInfoVO.setAddUser(e.getAddUser());
-              getOrderInfoVO.setAddUserId(e.getAddUserId());
               getOrderInfoVO.setAddTime(e.getAddTime());
-              getOrderInfoVO.setModUser(e.getModUser());
-              getOrderInfoVO.setModUserId(e.getModUserId());
-              getOrderInfoVO.setModTime(e.getModTime());
               //将缓存的信息放入list中
               getOrderInfoVOS.add(getOrderInfoVO);
          });
