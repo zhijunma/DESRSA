@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: leiyunlong
@@ -23,26 +25,44 @@ public class StudentOrderServiceImpl implements StudentOrderService {
 
     /**
      * 学员查看个人信息及缴费情况
+     *
      * @param getStudentOrderInfoViewForm
      * @return
      */
     @Override
-    public List getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm) {
-        List<DSStudentsOrder> dsStudentsOrders = studentsOrderMapper.getStudentOrderInfo(getStudentOrderInfoViewForm.getIdCard(),getStudentOrderInfoViewForm.getUserName());
+    public Map getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm) {
+        List<DSStudentsOrder> dsStudentsOrders = studentsOrderMapper.getStudentOrderInfo(getStudentOrderInfoViewForm.getIdCard(), getStudentOrderInfoViewForm.getUserName());
+
         List<GetStudentOrderVO> getStudentOrderVOS = new ArrayList<>(16);
+        Map<String, Object> map = new HashMap<>();
+
         dsStudentsOrders.forEach(e -> {
-            GetStudentOrderVO getStudentOrderVO =new GetStudentOrderVO();
-            getStudentOrderVO.setGuid(e.getGuid());
-            getStudentOrderVO.setUserName(e.getUserName());
-            getStudentOrderVO.setIdCard(e.getIdCard());
-            getStudentOrderVO.setMobilePhone(e.getMobilePhone());
-            getStudentOrderVO.setDriverLevel(e.getDriverLevel());
-            getStudentOrderVO.setPayable(e.getPayable());
-            getStudentOrderVO.setPaid(e.getPaid());
+            GetStudentOrderVO getStudentOrderVO = new GetStudentOrderVO();
+            map.put("guid", e.getGuid());
+            map.put("userName", e.getUserName());
+            map.put("idCard", e.getIdCard());
+            map.put("mobilePhone", e.getMobilePhone());
+            map.put("driverLevel", e.getDriverLevel());
+            map.put("payable", e.getPayable());
+            map.put("paid", e.getPaid());
             getStudentOrderVO.setDso_add_time(e.getDso_add_time());
             getStudentOrderVO.setTotalFee(e.getTotalFee());
+            getStudentOrderVO.setStatus(e.getStatus());
             getStudentOrderVOS.add(getStudentOrderVO);
+            map.put("stages", getStudentOrderVOS);
+//            getStudentOrderVO.setGuid(e.getGuid());
+//            getStudentOrderVO.setUserName(e.getUserName());
+//            getStudentOrderVO.setIdCard(e.getIdCard());
+//            getStudentOrderVO.setMobilePhone(e.getMobilePhone());
+//            getStudentOrderVO.setDriverLevel(e.getDriverLevel());
+//            getStudentOrderVO.setPayable(e.getPayable());
+//            getStudentOrderVO.setPaid(e.getPaid());
+//
+////            map.put("guid",e.getGuid())
+//            getStudentOrderVO.setDso_add_time(e.getDso_add_time());
+//            getStudentOrderVO.setTotalFee(e.getTotalFee());
+
         });
-        return getStudentOrderVOS;
+        return map;
     }
 }

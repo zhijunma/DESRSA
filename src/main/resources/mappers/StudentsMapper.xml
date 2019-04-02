@@ -7,7 +7,7 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO driver_school_students (
-        openid,
+        openId,
         user_name,
         mobile_phone,
         id_card,
@@ -25,7 +25,7 @@
         )
         VALUES
         (
-        #{po.openid},
+        #{po.openId},
         #{po.userName},
         #{po.mobilePhone},
         #{po.idCard},

@@ -40,10 +40,10 @@ public class StudentsServiceImpl implements StudentsService {
         ComSendCodeViewForm comSendCodeViewForm = new ComSendCodeViewForm();
         comSendCodeViewForm.setCode(viewForm.getCode());
         comSendCodeViewForm.setMobile(viewForm.getMobilePhone());
-        Integer count = studentsMapper.getMobileOnly(viewForm.getMobilePhone(),viewForm.getOpenId(),viewForm.getIdCard());
-        if (count > 0) {
-            throw new RuntimeException("该号码/身份证号/微信号已经报名！");
-        }
+//        Integer count = studentsMapper.getMobileOnly(viewForm.getMobilePhone(),viewForm.getOpenId(),viewForm.getIdCard());
+//        if (count > 0) {
+//            throw new RuntimeException("该号码/身份证号/微信号已经报名！");
+//        }
         //验证验证码
         Boolean flag = smsService.updateCheckMobileCode(comSendCodeViewForm);
         if (!flag) {

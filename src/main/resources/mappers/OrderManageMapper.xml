@@ -46,7 +46,7 @@
     DSO.time_start AS timeStart,
     DSO.body,
     DSO.status,
-    DSO.add_time AS dso_add_time,
+    DSO.add_time AS addTime,
     DSO.total_fee AS totalFee
     FROM
     driver_school_students DSS

@@ -142,6 +142,7 @@ public class GateWayService {
                         dsOrder.setNotifyUrl("http://a.hmds.cn/pay/notification");
                         dsOrder.setNonceStr(nonceStr);
                         dsOrder.setSign(sign);
+                        dsOrder.setTimeStart(LocalDateTime.now().toString());
                         dsOrder.setStatus(0);
                         dsOrder.setAddTime(LocalDateTime.now());
                         dsOrder.setAddUser("user1");

@@ -63,6 +63,11 @@ public class DSStudentsOrder {
      */
     private Long orderGuid;
     /**
+     * 订单状态  0：未交费 1：已缴费
+     */
+    private int status;
+
+    /**
      * 添加人
      */
     private Long addUserId;

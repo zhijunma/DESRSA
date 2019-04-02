@@ -7,14 +7,14 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         INSERT INTO driver_school_students_order (
-            students_guid,
-            order_guid,
-            add_user_id,
-            add_user,
-            add_time,
-            mod_user_id,
-            mod_user,
-            mod_time
+        students_guid,
+        order_guid,
+        add_user_id,
+        add_user,
+        add_time,
+        mod_user_id,
+        mod_user,
+        mod_time
         )
         VALUES
         (
@@ -31,6 +31,7 @@
     <!--学院查看个人信息及缴费情况-->
     <select id="getStudentOrderInfo" resultType="com.cn.school.entity.DSStudentsOrder">
         SELECT
+            DSS.guid AS guid,
             DSS.user_name AS userName,
             DSS.mobile_phone AS mobilePhone,
             DSS.id_card AS idCard,
@@ -38,7 +39,8 @@
             DSS.payable AS payable,
             DSS.paid AS paid,
             DSO.add_time AS dso_add_time,
-            DSO.total_fee AS totalFee
+            DSO.total_fee AS totalFee,
+            DSO.status AS status
         FROM
 	        driver_school_students DSS
         INNER JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
