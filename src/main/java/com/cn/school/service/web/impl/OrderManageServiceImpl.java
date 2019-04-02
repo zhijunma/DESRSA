@@ -37,7 +37,7 @@ public class OrderManageServiceImpl implements OrderManageService {
         ManageOrderBO dsOrder = new ManageOrderBO();
         //入参 可以根据status来查询
         dsOrder.setStatus(viewForm.getStatus());
-         List<DSOrder> reDeOrder = orderManageMapper.getOrders(dsOrder);
+         List<ManageOrderBO> reDeOrder = orderManageMapper.getOrders(dsOrder);
          List<GetOrderInfoVO> getOrderInfoVOS = new ArrayList<>(16);
          //缓存信息到VO中
          reDeOrder.forEach(e -> {
@@ -56,8 +56,6 @@ public class OrderManageServiceImpl implements OrderManageService {
               getOrderInfoVO.setPaid(e.getPaid());
               getOrderInfoVO.setPayable(e.getPayable());
 
-              getOrderInfoVO.setAddUser(e.getAddUser());
-              getOrderInfoVO.setAddTime(e.getAddTime());
               //将缓存的信息放入list中
               getOrderInfoVOS.add(getOrderInfoVO);
          });
