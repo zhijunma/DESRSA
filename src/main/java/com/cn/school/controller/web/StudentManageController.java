@@ -30,7 +30,7 @@ public class StudentManageController {
 
 
     /**
-     * 教练员删除,假删除（更新状态）
+     * 学员删除,假删除（更新状态）
      *
      * @param request
      * @return
@@ -54,7 +54,7 @@ public class StudentManageController {
     }
 
     /**
-     * 查看学员信息
+     * 查看学员详细信息
      *
      * @param request
      * @return

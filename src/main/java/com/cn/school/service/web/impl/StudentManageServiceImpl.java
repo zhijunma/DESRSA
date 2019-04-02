@@ -111,17 +111,23 @@ public class StudentManageServiceImpl implements StudentManageService {
         DSStudents student = studentManageMapper.getStudent(dsStudents);
         //将查询到的信息缓存到getStudentInfoVO中
         GetStudentInfoVO getStudentInfoVO = new GetStudentInfoVO();
+        //学员Guid
         getStudentInfoVO.setGuid(student.getGuid());
+        //学员身份证号
         getStudentInfoVO.setIdCard(student.getIdCard());
+        //学员姓名
         getStudentInfoVO.setUserName(student.getUserName());
+        //学员电话号码
         getStudentInfoVO.setMobilePhone(student.getMobilePhone());
+        //分期id
+        getStudentInfoVO.setStagesGuid(student.getStagesGuid());
         //应缴费信息
         getStudentInfoVO.setPayable(student.getPayable());
         //已缴费信息
         getStudentInfoVO.setPaid(student.getPaid());
         //驾照等级
         getStudentInfoVO.setDriverLevel(student.getDriverLevel());
-        //状态
+        //学员状态
         getStudentInfoVO.setStatus(student.getStatus());
 
         //返回查询到的信息
@@ -154,11 +160,18 @@ public class StudentManageServiceImpl implements StudentManageService {
         //遍历List缓存到getStuInfoVOList中
         DSStudents.forEach(e -> {
             GetStuInfoVO getStuInfoVO = new GetStuInfoVO();
+            //学员guid
             getStuInfoVO.setGuid(e.getGuid());
+            //学员姓名
             getStuInfoVO.setUserName(e.getUserName());
+            //学员电话
             getStuInfoVO.setMobilePhone(e.getMobilePhone());
+            //学员身份证
             getStuInfoVO.setIdCard(e.getIdCard());
+            //学员状态
             getStuInfoVO.setStatus(e.getStatus());
+            //分期id
+            getStuInfoVO.setStagesGuid(e.getStagesGuid());
             //应缴费信息
             getStuInfoVO.setPayable(e.getPayable());
             //已缴费信息

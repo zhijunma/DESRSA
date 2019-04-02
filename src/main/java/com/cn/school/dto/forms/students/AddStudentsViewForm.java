@@ -24,6 +24,7 @@ public class AddStudentsViewForm {
     @Size(min = 11, max = 11, message = "输入正确的电话号码")
     private String mobilePhone;
 
+
     /**
      * 验证码
      */
@@ -43,14 +44,12 @@ public class AddStudentsViewForm {
     private BigDecimal payable;
 
     /**
-     * 已缴费
-     */
-    private BigDecimal paid;
-
-    /**
      * 驾照等级
      */
     private String driverLevel;
 
-
+    /**
+     * 分期id
+     */
+    private Long stagesGuid;
 }

@@ -54,4 +54,9 @@ public class GetStuInfoVO {
      * 驾照等级
      */
     private String driverLevel;
+
+    /**
+     * 分期id
+     */
+    private Long stagesGuid;
 }

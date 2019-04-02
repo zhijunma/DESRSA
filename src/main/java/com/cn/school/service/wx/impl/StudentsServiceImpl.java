@@ -51,11 +51,14 @@ public class StudentsServiceImpl implements StudentsService {
         dsStudents.setMobilePhone(viewForm.getMobilePhone());
         //身份证
         dsStudents.setIdCard(viewForm.getIdCard());
+        //应缴总额
         dsStudents.setPayable(viewForm.getPayable());
-        dsStudents.setPaid(viewForm.getPaid());
+        //驾照等级
         dsStudents.setDriverLevel(viewForm.getDriverLevel());
         //缴费状态
         dsStudents.setStatus(0);
+        //分期id
+        dsStudents.setStagesGuid(viewForm.getStagesGuid());
         //删除
         dsStudents.setDeleteFlag(false);
         dsStudents.setAddTime(LocalDateTime.now());
@@ -87,6 +90,7 @@ public class StudentsServiceImpl implements StudentsService {
         DSStudents dsStudents = new DSStudents();
         dsStudents.setDriverLevel(viewForm.getDriverLevel());
         dsStudents.setPayable(viewForm.getPayable());
+        dsStudents.setStagesGuid(viewForm.getStagesGuid());
         dsStudents.setModTime(LocalDateTime.now());
         dsStudents.setModUser("self");
         dsStudents.setModUserId(0L);

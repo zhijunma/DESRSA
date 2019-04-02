@@ -49,7 +49,10 @@ public class InsertUserPO {
      * 角色   1：学员   2：教练
      */
     private Integer role;
-
+    /**
+     * 分期id
+     */
+    private Long stagesGuid;
     /**
      * 添加人
      */

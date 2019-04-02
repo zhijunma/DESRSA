@@ -53,6 +53,11 @@ public class DSStudents {
     private Integer status;
 
     /**
+     * 分期guid
+     */
+    private Long stagesGuid;
+
+    /**
      * 添加人
      */
     private Long addUserId;

@@ -27,4 +27,9 @@ public class GetStudentViewForm extends UserContextViewForm {
      * 缴费状态  0：未交费 1 ：以缴费
      */
     private Integer status;
+
+    /**
+     * 分期id
+     */
+    private Long stagesGuid;
 }

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class GetStudentInfoVO extends UserContextViewForm {
+public class GetStudentInfoVO {
     /**
      * 主键id
      */
@@ -47,4 +47,8 @@ public class GetStudentInfoVO extends UserContextViewForm {
      * 驾照等级
      */
     private String driverLevel;
+    /**
+     * 分期id
+     */
+    private Long stagesGuid;
 }

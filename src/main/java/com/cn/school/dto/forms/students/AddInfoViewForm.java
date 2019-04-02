@@ -24,4 +24,8 @@ public class AddInfoViewForm {
      * 驾照类型（等级）
      */
     private String driverLevel;
+    /**
+     * 分期id
+     */
+    private Long stagesGuid;
 }
