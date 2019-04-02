@@ -14,8 +14,7 @@
             add_time,
             mod_user_id,
             mod_user,
-            mod_time,
-            delete_flag
+            mod_time
         )
         VALUES
         (
@@ -26,8 +25,7 @@
         #{po.addTime},
         #{po.modUserId},
         #{po.modUser},
-        #{po.modTime},
-        #{po.deleteFlag}
+        #{po.modTime}
         );
     </insert>
     <!--学院查看个人信息及缴费情况-->

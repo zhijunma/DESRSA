@@ -58,6 +58,7 @@ public class GateWayService {
     @Transactional(rollbackFor = Exception.class, timeout = 30)
     public Map<String, String> pay(InitPayViewForm viewForm) throws ServletException, IOException {
         log.debug("支付请求...");
+        System.out.println("支付请求...");
         SortedMap<String, String> map = XmlUtils.getParameterMap();
         //商品描述
         String body = viewForm.getBody();
@@ -116,13 +117,14 @@ public class GateWayService {
                 resultMap = XmlUtils.toMap(EntityUtils.toByteArray(response.getEntity()), "utf-8");
                 res = XmlUtils.toXml(resultMap);
                 log.debug("请求结果：" + res);
+                System.out.println("请求结果：" + res);
                 if (!SignUtils.checkParam(resultMap, KEY)) {
                     //if(!sign.equals(resultMap.get("sign"))){
                     res = "验证签名不通过";
                 } else {
                     if ("0".equals(resultMap.get("status")) && "0".equals(resultMap.get("result_code"))) {
                         pay_info = resultMap.get("pay_info");
-                        // TODO 订单信息入库
+                        // TODO 订单信息入库 添加add mod等信息
                         DSOrder dsOrder = new DSOrder();
                         dsOrder.setService("pay.weixin.jspay");
                         dsOrder.setVersion(version);
@@ -150,6 +152,7 @@ public class GateWayService {
                         Integer status = orderMapper.addOrder(dsOrder);
                         if (status > 0) {
                             log.info("添加订单信息成功！");
+                            System.out.println("添加订单信息成功！");
                             //学员订单表入库 获取报名学生的GUID 和 上面生成订单的guid
                             DSStudentsOrder dsStudentsOrder = new DSStudentsOrder();
                             dsStudentsOrder.setOrderGuid(dsOrder.getGuid());

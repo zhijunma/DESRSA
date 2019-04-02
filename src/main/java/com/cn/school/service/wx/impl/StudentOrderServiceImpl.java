@@ -22,7 +22,7 @@ public class StudentOrderServiceImpl implements StudentOrderService {
     private StudentsOrderMapper studentsOrderMapper;
 
     /**
-     * 学院查看个人信息及缴费情况
+     * 学员查看个人信息及缴费情况
      * @param getStudentOrderInfoViewForm
      * @return
      */
@@ -35,6 +35,7 @@ public class StudentOrderServiceImpl implements StudentOrderService {
             getStudentOrderVO.setGuid(e.getGuid());
             getStudentOrderVO.setUserName(e.getUserName());
             getStudentOrderVO.setIdCard(e.getIdCard());
+            getStudentOrderVO.setMobilePhone(e.getMobilePhone());
             getStudentOrderVO.setDriverLevel(e.getDriverLevel());
             getStudentOrderVO.setPayable(e.getPayable());
             getStudentOrderVO.setPaid(e.getPaid());

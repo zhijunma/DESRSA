@@ -26,6 +26,7 @@ public class InitPayViewForm {
     /**
      * L传报名的学生guid
      */
+    @NotNull(message="学生studentsGuid不能为空")
     private Long studentsGuid;
 
 }
