@@ -1,5 +1,6 @@
 package com.cn.school.mapper.web;
 
+import com.cn.school.dto.info.bo.ManageOrderBO;
 import com.cn.school.entity.DSOrder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +16,7 @@ public interface OrderManageMapper {
      * @param dsOrder
      * @return
      */
-    List getOrders(@Param("dsOrder") DSOrder dsOrder);
+    List getOrders(@Param("dsOrder") ManageOrderBO dsOrder);
 
     /**
      *

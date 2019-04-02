@@ -31,7 +31,7 @@
             AND op_shop_id=#{dsOrder.opShopId}
         </if>
     </select>-->
-    <select id="getOrders" resultType="com.cn.school.entity.DSOrder">
+    <select id="getOrders" resultType="com.cn.school.dto.info.bo.ManageOrderBO">
     SELECT
     DSO.guid AS guid,
     DSS.user_name AS userName,

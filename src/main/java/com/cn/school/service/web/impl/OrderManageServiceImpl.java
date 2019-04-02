@@ -2,6 +2,7 @@ package com.cn.school.service.web.impl;
 import com.cn.school.constant.Constant;
 import com.cn.school.dto.forms.order.GetOrdersViewForm;
 import com.cn.school.dto.forms.order.OrderViewForm;
+import com.cn.school.dto.info.bo.ManageOrderBO;
 import com.cn.school.dto.info.vo.GetOrderInfoVO;
 import com.cn.school.entity.DSOrder;
 import com.cn.school.mapper.web.OrderManageMapper;
@@ -33,7 +34,7 @@ public class OrderManageServiceImpl implements OrderManageService {
     @Override
    public RestResponse getOrders(GetOrdersViewForm viewForm) {
 
-        DSOrder dsOrder = new DSOrder();
+        ManageOrderBO dsOrder = new ManageOrderBO();
         //入参 可以根据status来查询
         dsOrder.setStatus(viewForm.getStatus());
          List<DSOrder> reDeOrder = orderManageMapper.getOrders(dsOrder);
