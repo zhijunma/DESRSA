@@ -237,6 +237,30 @@ public class RestResponse<T> implements Serializable {
     }
 
     /**
+     * 静态构造方法，处理失败
+     */
+    public static <T> RestResponse<T> isnull() {
+        RestResponse<T> rest = new RestResponse<T>();
+        RestResponseHeader header = new RestResponseHeader();
+        header.setCode(CodeConstant.NULL);
+        rest.setHeader(header);
+        return rest;
+    }
+
+    /**
+     * 静态构造方法，处理失败
+     *
+     * @param body 响应消息体(泛型)
+     */
+    public static <T> RestResponse<T> isnull(T body) {
+        RestResponse<T> rest = new RestResponse<T>(body);
+        RestResponseHeader header = new RestResponseHeader();
+        header.setCode(CodeConstant.NULL);
+        rest.setHeader(header);
+        return rest;
+    }
+
+    /**
      * Code静态构造方法
      *
      * @param code 响应消息体(泛型)

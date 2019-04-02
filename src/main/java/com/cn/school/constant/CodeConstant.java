@@ -14,4 +14,9 @@ public interface CodeConstant {
      * 成功
      */
     String ERROR = "20000";
+
+    /**
+     * 数据为空
+     */
+    String NULL = "30000";
 }
