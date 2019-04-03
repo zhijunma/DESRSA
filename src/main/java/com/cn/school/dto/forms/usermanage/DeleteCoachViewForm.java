@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class DeleteCoachViewForm extends UserContextViewForm {
@@ -12,7 +13,7 @@ public class DeleteCoachViewForm extends UserContextViewForm {
      * 身份证号
      */
     @ApiModelProperty(value = "身份证号")
-    private String idCard;
+    private List<String> idCardList;
     /**
      * 修改人信息
      */

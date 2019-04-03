@@ -4,6 +4,7 @@ import com.cn.school.dto.forms.pay.InitPayViewForm;
 import com.cn.school.dto.forms.pay.queryViewForm;
 import com.cn.school.service.GateWayService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@Api("支付相关")
+@Api(description = "PayController", tags = {"支付相关"})
 @RestController
 @RequestMapping("/pay/payment")
 public class PayController {
@@ -29,6 +30,7 @@ public class PayController {
      */
     @PostMapping(value = "/submitOrderInfo")
     @ResponseBody
+    @ApiOperation(value = "初始化请求API")
     public Map<String, String> initPay(@Validated @RequestBody InitPayViewForm viewForm) {
         System.out.println("支付请求开始=======================");
 //        String method = viewForm.getMethod();

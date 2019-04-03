@@ -80,6 +80,11 @@ public class UsersServiceImpl implements UsersService {
             return RestResponse.error("权限不足！");
         }
         DSUser dsUser = new DSUser();
+        dsUser.setMobilePhone(insertCoachViewForm.getMobilePhone());
+        List<DSUser> coachs = usersMapper.getCoachs(dsUser);
+        if (!coachs.isEmpty()) {
+            throw new RuntimeException("该手机号码已经报名！");
+        }
         //入参
         dsUser.setUserName(insertCoachViewForm.getUserName());
         //盐
@@ -159,12 +164,18 @@ public class UsersServiceImpl implements UsersService {
             log.debug("权限不足!");
             return RestResponse.error("权限不足！");
         }
-        DSUser dsUser = new DSUser();
-        dsUser.setIdCard(deleteCoachViewForm.getIdCard());
-        dsUser.setModUserId(deleteCoachViewForm.getCurrId());
-        dsUser.setModUser(deleteCoachViewForm.getCurrName());
-        dsUser.setModTime(LocalDateTime.now());
-        Integer state = usersMapper.deleteCoach(dsUser);
+        List<DSUser> dsUsers = new ArrayList<>(16);
+
+        for (String e : deleteCoachViewForm.getIdCardList()) {
+            DSUser dsUser = new DSUser();
+            dsUser.setIdCard(e);
+            //从传进来的参数中获取登陆者的信息
+            dsUser.setModUserId(deleteCoachViewForm.getCurrId());
+            dsUser.setModUser(deleteCoachViewForm.getCurrName());
+            dsUser.setModTime(LocalDateTime.now());
+            dsUsers.add(dsUser);
+        }
+        Integer state = usersMapper.deleteCoach(dsUsers);
         if (state > 0) {
             return RestResponse.success("删除教练员成功！");
         } else {

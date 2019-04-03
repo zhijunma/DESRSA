@@ -13,12 +13,12 @@ import java.util.List;
 public interface StudentManageMapper {
 
     /**
-     * 教练员删除,假删除（更新状态）
+     * 学员删除,假删除（更新状态）
      *
      * @param dsStudents
      * @return
      */
-    Integer deleteStudent(@Param("dsStudents") DSStudents dsStudents);
+    Integer deleteStudent(@Param("dsStudents") List<DSStudents> dsStudents);
 
     /**
      * 用户修改个人信息

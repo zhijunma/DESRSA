@@ -5,6 +5,7 @@ import com.cn.school.dto.info.vo.GetStudentOrderVO;
 import com.cn.school.entity.DSStudentsOrder;
 import com.cn.school.mapper.wx.StudentsOrderMapper;
 import com.cn.school.service.wx.StudentOrderService;
+import com.cn.school.utils.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +31,11 @@ public class StudentOrderServiceImpl implements StudentOrderService {
      * @return
      */
     @Override
-    public Map getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm) {
-        List<DSStudentsOrder> dsStudentsOrders = studentsOrderMapper.getStudentOrderInfo(getStudentOrderInfoViewForm.getIdCard(), getStudentOrderInfoViewForm.getUserName());
-
+    public RestResponse getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm) {
+        List<DSStudentsOrder> dsStudentsOrders = studentsOrderMapper.getStudentOrderInfo(getStudentOrderInfoViewForm.getIdCard(), getStudentOrderInfoViewForm.getUserName(), getStudentOrderInfoViewForm.getOpenId());
+        if (dsStudentsOrders.isEmpty()) {
+            return RestResponse.isNull();
+        }
         List<GetStudentOrderVO> getStudentOrderVOS = new ArrayList<>(16);
         Map<String, Object> map = new HashMap<>();
 
@@ -61,8 +64,8 @@ public class StudentOrderServiceImpl implements StudentOrderService {
 ////            map.put("guid",e.getGuid())
 //            getStudentOrderVO.setDso_add_time(e.getDso_add_time());
 //            getStudentOrderVO.setTotalFee(e.getTotalFee());
-
         });
-        return map;
+
+        return RestResponse.success(map);
     }
 }

@@ -41,6 +41,7 @@ public class StudentsController {
     @ResponseBody
     public RestResponse register(@Validated @RequestBody RestRequest<AddStudentsViewForm> request) {
         AddStudentsViewForm viewForm = request.getBody();
+        System.out.println(viewForm.getPayable());
         return studentsService.addStudents(viewForm);
     }
 

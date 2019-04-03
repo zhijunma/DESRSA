@@ -1,6 +1,7 @@
 package com.cn.school.dto.forms.usermanage;
 
 import com.cn.school.dto.forms.auth.UserContextViewForm;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -10,30 +11,37 @@ public class UpdateGroupPurchaseViewForm extends UserContextViewForm {
     /**
      * 主键id
      */
+    @ApiModelProperty("主键id")
     private Long guid;
     /**
      * 团购活动名称
      */
+    @ApiModelProperty("团购活动名称")
     private String gpNname;
     /**
      * 团购限定人数
      */
+    @ApiModelProperty("团购限定人数")
     private Integer peopleNum;
     /**
      * 驾照类型（等级）
      */
+    @ApiModelProperty("驾照类型（等级）")
     private String driverLevel;
     /**
      * 团购总金额
      */
+    @ApiModelProperty("团购总金额")
     private Long aggregateAmount;
     /**
      * 期次；团购项目可以分多少期（1：不能分期）
      */
+    @ApiModelProperty("期次")
     private Integer issue;
     /**
      * 优惠券 1：可以使用优惠券 0：不能使用优惠券
      */
+    @ApiModelProperty("优惠券")
     private Integer coupon;
     /**
      * 修改人

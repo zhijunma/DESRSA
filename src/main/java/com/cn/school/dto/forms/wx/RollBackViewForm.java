@@ -12,5 +12,4 @@ import org.springframework.stereotype.Component;
 @Component
 public class RollBackViewForm {
     private String code;
-    private String state;
 }

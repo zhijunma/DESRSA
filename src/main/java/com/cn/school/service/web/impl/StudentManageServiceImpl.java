@@ -37,17 +37,18 @@ public class StudentManageServiceImpl implements StudentManageService {
     public RestResponse deleteStudent(DeleteStudnetViewForm deleteStudnetViewForm) {
         //权限判断
         roleCheck(deleteStudnetViewForm.getCurrRole());
-        DSStudents dsStudents = new DSStudents();
-        //入参--根据guid进行删除
-        dsStudents.setGuid(deleteStudnetViewForm.getGuid());
-        //入参--根据学员身份证信息进行删除
-        dsStudents.setIdCard(deleteStudnetViewForm.getIdCard());
-        //修改人信息
-        dsStudents.setModUserId(deleteStudnetViewForm.getCurrId());
-        dsStudents.setModUser(deleteStudnetViewForm.getCurrName());
-        dsStudents.setModTime(LocalDateTime.now());
-        //执行删除操作
-        Integer state = studentManageMapper.deleteStudent(dsStudents);
+
+        List<DSStudents> dsStudentsList = new ArrayList<>(16);
+        for (Long e : deleteStudnetViewForm.getGuidList()) {
+            DSStudents dsStudents = new DSStudents();
+            dsStudents.setGuid(e);
+            //从传进来的参数中获取登陆者的信息
+            dsStudents.setModUserId(deleteStudnetViewForm.getCurrId());
+            dsStudents.setModUser(deleteStudnetViewForm.getCurrName());
+            dsStudents.setModTime(LocalDateTime.now());
+            dsStudentsList.add(dsStudents);
+        }
+        Integer state = studentManageMapper.deleteStudent(dsStudentsList);
         if (state > 0) {
             return RestResponse.success("删除学员信息成功！");
         } else {

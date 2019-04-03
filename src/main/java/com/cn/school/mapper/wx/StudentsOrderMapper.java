@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -25,6 +25,7 @@ public interface StudentsOrderMapper {
      * @param userName
      * @return
      */
-    List<DSStudentsOrder> getStudentOrderInfo(@Param("idCard") @NotNull(message = "身份证号码不能为空") String idCard,
-                                     @Param("userName") @NotNull(message = "姓名不能为空") String userName);
+    List<DSStudentsOrder> getStudentOrderInfo(@Param("idCard") String idCard,
+                                              @Param("userName")  String userName,
+                                              @Param("openId") @NotBlank(message = "openId不能为空") String openId);
 }

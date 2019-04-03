@@ -237,9 +237,9 @@ public class RestResponse<T> implements Serializable {
     }
 
     /**
-     * 静态构造方法，处理失败
+     * 静态构造方法，返回内容为空
      */
-    public static <T> RestResponse<T> isnull() {
+    public static <T> RestResponse<T> isNull() {
         RestResponse<T> rest = new RestResponse<T>();
         RestResponseHeader header = new RestResponseHeader();
         header.setCode(CodeConstant.NULL);
@@ -248,11 +248,11 @@ public class RestResponse<T> implements Serializable {
     }
 
     /**
-     * 静态构造方法，处理失败
+     * 静态构造方法，返回内容为空
      *
      * @param body 响应消息体(泛型)
      */
-    public static <T> RestResponse<T> isnull(T body) {
+    public static <T> RestResponse<T> isNull(T body) {
         RestResponse<T> rest = new RestResponse<T>(body);
         RestResponseHeader header = new RestResponseHeader();
         header.setCode(CodeConstant.NULL);

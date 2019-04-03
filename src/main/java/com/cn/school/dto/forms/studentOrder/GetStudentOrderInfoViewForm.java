@@ -1,5 +1,6 @@
 package com.cn.school.dto.forms.studentOrder;
 
+import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class GetStudentOrderInfoViewForm {
+public class GetStudentOrderInfoViewForm extends UserContextViewForm {
     /**
      * 用户名
      */
@@ -17,4 +18,8 @@ public class GetStudentOrderInfoViewForm {
      * 身份证号
      */
     private String idCard;
+    /**
+     * openId
+     */
+    private String openId;
 }

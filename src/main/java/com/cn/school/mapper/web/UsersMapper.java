@@ -52,7 +52,7 @@ public interface UsersMapper {
      * @param dsUser
      * @return
      */
-    Integer deleteCoach(@Param("dsUser") DSUser dsUser);
+    Integer deleteCoach(@Param("dsUser") List<DSUser> dsUser);
 
     /**
      * 教练员详情查看（根据身份证号查询教练员）

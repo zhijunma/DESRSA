@@ -4,6 +4,7 @@ import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -11,7 +12,7 @@ public class DeleteStudnetViewForm extends UserContextViewForm {
     /**
      * 主键id
      */
-    private Long guid;
+    private List<Long> guidList;
 
     /**
      * 用户名

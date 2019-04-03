@@ -2,23 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.school.mapper.web.StudentManageMapper">
     <!--学员删除,假删除（更新状态）-->
-    <update id="deleteStudent">
-        UPDATE driver_school_students
-        SET
-        delete_flag = true,
-        mod_user_id = #{dsStudents.modUserId},
-        mod_user = #{dsStudents.modUser},
-        mod_time = #{dsStudents.modTime}
-        WHERE delete_flag = FALSE
-        <if test="dsStudents.idCard != null and '' != dsStudents.idCard">
-            AND id_card=#{dsStudents.idCard}
-        </if>
-        <if test="dsStudents.guid != null and '' != dsStudents.guid">
-            and guid=#{dsStudents.guid}
-        </if>
-        <if test="dsStudents.userName != null and '' != dsStudents.userName">
-            AND user_name=#{dsStudents.userName}
-        </if>
+    <update id="deleteStudent" parameterType="java.util.List">
+        <foreach collection="dsStudents" item="dsStudents" index="index" open="" close="" separator=";">
+            UPDATE driver_school_students
+            SET
+            delete_flag = true,
+            mod_user_id = #{dsStudents.modUserId},
+            mod_user = #{dsStudents.modUser},
+            mod_time = #{dsStudents.modTime}
+            WHERE delete_flag = FALSE
+            <if test="dsStudents.guid != null and '' != dsStudents.guid">
+                AND guid=#{dsStudents.guid}
+            </if>
+        </foreach>
     </update>
 
     <!-- 管理员修改学员信息 -->

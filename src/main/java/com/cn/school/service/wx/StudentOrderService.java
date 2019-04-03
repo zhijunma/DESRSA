@@ -1,8 +1,7 @@
 package com.cn.school.service.wx;
 
 import com.cn.school.dto.forms.studentOrder.GetStudentOrderInfoViewForm;
-
-import java.util.Map;
+import com.cn.school.utils.response.RestResponse;
 
 /**
  * @Author: leiyunlong
@@ -16,5 +15,5 @@ public interface StudentOrderService {
      * @param getStudentOrderInfoViewForm
      * @return
      */
-    Map getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm);
+    RestResponse getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm);
 }
