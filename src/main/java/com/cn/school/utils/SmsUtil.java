@@ -60,7 +60,7 @@ public class SmsUtil {
         //必填:短信模板-可在短信控制台中找到
         request.putQueryParameter("TemplateCode", bo.getTempCode());
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.putQueryParameter("TemplateParam", "{\"code\":"+bo.getCode()+"}");
+        request.putQueryParameter("TemplateParam", "{\"code\":'" + bo.getCode() + "'}");
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
 
@@ -71,6 +71,23 @@ public class SmsUtil {
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
 
         return sendSmsResponse;
+    }
+
+    public static void main(String[] args) {
+        SmsUtil smsUtil = new SmsUtil();
+
+        // 发送验证码消息BO
+        GetSystemCodeMessageBO getSystemCodeMessageBO = new GetSystemCodeMessageBO();
+
+        // 参数设定
+        getSystemCodeMessageBO.setCode("001234");
+        getSystemCodeMessageBO.setTempCode("SMS_159626833");
+        getSystemCodeMessageBO.setMobile("13099113151");
+        try {
+            smsUtil.sendSms(getSystemCodeMessageBO);
+        } catch (Exception e) {
+            System.out.println("短信验证码发送错误");
+        }
     }
 
 }
