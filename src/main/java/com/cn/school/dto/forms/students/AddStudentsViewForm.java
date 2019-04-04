@@ -1,11 +1,12 @@
 package com.cn.school.dto.forms.students;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -49,12 +50,14 @@ public class AddStudentsViewForm {
     @NotBlank(message = "身份证号码不能为空")
     @ApiModelProperty(value = "身份证号码")
     @Size(min = 18, max = 18, message = "输入正确的身份证号码")
+    @Pattern(regexp="[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)",message="证件号码格式错误")
     private String idCard;
 
     /**
      * 应缴费
      */
     @ApiModelProperty(value = "应缴费")
+    @NotNull(message = "应缴费不能为空")
     private BigDecimal payable;
 
     /**
@@ -67,6 +70,7 @@ public class AddStudentsViewForm {
      * 驾照等级
      */
     @ApiModelProperty(value = "驾照等级")
+    @NotBlank(message = "驾照等级不能为空")
     private String driverLevel;
 
     /**

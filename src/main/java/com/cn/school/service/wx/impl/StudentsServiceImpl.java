@@ -45,10 +45,10 @@ public class StudentsServiceImpl implements StudentsService {
 //            throw new RuntimeException("该号码/身份证号/微信号已经报名！");
 //        }
         //验证验证码
-        Boolean flag = smsService.updateCheckMobileCode(comSendCodeViewForm);
-        if (!flag) {
-            throw new RuntimeException("短信验证错误");
-        }
+//        Boolean flag = smsService.updateCheckMobileCode(comSendCodeViewForm);
+//        if (!flag) {
+//            throw new RuntimeException("短信验证错误");
+//        }
 
         DSStudents dsStudents = new DSStudents();
         dsStudents.setUserName(viewForm.getUserName());
