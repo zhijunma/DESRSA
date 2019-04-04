@@ -59,12 +59,13 @@
     </update>
     <select id="getMobileOnly" resultType="java.lang.Integer">
         SELECT
-            COUNT(mobile_phone) as count
+            COUNT(DSS.mobile_phone) as count
         FROM
-            driver_school_students
-        WHERE
-            delete_flag = FALSE
-        AND mobile_phone = #{mobilePhone} OR id_card=#{idCard} OR openid=#{openId}
+              driver_school_students DSS
+	        INNER JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
+            INNER JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid
+            WHERE  DSS.delete_flag = FALSE AND DSO.status = 1
+            AND DSS.mobile_phone = #{mobilePhone} OR DSS.id_card=#{idCard} OR DSS.openId = #{openId}
     </select>
 
 </mapper>

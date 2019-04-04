@@ -27,12 +27,16 @@ public class StudentsServiceImpl implements StudentsService {
     @Autowired
     private SmsService smsService;
 
+    public static void main(String[] args) {
+
+    }
     /**
      * 学员报名
      *
      * @param viewForm
      * @return
      */
+
     @Override
     @Transactional(rollbackFor = RuntimeException.class, timeout = 30)
     public RestResponse addStudents(AddStudentsViewForm viewForm) {
@@ -40,15 +44,15 @@ public class StudentsServiceImpl implements StudentsService {
         ComSendCodeViewForm comSendCodeViewForm = new ComSendCodeViewForm();
         comSendCodeViewForm.setCode(viewForm.getCode());
         comSendCodeViewForm.setMobile(viewForm.getMobilePhone());
-//        Integer count = studentsMapper.getMobileOnly(viewForm.getMobilePhone(),viewForm.getOpenId(),viewForm.getIdCard());
-//        if (count > 0) {
-//            throw new RuntimeException("该号码/身份证号/微信号已经报名！");
-//        }
+        Integer count = studentsMapper.getMobileOnly(viewForm.getMobilePhone(),viewForm.getOpenId(),viewForm.getIdCard());
+        if (count > 0) {
+            throw new RuntimeException("该号码/身份证号/微信号已经报名成功，请移步个人信息查看！");
+        }
         //验证验证码
-//        Boolean flag = smsService.updateCheckMobileCode(comSendCodeViewForm);
-//        if (!flag) {
-//            throw new RuntimeException("短信验证错误");
-//        }
+        Boolean flag = smsService.updateCheckMobileCode(comSendCodeViewForm);
+        if (!flag) {
+            throw new RuntimeException("短信验证错误");
+        }
 
         DSStudents dsStudents = new DSStudents();
         dsStudents.setUserName(viewForm.getUserName());

@@ -39,8 +39,10 @@
             DSS.payable AS payable,
             DSS.paid AS paid
         FROM
-	        driver_school_students DSS
-            WHERE DSS.openId = #{openId}
+              driver_school_students DSS
+	         INNER JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
+             INNER JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid
+            WHERE DSS.openId = #{openId} AND DSS.delete_flag = FALSE AND DSO.status = 1
     </select>
     <select id="getStudentOrderByStudentsId" resultType="com.cn.school.dto.info.vo.GetStudentOrderVO">
         SELECT
