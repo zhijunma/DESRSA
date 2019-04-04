@@ -21,11 +21,7 @@ public interface StudentsOrderMapper {
     /**
      * 学院查看个人信息及缴费情况
      *
-     * @param idCard
-     * @param userName
-     * @return
+     * @return openId
      */
-    List<DSStudentsOrder> getStudentOrderInfo(@Param("idCard") String idCard,
-                                              @Param("userName")  String userName,
-                                              @Param("openId") @NotBlank(message = "openId不能为空") String openId);
+    List<DSStudentsOrder> getStudentOrderInfo(@Param("openId") @NotBlank(message = "openId不能为空") String openId);
 }

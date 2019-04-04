@@ -36,8 +36,7 @@ public class StudentOrderController {
      */
     @ApiOperation(value = "学员查看个人信息及缴费情况", notes = "{\n" +
             "  \"body\": {\n" +
-            "    \"idCard\": \"620503199510115776\",\n" +
-            "    \"userName\": \"云龙雷\"\n" +
+            "    \"openId\": \"000000000000000000000\" \n" +
             "  }\n" +
             "}")
     @PostMapping(value = "/getStudentOrderInfo",

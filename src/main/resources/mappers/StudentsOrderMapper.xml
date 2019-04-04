@@ -45,10 +45,6 @@
 	        driver_school_students DSS
         LEFT JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
         LEFT JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid
-        <if test="idCard != null and '' != idCard and userName != null and '' != userName">
-            WHERE DSS.id_card = #{idCard}
-            AND DSS.user_name=#{userName}
-        </if>
         <if test="openId != null and '' != openId">
             WHERE DSS.openId = #{openId}
         </if>

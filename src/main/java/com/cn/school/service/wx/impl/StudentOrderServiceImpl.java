@@ -32,7 +32,7 @@ public class StudentOrderServiceImpl implements StudentOrderService {
      */
     @Override
     public RestResponse getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm) {
-        List<DSStudentsOrder> dsStudentsOrders = studentsOrderMapper.getStudentOrderInfo(getStudentOrderInfoViewForm.getIdCard(), getStudentOrderInfoViewForm.getUserName(), getStudentOrderInfoViewForm.getOpenId());
+        List<DSStudentsOrder> dsStudentsOrders = studentsOrderMapper.getStudentOrderInfo( getStudentOrderInfoViewForm.getOpenId());
         if (dsStudentsOrders.isEmpty()) {
             return RestResponse.isNull();
         }
