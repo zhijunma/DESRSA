@@ -2,14 +2,14 @@ package com.cn.school.service.wx.impl;
 
 import com.cn.school.dto.forms.studentOrder.GetStudentOrderInfoViewForm;
 import com.cn.school.dto.info.vo.GetStudentOrderVO;
-import com.cn.school.entity.DSStudentsOrder;
+import com.cn.school.entity.DSStudents;
 import com.cn.school.mapper.wx.StudentsOrderMapper;
 import com.cn.school.service.wx.StudentOrderService;
 import com.cn.school.utils.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,39 +32,22 @@ public class StudentOrderServiceImpl implements StudentOrderService {
      */
     @Override
     public RestResponse getStudentOrderInfo(GetStudentOrderInfoViewForm getStudentOrderInfoViewForm) {
-        List<DSStudentsOrder> dsStudentsOrders = studentsOrderMapper.getStudentOrderInfo( getStudentOrderInfoViewForm.getOpenId());
-        if (dsStudentsOrders.isEmpty()) {
+        DSStudents dsStudents = studentsOrderMapper.getStudentOrderInfo(getStudentOrderInfoViewForm.getOpenId());
+        if (ObjectUtils.isEmpty(dsStudents)) {
             return RestResponse.isNull();
         }
-        List<GetStudentOrderVO> getStudentOrderVOS = new ArrayList<>(16);
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
 
-        dsStudentsOrders.forEach(e -> {
-            GetStudentOrderVO getStudentOrderVO = new GetStudentOrderVO();
-            map.put("guid", e.getGuid());
-            map.put("userName", e.getUserName());
-            map.put("idCard", e.getIdCard());
-            map.put("mobilePhone", e.getMobilePhone());
-            map.put("driverLevel", e.getDriverLevel());
-            map.put("payable", e.getPayable());
-            map.put("paid", e.getPaid());
-            getStudentOrderVO.setDso_add_time(e.getDso_add_time());
-            getStudentOrderVO.setTotalFee(e.getTotalFee());
-            getStudentOrderVO.setStatus(e.getStatus());
-            getStudentOrderVOS.add(getStudentOrderVO);
-            map.put("stages", getStudentOrderVOS);
-//            getStudentOrderVO.setGuid(e.getGuid());
-//            getStudentOrderVO.setUserName(e.getUserName());
-//            getStudentOrderVO.setIdCard(e.getIdCard());
-//            getStudentOrderVO.setMobilePhone(e.getMobilePhone());
-//            getStudentOrderVO.setDriverLevel(e.getDriverLevel());
-//            getStudentOrderVO.setPayable(e.getPayable());
-//            getStudentOrderVO.setPaid(e.getPaid());
-//
-////            map.put("guid",e.getGuid())
-//            getStudentOrderVO.setDso_add_time(e.getDso_add_time());
-//            getStudentOrderVO.setTotalFee(e.getTotalFee());
-        });
+        map.put("guid", dsStudents.getGuid());
+        map.put("userName", dsStudents.getUserName());
+        map.put("idCard", dsStudents.getIdCard());
+        map.put("mobilePhone", dsStudents.getMobilePhone());
+        map.put("driverLevel", dsStudents.getDriverLevel());
+        map.put("payable", dsStudents.getPayable());
+        map.put("paid", dsStudents.getPaid());
+        //根据学员id查询缴费情况
+        List<GetStudentOrderVO> getStudentOrderVOS = studentsOrderMapper.getStudentOrderByStudentsId(dsStudents.getGuid());
+        map.put("stages", getStudentOrderVOS.isEmpty() ? null : getStudentOrderVOS);
 
         return RestResponse.success(map);
     }

@@ -29,7 +29,7 @@
         );
     </insert>
     <!--学院查看个人信息及缴费情况-->
-    <select id="getStudentOrderInfo" resultType="com.cn.school.entity.DSStudentsOrder">
+    <select id="getStudentOrderInfo" resultType="com.cn.school.entity.DSStudents">
         SELECT
             DSS.guid AS guid,
             DSS.user_name AS userName,
@@ -37,16 +37,21 @@
             DSS.id_card AS idCard,
             DSS.driver_level AS driverLevel,
             DSS.payable AS payable,
-            DSS.paid AS paid,
-            DSO.add_time AS dso_add_time,
-            DSO.total_fee AS totalFee,
-            DSO.status AS status
+            DSS.paid AS paid
         FROM
 	        driver_school_students DSS
-        LEFT JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
-        LEFT JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid
-        <if test="openId != null and '' != openId">
             WHERE DSS.openId = #{openId}
-        </if>
+    </select>
+    <select id="getStudentOrderByStudentsId" resultType="com.cn.school.dto.info.vo.GetStudentOrderVO">
+        SELECT
+            DSO.add_time AS dso_add_time,
+            DSO.total_fee AS totalFee,
+            DSO. STATUS AS STATUS
+        FROM
+            driver_school_students_order DSSO
+        INNER JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid
+        WHERE
+            DSSO.students_guid = #{guid}
+        AND DSO. STATUS = 1
     </select>
 </mapper>

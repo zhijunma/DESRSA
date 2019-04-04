@@ -15,7 +15,7 @@ public class GetStudentOrderVO {
     /**
      * 订单（表)时间
      */
-    private LocalDateTime dso_add_time;
+    private LocalDateTime addTime;
     /**
      * 金额
      */
