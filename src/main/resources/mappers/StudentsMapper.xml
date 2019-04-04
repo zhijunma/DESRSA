@@ -65,7 +65,20 @@
 	        INNER JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
             INNER JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid
             WHERE  DSS.delete_flag = FALSE AND DSO.status = 1
-            AND DSS.mobile_phone = #{mobilePhone} OR DSS.id_card=#{idCard} OR DSS.openId = #{openId}
+            AND DSS.mobile_phone = #{mobilePhone} and (DSS.id_card=#{idCard} OR DSS.openId = #{openId})
     </select>
+    <!--修改学生表支付状态-->
+    <update id="updateStudentStatus">
+        UPDATE driver_school_students
+        SET STATUS = 1
+        WHERE
+            guid in (
+        SELECT
+            DSSO.students_guid
+        FROM
+        driver_school_students_order DSSO
+        INNER JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid
+        WHERE DSO.guid=#{guid})
+    </update>
 
 </mapper>

@@ -38,4 +38,12 @@ public interface StudentsMapper {
      * @return
      */
     Integer getMobileOnly(@Param("mobilePhone") String mobilePhone, @Param("openId") String openId, @Param("idCard") String idCard);
+
+    /**
+     * 修改学生表支付状态
+     * @param guid
+     * @return
+     */
+    Integer updateStudentStatus( @Param("guid") Long guid);
+
 }

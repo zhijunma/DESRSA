@@ -2,6 +2,7 @@ package com.cn.school.controller;
 
 import com.cn.school.entity.DSOrder;
 import com.cn.school.mapper.wx.OrderMapper;
+import com.cn.school.mapper.wx.StudentsMapper;
 import com.cn.school.utils.pay.SignUtils;
 import com.cn.school.utils.pay.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,8 @@ public class TestPayResultSerlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private StudentsMapper studentsMapper;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -80,6 +83,7 @@ public class TestPayResultSerlet extends HttpServlet {
                     System.out.println("修改订单状态bankType" + bankType);
                     dsOrder1.setModTime(LocalDateTime.now());
                     Integer status1 = orderMapper.updateOrderStatus(dsOrder1);
+                    studentsMapper.updateStudentStatus(guid);
                     if (status1 > 0) {
                         System.out.println("修改订单状态");
                     }
