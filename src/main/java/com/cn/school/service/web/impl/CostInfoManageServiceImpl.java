@@ -143,7 +143,9 @@ public class CostInfoManageServiceImpl implements CostInfoManageService {
         }
         stagesManageMapper.deleteStagesByCostId(guidList,viewForm.getCurrId(), viewForm.getCurrName());
         List<Long> stagesList = stagesManageMapper.getStagesIdByCostId(guidList);
-        stagesManageMapper.deleteStages(stagesList, viewForm.getCurrId(), viewForm.getCurrName());
+        if(!stagesList.isEmpty()){
+            stagesManageMapper.deleteStages(stagesList, viewForm.getCurrId(), viewForm.getCurrName());
+        }
         return RestResponse.success("删除成功");
     }
 
