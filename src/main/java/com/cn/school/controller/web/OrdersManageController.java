@@ -47,4 +47,12 @@ public class OrdersManageController {
         OrderViewForm viewForm = request.getBody();
         return orderManageService.updateOrderStatus(viewForm);
     }
+    /**
+     * 管理员一览已支付订单
+     * @return
+     */
+    @PostMapping(value = "/getPaidOrders")
+    public RestResponse getPaidOrders() {
+        return orderManageService.getPaidOrders();
+    }
 }

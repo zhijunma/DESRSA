@@ -4,6 +4,7 @@ import com.cn.school.dto.forms.order.GetOrdersViewForm;
 import com.cn.school.dto.forms.order.OrderViewForm;
 import com.cn.school.dto.info.bo.ManageOrderBO;
 import com.cn.school.dto.info.vo.GetOrderInfoVO;
+import com.cn.school.dto.info.vo.GetPaidOrderInfoVO;
 import com.cn.school.entity.DSOrder;
 import com.cn.school.mapper.web.OrderManageMapper;
 import com.cn.school.service.web.OrderManageService;
@@ -81,6 +82,42 @@ public class OrderManageServiceImpl implements OrderManageService {
         return RestResponse.success("修改成功！");
 
         }
+    /**
+     * 查看已支付订单
+     * @return
+     */
+    @Override
+    public RestResponse getPaidOrders() {
+
+        ManageOrderBO dsOrder = new ManageOrderBO();
+        List<ManageOrderBO> reDeOrder = orderManageMapper.getOrders(dsOrder);
+        List<GetPaidOrderInfoVO> getOrderInfoVOS = new ArrayList<>(16);
+        //缓存信息到VO中
+        reDeOrder.forEach(e -> {
+            GetPaidOrderInfoVO getOrderInfoVO = new GetPaidOrderInfoVO();
+            getOrderInfoVO.setGuid(e.getGuid());
+            getOrderInfoVO.setOutTradeNo(e.getOutTradeNo());
+            getOrderInfoVO.setBody(e.getBody());
+            getOrderInfoVO.setAttach(e.getAttach());
+            getOrderInfoVO.setTotalFee(e.getTotalFee());
+            getOrderInfoVO.setTimeStart(e.getTimeStart());
+            getOrderInfoVO.setTimeExpire(e.getTimeExpire());
+            getOrderInfoVO.setMobilePhone(e.getMobilePhone());
+            getOrderInfoVO.setIdCard(e.getIdCard());
+            getOrderInfoVO.setUserName(e.getUserName());
+            getOrderInfoVO.setPaid(e.getPaid());
+            getOrderInfoVO.setPayable(e.getPayable());
+            getOrderInfoVO.setBankType(e.getBankType());
+            getOrderInfoVO.setAddTime(e.getAddTime());
+            getOrderInfoVO.setAddUser(e.getAddUser());
+
+            //将缓存的信息放入list中
+            getOrderInfoVOS.add(getOrderInfoVO);
+        });
+        //返回VOList中的说有数据
+        return RestResponse.success(getOrderInfoVOS) ;
+
+    }
 
     /**
      * 权限判断

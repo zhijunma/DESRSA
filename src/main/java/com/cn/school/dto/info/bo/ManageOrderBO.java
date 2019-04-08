@@ -65,4 +65,14 @@ public class ManageOrderBO {
          * 身份证号
          */
         private String idCard;
+        /**
+         * 银行名称
+         */
+        private String bankType;
+        /**
+         * 添加人
+         */
+        private LocalDateTime addTime;
+        private String addUser;
+
 }

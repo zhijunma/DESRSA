@@ -6,19 +6,14 @@
         UPDATE driver_school_evaluate
         SET
         delete_flag = true,
-        mod_user_id = #{dsEvaluate.modUserId},
-        mod_user = #{dsEvaluate.modUser},
-        mod_time = #{dsEvaluate.modTime}
-        WHERE delete_flag = FALSE
-        <if test="dsEvaluate.addUser != null and '' != dsEvaluate.addUser">
-            and add_user=#{dsEvaluate.addUser}
-        </if>
-        <if test="dsEvaluate.addUserId != null and '' != dsEvaluate.addUserId">
-            AND add_user_id=#{dsEvaluate.addUserId}
-        </if>
-        <if test="dsEvaluate.guid != null and '' != dsEvaluate.guid">
-            AND guid =#{dsEvaluate.guid}
-        </if>
+        mod_user_id = #{modUserId},
+        mod_user = #{modUser},
+        mod_time = now()
+        where delete_flag = false
+        and guid in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
     </update>
 
     <!-- 评价与投诉信息一览 -->

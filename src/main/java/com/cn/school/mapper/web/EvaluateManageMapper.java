@@ -11,13 +11,14 @@ import java.util.List;
 @Mapper
 @Repository
 public interface EvaluateManageMapper {
-
     /**
      *管理员删除评价与投诉
-     * @param dsEvaluate
+     * @param list
+     * @param modUserId
+     * @param modUser
      * @return
      */
-    Integer deleteEvaluate(@Param("dsEvaluate") DSEvaluate dsEvaluate);
+    Integer deleteEvaluate(@Param("list") List<Long> list, @Param("modUserId") Long modUserId, @Param("modUser") String modUser);
 
     /**
      *管理员浏览评价与投诉

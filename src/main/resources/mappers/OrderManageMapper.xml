@@ -68,5 +68,30 @@
         </foreach>
         and delete_flag = false
     </update>
-
+    <select id="getPaidOrders" resultType="com.cn.school.dto.info.bo.ManageOrderBO">
+    SELECT
+    DSO.guid AS guid,
+    DSS.user_name AS userName,
+    DSS.mobile_phone AS mobilePhone,
+    DSS.id_card AS idCard,
+    DSS.driver_level AS driverLevel,
+    DSS.payable AS payable,
+    DSS.paid AS paid,
+    DSS.add_user,
+    DSS.add_time,
+    DSO.bank_type AS bankType,
+    DSO.out_trade_no AS outTradeNo,
+    DSO.attach,
+    DSO.time_expire AS timeExpire,
+    DSO.time_start AS timeStart,
+    DSO.body,
+    DSO.add_time AS addTime,
+    DSO.add_user AS addUser,
+    DSO.total_fee AS totalFee
+    FROM
+    driver_school_students DSS
+    INNER JOIN driver_school_students_order DSSO ON DSSO.students_guid = DSS.guid
+    INNER JOIN driver_school_order DSO ON DSO.guid = DSSO.order_guid ORDER BY guid ASC
+    where DSS.status = 1
+    </select>
 </mapper>

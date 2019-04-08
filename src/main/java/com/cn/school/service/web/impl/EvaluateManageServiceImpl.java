@@ -28,24 +28,16 @@ public class EvaluateManageServiceImpl implements EvaluateManageService {
     /**
      * 管理员删除评价与投诉,假删除（更新状态）
      *
-     * @param deleteEvaluateViewForm
+     * @param viewForm
      * @return
      */
     @Override
-    public RestResponse deleteEvaluate(DeleteEvaluateViewForm deleteEvaluateViewForm) {
-        roleCheck(deleteEvaluateViewForm.getCurrRole());
-        DSEvaluate dsEvaluate = new DSEvaluate();
+    public RestResponse deleteEvaluate(DeleteEvaluateViewForm viewForm) {
+        roleCheck(viewForm.getCurrRole());
         //删除条件-查找主键guid
-        dsEvaluate.setGuid(deleteEvaluateViewForm.getGuid());
-        //删除条件-查找添加人
-        dsEvaluate.setAddUser(deleteEvaluateViewForm.getAddUser());
-        dsEvaluate.setAddUserId(deleteEvaluateViewForm.getAddUserId());
-        //修改人信息
-        dsEvaluate.setModUser(deleteEvaluateViewForm.getCurrName());
-        dsEvaluate.setModUserId(deleteEvaluateViewForm.getCurrId());
-        dsEvaluate.setModTime(LocalDateTime.now());
+        List<Long> guidList = viewForm.getGuidList();
         //执行删除操作并进行判断
-        Integer state = evaluateManageMapper.deleteEvaluate(dsEvaluate);
+        Integer state = evaluateManageMapper.deleteEvaluate(guidList,viewForm.getCurrId(),viewForm.getCurrName());
         if (state > 0) {
             return RestResponse.success("删除评价信息成功！");
         } else {

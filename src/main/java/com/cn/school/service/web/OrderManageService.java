@@ -22,4 +22,9 @@ public interface OrderManageService {
      * @return
      */
     RestResponse updateOrderStatus(OrderViewForm viewForm);
+    /**
+     * 查看已支付订单
+     * @return
+     */
+    RestResponse getPaidOrders();
 }

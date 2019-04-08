@@ -4,6 +4,7 @@ import com.cn.school.dto.forms.auth.UserContextViewForm;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -12,25 +13,7 @@ public class DeleteEvaluateViewForm extends UserContextViewForm {
         /**
          * guid
          */
-        private  Long guid;
-        /**
-         * 添加人
-         */
-        private Long addUserId;
-        private String addUser;
-
-
-        /**
-         * 修改人
-         */
-        private Long modUserId;
-        private String modUser;
-        private LocalDateTime modTime;
-
-        /**
-         * 0：未删除 1：删除
-         */
-        private Boolean deleteFlag;
+        private List<Long> guidList;
 
 }
 
