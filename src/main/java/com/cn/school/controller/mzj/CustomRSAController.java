@@ -2,6 +2,7 @@ package com.cn.school.controller.mzj;
 
 import com.cn.school.FormView.AddRSAViewForm;
 import com.cn.school.FormView.GetRSAViewForm;
+import com.cn.school.entity.mzj.DSRSA;
 import com.cn.school.service.mzj.CustomRSAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,16 @@ public class CustomRSAController {
      * @return
      */
     @PostMapping(value = "/getRSA")
-    public String getESA(@RequestBody GetRSAViewForm form) {
+    public String getRSA(@RequestBody GetRSAViewForm form) {
         return customRSAService.getRSA(form);
+    }
+    /**
+     * 解密
+     * @param form
+     * @return
+     */
+    @PostMapping(value = "/getRSAPasswordKey")
+    public DSRSA getRSAPasswordKey(@RequestBody GetRSAViewForm form) {
+        return customRSAService.getRSAPasswordKey(form);
     }
 }
