@@ -24,8 +24,10 @@ public class Test {
 //    word = customDESService.getDES(7L);
 //        System.out.println(word);
 //        customRSAService.addRSA(word,512);
-        DSRSA dsrsa = customRSAService.getRSAPasswordKey(2L);
+
         GetRSAViewForm form = new GetRSAViewForm();
+        form.setId(2L);
+        DSRSA dsrsa = customRSAService.getRSAPasswordKey(form);
         form.setPassword(dsrsa.getPassword());
         form.setPrivateKey(dsrsa.getPrivateKey());
         System.out.println(customRSAService.getRSA(form));

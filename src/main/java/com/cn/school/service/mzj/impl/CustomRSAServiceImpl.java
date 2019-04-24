@@ -80,25 +80,25 @@ public class CustomRSAServiceImpl implements CustomRSAService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "密文是"+form.getPassword()+"解析后的原文是："+decodedData;
+        return "密文是"+form.getPassword()+"\n解析后的原文是："+decodedData;
     }
 
     /**
      * 通过id获取密文和密钥
-     * @param id
+     * @param form
      * @return
      */
     @Override
-    public DSRSA getRSAPasswordKey(Long id) {
+    public DSRSA getRSAPasswordKey(GetRSAViewForm form) {
         //通过id获取密文和密钥
-        GetRSAForm form = customRSAMapper.getRSAById(id);
+        GetRSAForm getRSAForm = customRSAMapper.getRSAById(form.getId());
         //判断是否存在密文
         if (ObjectUtils.isEmpty(form)) {
             throw new RuntimeException("数据不存在！");
         } else {
             DSRSA dsrsa = new DSRSA();
-            dsrsa.setPrivateKey(form.getPrivateKey());
-            dsrsa.setPassword(form.getPassword());
+            dsrsa.setPrivateKey(getRSAForm.getPrivateKey());
+            dsrsa.setPassword(getRSAForm.getPassword());
             return dsrsa;
         }
     }

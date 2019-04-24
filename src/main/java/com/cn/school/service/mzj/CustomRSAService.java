@@ -28,8 +28,8 @@ public interface CustomRSAService {
     String getRSA(GetRSAViewForm form);
     /**
      * 通过id获取密文和密钥
-     * @param id
+     * @param form
      * @return
      */
-    DSRSA getRSAPasswordKey(Long id);
+    DSRSA getRSAPasswordKey(GetRSAViewForm form);
 }
