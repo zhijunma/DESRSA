@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.mzj.CustomRSAMapper">
+    <!--将加密后的原文与密文写入数据库-->
+    <insert id="addRSA">
+        INSERT INTO test_RSA_table(
+            word,
+            pass,
+            publicKey,
+            privateKey
+            )
+            VALUES
+            (
+                #{dsRSA.word},
+                #{dsRSA.password},
+                #{dsRSA.publicKey},
+                #{dsRSA.privateKey}
+            )
+    </insert>
+    <!-- 通过原文获取密文 -->
+    <select id="getPasswordByWord" resultType="java.lang.String">
+        SELECT
+            pass as password
+        FROM
+            test_RSA_table
+        WHERE
+            word = #{word}
+    </select>
+    <!-- 通过id获取信息 -->
+    <select id="getRSAById" resultType="com.cn.school.FormView.form.GetRSAForm">
+        SELECT
+            pass as password,
+            privateKey
+        FROM
+            test_RSA_table
+        WHERE
+            id = #{id}
+    </select>
+    <!-- 修改密文 -->
+    <update id="updatePassword">
+        UPDATE test_RSA_table
+        SET
+        pass = #{dsRSA.password},
+        publicKey = #{dsRSA.publicKey},
+        privateKey = #{dsRSA.privateKey}
+        WHERE
+        word = #{dsRSA.word}
+    </update>
+</mapper>

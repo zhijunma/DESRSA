@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.mzj.CustomDESMapper">
+    <!--将加密后的原文与密文写入数据库-->
+    <insert id="addDES">
+        INSERT INTO test_table(
+            word,
+            pass,
+            k
+            )
+            VALUES
+            (
+                #{dsMyDES.word},
+                #{dsMyDES.pass},
+                #{dsMyDES.k}
+            )
+    </insert>
+    <!-- 通过原文获取密文 -->
+    <select id="getPasswordByWord" resultType="java.lang.String">
+        SELECT
+            pass as password
+        FROM
+            test_table
+        WHERE
+            word = #{word}
+    </select>
+    <!-- 通过id获取密文 -->
+    <select id="getPasswordById" resultType="com.cn.school.entity.mzj.DSMyDES">
+        SELECT
+            pass
+        FROM
+            test_table
+        WHERE
+            id = #{id}
+    </select>
+    <!-- 通过id获取加密的key -->
+    <select id="getKeyById" resultType="com.cn.school.entity.mzj.DSMyDES">
+        SELECT
+            k
+        FROM
+            test_table
+        WHERE
+            id = #{id}
+    </select>
+    <!-- 修改密文 -->
+    <update id="updatePassword">
+        UPDATE test_table
+        SET
+        pass = #{password}
+        WHERE
+        word = #{word}
+    </update>
+</mapper>
