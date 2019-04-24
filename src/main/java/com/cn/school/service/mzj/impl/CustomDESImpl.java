@@ -18,7 +18,13 @@ import util.CustomDESUtil;
 public class CustomDESImpl implements CustomDESService {
     @Autowired
     private CustomDESMapper customDESMapper;
-    //对输入的word进行加密并存入数据库
+
+    /**
+     * 对输入的word进行加密并存入数据库
+     * @param word
+     * @param k
+     * @return
+     */
     @Override
     public String addDES(String word,String k) {
         String password = new String();
@@ -67,6 +73,11 @@ public class CustomDESImpl implements CustomDESService {
 
     }
 
+    /**
+     * 通过id获取key
+     * @param id
+     * @return
+     */
     @Override
     public String getDESKey(Long id) {
         //通过id获取密文
@@ -75,10 +86,16 @@ public class CustomDESImpl implements CustomDESService {
         if (ObjectUtils.isEmpty(dsMyDES)){
             return ("数据不存在！");
         } else {
-            return "编号是"+id+"的"+"key是"+dsMyDES.getK();
+            return "编号是"+id+"的"+"key是："+dsMyDES.getK();
         }
     }
 
+    /**
+     * 对密文进行转译
+     * @param password
+     * @param key
+     * @return
+     */
     @Override
     public String getDESWord(String password,String key) {
         CustomDESUtil customDES = new CustomDESUtil();
