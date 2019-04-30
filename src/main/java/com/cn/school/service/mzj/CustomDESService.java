@@ -22,7 +22,7 @@ public interface CustomDESService {
      */
     String getDESPassword(Long id);
     /**
-     * 通过id获取key
+     * 通过desId获取key
      * @param id
      * @return
      */

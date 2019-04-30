@@ -19,5 +19,5 @@ public class DSDESKey {
     /**
      * Key
      */
-    private String key;
+    private String k;
 }

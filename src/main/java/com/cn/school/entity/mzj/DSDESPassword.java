@@ -15,5 +15,5 @@ public class DSDESPassword {
     /**
      * password
      */
-    private String password;
+    private String passWord;
 }

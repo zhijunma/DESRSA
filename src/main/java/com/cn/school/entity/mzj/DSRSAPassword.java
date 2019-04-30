@@ -15,5 +15,5 @@ public class DSRSAPassword {
     /**
      * password
      */
-    private String password;
+    private String passWord;
 }

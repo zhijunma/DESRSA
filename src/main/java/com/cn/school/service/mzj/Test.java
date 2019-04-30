@@ -13,22 +13,9 @@ public class Test {
 
     @Autowired
    CustomDESService customDESService;
-    @Autowired
-    CustomRSAService customRSAService;
+//    @Autowired
+//    CustomRSAService customRSAService;
     @org.junit.Test
     public void Ts(){
-        String word = "测试";
-//    customDESService.addDES(word,"加密方式");
-//    word = customDESService.getDES(7L);
-//        System.out.println(word);
-//        customRSAService.addRSA(word,512);
-
-        GetRSAViewForm form = new GetRSAViewForm();
-        form.setId(2L);
-        DSRSA dsrsa = customRSAService.getRSAPasswordKey(form);
-        form.setPassword(dsrsa.getPassword());
-        form.setPrivateKey(dsrsa.getPrivateKey());
-        System.out.println(customRSAService.getRSA(form));
-
     }
 }
