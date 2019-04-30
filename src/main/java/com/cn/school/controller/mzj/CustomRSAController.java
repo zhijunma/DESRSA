@@ -2,7 +2,6 @@ package com.cn.school.controller.mzj;
 
 import com.cn.school.FormView.AddRSAViewForm;
 import com.cn.school.FormView.GetRSAViewForm;
-import com.cn.school.entity.mzj.DSRSA;
 import com.cn.school.service.mzj.CustomRSAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

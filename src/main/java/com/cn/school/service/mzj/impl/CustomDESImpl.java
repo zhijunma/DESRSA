@@ -1,6 +1,5 @@
 package com.cn.school.service.mzj.impl;
 
-import com.cn.school.entity.mzj.DSMyDES;
 import com.cn.school.mapper.mzj.CustomDESMapper;
 import com.cn.school.service.mzj.CustomDESService;
 import lombok.extern.slf4j.Slf4j;

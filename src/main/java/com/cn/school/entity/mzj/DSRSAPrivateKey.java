@@ -7,23 +7,15 @@ import lombok.Data;
  * Time 19:44
  */
 @Data
-public class DSRSA {
+public class DSRSAPrivateKey {
     /**
      * id
      */
     private Long id;
     /**
-     * word
+     * rsaId
      */
-    private String word;
-    /**
-     * password
-     */
-    private String password;
-    /**
-     * publicKey
-     */
-    private String publicKey;
+    private Long rsaId;
     /**
      * priveteKey
      */
