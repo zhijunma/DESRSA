@@ -11,11 +11,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = com.cn.school.SchoolApplication.class)
 public class Test {
 
-    @Autowired
-   CustomDESService customDESService;
 //    @Autowired
-//    CustomRSAService customRSAService;
+//   CustomDESService customDESService;
+    @Autowired
+    CustomRSAService customRSAService;
     @org.junit.Test
     public void Ts(){
+        GetRSAViewForm form = new GetRSAViewForm();
+        form.setId(2L);
+        form.setRsaId(2L);
+        form.setPassword(customRSAService.getRSAPasswordById(form));
+        form.setPrivateKey(customRSAService.getRSAPrivateKeyById(form));
+//        customRSAService.addRSA("测试1",512);
+//        customRSAService.getRSAPasswordById(form);
+//        customRSAService.getRSAPrivateKeyById(form);
+//        customRSAService.getRSAPublicKeyById(form);
+        System.out.println(customRSAService.getRSA(form));
     }
 }

@@ -9,6 +9,10 @@ public class GetRSAViewForm {
      */
     private Long id;
     /**
+     * id
+     */
+    private Long rsaId;
+    /**
      * password
      */
     private String password;

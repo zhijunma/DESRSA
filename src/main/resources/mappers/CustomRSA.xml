@@ -3,47 +3,66 @@
 <mapper namespace="com.cn.school.mapper.mzj.CustomRSAMapper">
     <!--将加密后的原文与密文写入数据库-->
     <insert id="addRSA">
-        INSERT INTO test_RSA_table(
-            word,
-            pass,
-            publicKey,
-            privateKey
+        <selectKey keyProperty="dsRSA.id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO RSAPassword(
+            passWord
             )
             VALUES
             (
-                #{dsRSA.word},
-                #{dsRSA.password},
-                #{dsRSA.publicKey},
-                #{dsRSA.privateKey}
+                #{dsRSA.passWord}
             )
     </insert>
-    <!-- 通过原文获取密文 -->
-    <select id="getPasswordByWord" resultType="java.lang.String">
-        SELECT
-            pass as password
-        FROM
-            test_RSA_table
-        WHERE
-            word = #{word}
-    </select>
+    <!--将加密后的原文与密文写入数据库-->
+    <insert id="addRSAPrivateKey">
+        INSERT INTO RSAPrivateKey(
+        rsaId,
+        RSAprivateKey
+        )
+        VALUES
+        (
+        #{ds.rsaId},
+        #{ds.privateKey}
+        )
+    </insert>
+    <!--将加密后的原文与密文写入数据库-->
+    <insert id="addRSAPublicKey">
+        INSERT INTO RSAPublicKey(
+        rsaId,
+        publicKey
+        )
+        VALUES
+        (
+        #{ds.rsaId},
+        #{ds.publicKey}
+        )
+    </insert>
     <!-- 通过id获取信息 -->
-    <select id="getRSAById" resultType="com.cn.school.FormView.form.GetRSAForm">
+    <select id="getRSAPasswordById" resultType="com.cn.school.entity.mzj.DSRSAPassword">
         SELECT
-            pass as password,
-            privateKey
+            passWord
         FROM
-            test_RSA_table
+            RSAPassword
         WHERE
             id = #{id}
     </select>
-    <!-- 修改密文 -->
-    <update id="updatePassword">
-        UPDATE test_RSA_table
-        SET
-        pass = #{dsRSA.password},
-        publicKey = #{dsRSA.publicKey},
-        privateKey = #{dsRSA.privateKey}
+    <!-- 通过id获取信息 -->
+    <select id="getRSAPublicKeyById" resultType="com.cn.school.entity.mzj.DSRSAPublicKey">
+        SELECT
+            publicKey
+        FROM
+            RSAPublicKey
         WHERE
-        word = #{dsRSA.word}
-    </update>
+            rsaId = #{rsaId}
+    </select>
+    <!-- 通过id获取信息 -->
+    <select id="getRSAPrivateKeyById" resultType="com.cn.school.entity.mzj.DSRSAPrivateKey">
+        SELECT
+            RSAprivateKey as privateKey
+        FROM
+            RSAPrivateKey
+        WHERE
+            rsaId = #{rsaId}
+    </select>
 </mapper>
