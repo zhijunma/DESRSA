@@ -66,7 +66,7 @@ public class CustomDESImpl implements CustomDESService {
         if (ObjectUtils.isEmpty(dsMyDES)){
             return ("数据不存在！");
         } else {
-            return "编号是"+id+"的"+"密文是"+dsMyDES.getPassWord();
+            return dsMyDES.getPassWord();
         }
 
     }
@@ -84,7 +84,7 @@ public class CustomDESImpl implements CustomDESService {
         if (ObjectUtils.isEmpty(dsMyDES)){
             return ("数据不存在！");
         } else {
-            return "编号是"+id+"的"+"key是："+dsMyDES.getK();
+            return dsMyDES.getK();
         }
     }
 
@@ -103,7 +103,7 @@ public class CustomDESImpl implements CustomDESService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "原文是"+word;
+        return word;
     }
 
 }

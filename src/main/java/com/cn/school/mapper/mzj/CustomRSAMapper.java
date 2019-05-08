@@ -1,6 +1,6 @@
 package com.cn.school.mapper.mzj;
 
-import com.cn.school.FormView.form.GetRSAForm;
+
 import com.cn.school.entity.mzj.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

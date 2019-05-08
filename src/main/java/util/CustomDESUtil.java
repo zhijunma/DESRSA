@@ -24,15 +24,6 @@ public class CustomDESUtil {
     private final static String DES = "DES";
     private final static String ENCODE = "GBK";
 
-    public static void main(String[] args) throws Exception {
-        String data = "测试ss";
-        String key = "加密方式";
-         System.err.println(encrypt(data, key));
-         System.err.println(decrypt(encrypt(data, key), key));
-//        System.out.println(encrypt(data));
-//        System.out.println(decrypt(encrypt(data)));
-
-    }
 
     /**
      * Description 根据键值进行加密

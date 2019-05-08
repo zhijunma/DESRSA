@@ -24,7 +24,7 @@ public class CustomDESController {
      */
     @PostMapping(value = "/addDES")
     @ResponseBody
-    public String addDES(@RequestBody AddDESViewForm addDESViewForm) {
+    public String addDES(AddDESViewForm addDESViewForm) {
         String word = addDESViewForm.getWord();
         String key = addDESViewForm.getKey();
         return customDESService.addDES(word,key);
@@ -37,7 +37,7 @@ public class CustomDESController {
      */
     @PostMapping(value = "/getWord")
     @ResponseBody
-    public String getWord(@RequestBody GetWordViewForm form) {
+    public String getWord(GetWordViewForm form) {
         return customDESService.getDESWord(form.getPass(),form.getKey());
     }
     /**
@@ -47,7 +47,7 @@ public class CustomDESController {
      */
     @PostMapping(value = "/getDESPassword")
     @ResponseBody
-    public String getDESPassword(@RequestBody GetDESViewForm form) {
+    public String getDESPassword(GetDESViewForm form) {
         Long id = form.getId();
         return customDESService.getDESPassword(id);
     }
@@ -58,7 +58,7 @@ public class CustomDESController {
      */
     @PostMapping(value = "/getDESKey")
     @ResponseBody
-    public String getDESKey(@RequestBody GetDESViewForm form) {
+    public String getDESKey(GetDESViewForm form) {
         Long id = form.getId();
         return customDESService.getDESKey(id);
     }

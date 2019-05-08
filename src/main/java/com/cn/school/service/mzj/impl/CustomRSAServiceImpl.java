@@ -1,7 +1,6 @@
 package com.cn.school.service.mzj.impl;
 
 import com.cn.school.FormView.GetRSAViewForm;
-import com.cn.school.FormView.form.GetRSAForm;
 import com.cn.school.entity.mzj.DSRSAPassword;
 import com.cn.school.entity.mzj.DSRSAPrivateKey;
 import com.cn.school.entity.mzj.DSRSAPublicKey;
@@ -88,7 +87,7 @@ public class CustomRSAServiceImpl implements CustomRSAService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "密文是"+form.getPassword()+"\n解析后的原文是："+decodedData;
+        return decodedData;
     }
     /**
      * 通过id获取密文

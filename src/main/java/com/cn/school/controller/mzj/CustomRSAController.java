@@ -25,7 +25,7 @@ public class CustomRSAController {
      * @return
      */
     @PostMapping(value = "/addRSA")
-    public String addRSA(@RequestBody AddRSAViewForm addRSAViewForm) {
+    public String addRSA(AddRSAViewForm addRSAViewForm) {
         String word = addRSAViewForm.getWord();
         Integer keySize = addRSAViewForm.getKeySize();
         return customRSAService.addRSA(word,keySize);
@@ -36,7 +36,7 @@ public class CustomRSAController {
      * @return
      */
     @PostMapping(value = "/getRSA")
-    public String getRSA(@RequestBody GetRSAViewForm form) {
+    public String getRSA(GetRSAViewForm form) {
         return customRSAService.getRSA(form);
     }
     /**
@@ -45,7 +45,7 @@ public class CustomRSAController {
      * @return
      */
     @PostMapping(value = "/getRSAPasswordById")
-    public String getRSAPasswordById(@RequestBody GetRSAViewForm form) {
+    public String getRSAPasswordById(GetRSAViewForm form) {
         return customRSAService.getRSAPasswordById(form);
     }
     /**
@@ -54,7 +54,7 @@ public class CustomRSAController {
      * @return
      */
     @PostMapping(value = "/getRSAPublicKeyById")
-    public String getRSAPublicKeyById(@RequestBody GetRSAViewForm form) {
+    public String getRSAPublicKeyById(GetRSAViewForm form) {
         return customRSAService.getRSAPublicKeyById(form);
     }
     /**
@@ -63,7 +63,7 @@ public class CustomRSAController {
      * @return
      */
     @PostMapping(value = "/getRSAPrivateKeyById")
-    public String getRSAPrivateKeyById(@RequestBody GetRSAViewForm form) {
+    public String getRSAPrivateKeyById(GetRSAViewForm form) {
         return customRSAService.getRSAPrivateKeyById(form);
     }
 }
