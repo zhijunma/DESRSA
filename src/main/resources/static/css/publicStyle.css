@@ -1,0 +1,84 @@
+body, p, ul, ol, dl, dd, h1, h2, h3, h4, h5, h6, td, input, select, option, textarea {
+    margin: 0;
+    padding: 0; }
+
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+body,html{
+    width: 100%;
+    height: 100%;
+    min-width: 620px;
+}
+form{
+    width: 1200px;
+    height: 660px;
+    margin: 0 auto;
+    background: turquoise;
+}
+form .goBack{
+    display: inline-block;
+    padding: 8px 16px;
+    background: blue;
+    color: white;
+    border-radius: 4px;
+    margin: 5px 0 0 5px;
+    cursor: pointer;
+}
+form .contentBox{
+    width: 1000px;
+    height: 660px;
+    margin: 0 auto;
+    padding-top: 40px;
+    box-sizing: border-box;
+}
+form h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.publicStyle{
+    width: 1000px;
+    padding: 0 80px;
+    box-sizing: border-box
+}
+.publicStyle label{
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    margin: 6px 0;
+}
+.publicStyle input{
+    width: 600px;
+    height: 30px;
+    text-indent: 20px;
+}
+.publicStyle span{
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 28px;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    background: blue;
+    cursor: pointer;
+}
+.reset{
+    margin: 25px auto 0;
+    display: block;
+    padding: 15px 50px;
+    border-radius: 8px;
+    font-size: 22px;
+    color: white;
+    border: 0;
+    outline: none;
+    background: blue;
+    cursor: pointer;
+}
+input[readonly=readonly]{
+    color: red;
+}

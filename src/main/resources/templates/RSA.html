@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>RSA算法</title>
+    <link rel="stylesheet" href="../static/css/publicStyle.css">
+</head>
+<body>
+    <form>
+        <span class="goBack">返回上一级</span>
+        <div class="contentBox">
+            <!-- 加密盒子 -->
+            <div class="encryptionBox publicStyle">
+                <h2>RSA算法加密</h2>
+                <label>原文：</label><input class="text_1" type="text"></br>
+                <label>密钥长度：</label><input class="text_2" type="text"><span id="beginEN">开始加密</span>
+            </div>
+            <!-- 解密盒子 -->
+            <div class="decodeBox publicStyle">
+                <h2>RSA算法解密</h2>
+                <label>id：</label><input class="text_3" type="text"><span id="getPass">获取密文</span></br>
+                <label>密文：</label><input class="text_4" type="text" readonly="readonly"><span id="copy_1">复制</span></br>
+                <label>id：</label><input class="text_5" type="text"><span id="getPassText">获取私钥</span></br>
+                <label>私钥：</label><input class="text_6" type="text" readonly="readonly"><span id="copy_2">复制</span></br>
+                <label>输入密文：</label><input type="text" class="text_7"></br>
+                <label>输入私钥：</label><input type="text" class="text_8"><span id="endEN">开始解密</span></br>
+                <label>原文为：</label><input type="text" class="text_9" readonly="readonly">
+            </div>
+            <input type="reset" value="重置" class="reset">
+        </div>
+    </form>
+</body>
+</html>
+<script src="../static/js/jquery-1.8.3.js"></script>
+<script src="../static/js/RSA.js"></script>
+<script>
+    $(function(){
+        // 返回首页
+        $(".goBack").click(function() {
+            location.href = "index.html";
+        })
+
+        //实现复制功能
+        $("#copy_1").click(function () {
+            let url_content = $(".text_4");
+            url_content.select();
+            document.execCommand("copy");
+        })
+        //实现复制功能
+        $("#copy_2").click(function () {
+            let url_content = $(".text_6");
+            url_content.select();
+            document.execCommand("copy");
+        })
+    })
+</script>

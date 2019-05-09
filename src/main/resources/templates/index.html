@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>加密算法</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+    <header>
+        <h2>加密算法演示</h2>
+    </header>
+    <section>
+        <button class="des">DES算法</button>
+        <button class="rsa">RSA算法</button>
+    </section>
+</body>
+</html>
+<script src="../static/js/jquery-1.8.3.js"></script>
+<script>
+    $(function(){
+        $(".des").click(function(){
+            location.href = "DES.html";
+        })
+        $(".rsa").click(function(){
+            location.href = "RSA.html";
+        })
+    })
+</script>

@@ -17,15 +17,16 @@ public class Test {
     CustomRSAService customRSAService;
     @org.junit.Test
     public void Ts(){
-        GetRSAViewForm form = new GetRSAViewForm();
-        form.setId(2L);
-        form.setRsaId(2L);
-        form.setPassword(customRSAService.getRSAPasswordById(form));
-        form.setPrivateKey(customRSAService.getRSAPrivateKeyById(form));
-//        customRSAService.addRSA("测试1",512);
+//        GetRSAViewForm form = new GetRSAViewForm();
+//        form.setId(2L);
+//        form.setRsaId(2L);
+//        form.setPassword(customRSAService.getRSAPasswordById(form));
+//        form.setPrivateKey(customRSAService.getRSAPrivateKeyById(form));
+        customRSAService.addRSA("测试4",512);
 //        customRSAService.getRSAPasswordById(form);
 //        customRSAService.getRSAPrivateKeyById(form);
 //        customRSAService.getRSAPublicKeyById(form);
-        System.out.println(customRSAService.getRSA(form));
+//        System.out.println(customRSAService.getRSA(form));
+//        customRSAService.getRSA()
     }
 }

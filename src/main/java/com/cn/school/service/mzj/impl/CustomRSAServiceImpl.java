@@ -64,10 +64,11 @@ public class CustomRSAServiceImpl implements CustomRSAService {
                 dsrsaPrivateKey.setRsaId(dsrsa.getId());
                 dsrsaPrivateKey.setPrivateKey(privateKey);
                 Integer st = customRSAMapper.addRSAPrivateKey(dsrsaPrivateKey);
-                if (sta <= 0) {
+                if (st <= 0) {
                     throw new RuntimeException("添加失败");
                 } else {
-                    return "成功！";
+
+                    return "添加成功！";
                 }
             }
         }
