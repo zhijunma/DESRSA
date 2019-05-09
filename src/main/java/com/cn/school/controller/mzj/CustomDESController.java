@@ -4,6 +4,9 @@ import com.cn.school.FormView.AddDESViewForm;
 import com.cn.school.FormView.GetDESViewForm;
 import com.cn.school.FormView.GetWordViewForm;
 import com.cn.school.service.mzj.CustomDESService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019-3-28 上午10:12:11
  */
 @RestController
+@Api(value="",description="CustomDESController",tags={"DES算法controller"})
+@ApiModel(value="DES加密算法",description="DES加密算法")
 @RequestMapping("/web/customDES")
 public class CustomDESController {
     @Autowired
@@ -23,6 +28,7 @@ public class CustomDESController {
      * @return
      */
     @PostMapping(value = "/addDES")
+    @ApiOperation(value="DES加密")
     @ResponseBody
     public String addDES(AddDESViewForm addDESViewForm) {
         String word = addDESViewForm.getWord();
@@ -36,6 +42,7 @@ public class CustomDESController {
      * @return
      */
     @PostMapping(value = "/getWord")
+    @ApiOperation(value="DES解密")
     @ResponseBody
     public String getWord(GetWordViewForm form) {
         return customDESService.getDESWord(form.getPass(),form.getKey());
@@ -46,6 +53,7 @@ public class CustomDESController {
      * @return
      */
     @PostMapping(value = "/getDESPassword")
+    @ApiOperation(value="获取密文")
     @ResponseBody
     public String getDESPassword(GetDESViewForm form) {
         Long id = form.getId();
@@ -57,6 +65,7 @@ public class CustomDESController {
      * @return
      */
     @PostMapping(value = "/getDESKey")
+    @ApiOperation(value="获取密匙")
     @ResponseBody
     public String getDESKey(GetDESViewForm form) {
         Long id = form.getId();

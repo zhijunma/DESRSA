@@ -10,7 +10,7 @@ public class GetRSAViewForm {
     /**
      * id
      */
-    @ApiModelProperty(value = "主键id",example = "0")
+    @ApiModelProperty(value = "主键id",hidden = true)
     private Long id;
     /**
      * id
