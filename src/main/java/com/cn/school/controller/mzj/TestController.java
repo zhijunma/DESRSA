@@ -14,24 +14,24 @@ import java.time.LocalDateTime;
  * Time:10:50
  */
 @Controller
-@Api(value="测试接口1",description="testController",tags={"跳转index页面"})
-@ApiModel(value="user对象",description="用户对象user")
+@Api(value="页面测试",description="testController",tags={"跳转index页面"})
+@ApiModel(value="页面测试",description="index页面")
 public class TestController {
-    @GetMapping(value = {"/","/index"})
-    @ApiOperation(value="跳转到index界面",notes="测试跳转index界面笔记")
+    @GetMapping(value = {"/","/index.html"})
+    @ApiOperation(value="跳转到index界面",notes="测试跳转index界面")
     public String index(@ApiParam(name="id",value="用户id",required=true) Long id, @ApiParam(name="username",value="用户名") String username) {
         System.out.println("_________"+LocalDateTime.now() +"__________");
         return "index";
     }
 
     @GetMapping(value = {"/DES","/DES.html"})
-    @ApiOperation(value="跳转到index界面",notes="测试跳转index界面笔记")
+    @ApiOperation(value="跳转到DES界面",notes="测试跳转DES界面")
     public String DES(@ApiParam(name="id",value="用户id",required=true) Long id, @ApiParam(name="username",value="用户名") String username) {
         System.out.println("_________"+LocalDateTime.now() +"__________");
         return "DES";
     }
     @GetMapping(value = {"/RSA","/RSA.html"})
-    @ApiOperation(value="跳转到index界面",notes="测试跳转index界面笔记")
+    @ApiOperation(value="跳转到RSA界面",notes="测试跳转RSA界面笔记")
     public String RSA(@ApiParam(name="id",value="用户id",required=true) Long id, @ApiParam(name="username",value="用户名") String username) {
         System.out.println("_________"+LocalDateTime.now() +"__________");
         return "RSA";
