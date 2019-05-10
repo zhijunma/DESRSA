@@ -32,6 +32,9 @@ public class CustomDESImpl implements CustomDESService {
     public String addDES(String word,String k) {
         String password = new String();
         CustomDESUtil customDES = new CustomDESUtil();
+        if (k.length()%4 != 0){
+            return ("添加失败");
+        }
         try {
             //对word进行加密
             password = customDES.encrypt(word,k);

@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = com.cn.school.SchoolApplication.class)
 public class Test {
 
-//    @Autowired
-//   CustomDESService customDESService;
+    @Autowired
+   CustomDESService customDESService;
     @Autowired
     CustomRSAService customRSAService;
     @org.junit.Test
@@ -22,11 +22,12 @@ public class Test {
 //        form.setRsaId(2L);
 //        form.setPassword(customRSAService.getRSAPasswordById(form));
 //        form.setPrivateKey(customRSAService.getRSAPrivateKeyById(form));
-        customRSAService.addRSA("测试4",512);
+//        customRSAService.addRSA("测试4",512);
 //        customRSAService.getRSAPasswordById(form);
 //        customRSAService.getRSAPrivateKeyById(form);
 //        customRSAService.getRSAPublicKeyById(form);
 //        System.out.println(customRSAService.getRSA(form));
 //        customRSAService.getRSA()
+        System.out.println(customDESService.getDESWord("CW8nb10+IwY=","天下第一"));
     }
 }

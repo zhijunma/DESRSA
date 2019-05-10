@@ -6,7 +6,7 @@ $("#beginEN").click(function(){
     //发送post请求
     let xhr = new XMLHttpRequest();
     var postStr = "word="+ text_1 +"&key="+ text_2;
-    xhr.open("post","http://192.168.3.48:82/web/customDES/addDES",true);
+    xhr.open("post","http://127.0.0.1:82/web/customDES/addDES",true);
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     // 解决跨域
     xhr.setRequestHeader("Access-Control-Allow-Origin",true);
@@ -29,7 +29,7 @@ $("#getPass").click(function(){
 
     let xhr = new XMLHttpRequest();
     var postStr = "id="+ text_3;
-    xhr.open("post","http://192.168.3.48:82/web/customDES/getDESPassword",true);
+    xhr.open("post","http://127.0.0.1:82/web/customDES/getDESPassword",true);
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     xhr.setRequestHeader("Access-Control-Allow-Origin",true);
     xhr.onreadystatechange=function(){
@@ -47,7 +47,7 @@ $("#getPassText").click(function(){
 
     let xhr = new XMLHttpRequest();
     var postStr = "id="+ text_5;
-    xhr.open("post","http://192.168.3.48:82/web/customDES/getDESKey",true);
+    xhr.open("post","http://127.0.0.1:82/web/customDES/getDESKey",true);
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     xhr.setRequestHeader("Access-Control-Allow-Origin",true);
     xhr.onreadystatechange=function(){
@@ -67,7 +67,7 @@ $("#endEN").click(function(){
     let xhr = new XMLHttpRequest();
     var postStr = "pass="+ text_7 +"&key="+ text_8;
     console.log(postStr)
-    xhr.open("post","http://192.168.3.48:82/web/customDES/getWord",true);
+    xhr.open("post","http://127.0.0.1:82/web/customDES/getWord",true);
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     xhr.setRequestHeader("Access-Control-Allow-Origin",true);
     xhr.onreadystatechange=function(){
