@@ -10,37 +10,37 @@ public class DSGoodsInfo {
     /**
      * 主键guid  无序输入 自增长
      */
-    public Long guid;
+    private Long guid;
     /**
      * 商品名称
      */
-    public String goodsName;
+    private String goodsName;
     /**
      *图片地址
      */
-    public String img;
+    private String img;
     /**
      *价格
      */
-    public BigDecimal price;
+    private BigDecimal price;
     /**
      *备注
      */
-    public String remake;
+    private String remake;
     /**
      *是否是推荐  0，否，1，是
      */
-    public Long recommend;
+    private Long recommend;
     /**
      *商品类型
      */
-    public String type;
+    private String type;
     /**
      *商品状态
      */
-    public Long deleteFlage;
+    private Long deleteFlage;
     /**
      *是否是新品
      */
-    public Long isNew;
+    private Long isNew;
 }
