@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.mzj.GoodsInfoMapper">
+    <!--条件获取商品信息-->
+    <select id="getGoodsinfo" resultType="com.cn.school.entity.mzj.DSGoodsInfo">
+        SELECT
+        guid,
+        goods_name as goodsName,
+        img,
+        price,
+        remake,
+        recommend,
+        type,
+        is_new as isNew
+        FROM
+        goods
+        WHERE
+        delete_flage = 0
+        <if test="ds.goodsName != null and '' != ds.goodsName">
+            and goods_name = #{ds.goodsName}
+        </if>
+        <if test="ds.price != null and '' != ds.price">
+            and price = #{ds.price}
+        </if>
+        <if test="ds.recommend != null and '' != ds.recommend">
+            and recommend = #{ds.recommend}
+        </if>
+        <if test="ds.type != null and '' != ds.type">
+            and type = #{ds.type}
+        </if>
+        <if test="ds.isNew != null and '' != ds.isNew">
+            and is_new = #{ds.isNew}
+        </if>
+    </select>
+</mapper>
