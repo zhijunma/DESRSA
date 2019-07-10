@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Slf4j
 @Service
 public class GoodsInfoServiceImpl implements GoodsInfoService {
@@ -24,11 +27,11 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     public List<DSGoodsInfo> getGoodsInfo(GetGoodsViewForm form) {
         DSGoodsInfo ds = new DSGoodsInfo();
-        ds.setGoodsName(form.goodsName);
-        ds.setPrice(form.price);
-        ds.setRecommend(form.recommend);
-        ds.setType(form.type);
-        ds.setIsNew(form.isNew);
+        ds.setGoodsName(form.getGoodsName());
+        ds.setPrice(form.getPrice());
+        ds.setRecommend(form.getRecommend());
+        ds.setType(form.getType());
+        ds.setIsNew(form.getIsNew());
         //从数据库中获取信息
         List<DSGoodsInfo> goodsInfoList = mapper.getGoodsinfo(ds);
         return goodsInfoList;

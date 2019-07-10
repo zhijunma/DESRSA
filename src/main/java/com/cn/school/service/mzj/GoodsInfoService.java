@@ -8,11 +8,12 @@ import java.util.List;
 
 /**
  *
+ * @author Administrator
  */
 @Transactional
 public interface GoodsInfoService {
     /**
-     *
+     *获取商品列表
      * @param form
      * @return
      */
