@@ -188,7 +188,8 @@ public class Test2 {
         String encodedData = Test2.publicEncrypt(str, Test2.getPublicKey(publicKey));
         System.out.println("密文：\r\n" + encodedData);
         String decodedData = Test2.privateDecrypt(encodedData, Test2.getPrivateKey(privateKey));
-        System.out.println("解密后文字: \r\n" + decodedData);
+        System.out.println("解密后文字:  \r\n" + decodedData);
+
 
 
     }
