@@ -13,19 +13,19 @@ public interface UserLoginMapper {
      * @param ds
      * @return
      */
-    public String getUserPassword(@Param("ds") DSUserInfo ds);
+    String getUserPassword(@Param("ds") DSUserInfo ds);
 
     /**
      * 通过用户昵称或者电话号码获取密码
      * @param ds
      * @return
      */
-    public Integer addUserInfo(@Param("ds") DSUserInfo ds);
+    Integer addUserInfo(@Param("ds") DSUserInfo ds);
     /**
      * 查看用户是否存在
      * @return
      */
-    public DSUserInfo getUserByMobilePhone(Long mobilePhone);
+    DSUserInfo getUserByMobilePhone(Long mobilePhone);
 
 
 }

@@ -1,22 +1,20 @@
 package com.cn.school.mapper.mzj;
 
-import com.cn.school.entity.mzj.DSGoodsInfo;
+import com.cn.school.entity.mzj.DSOrders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
- * 条件获取商品信息
+ * 订单管理
  */
 @Mapper
 @Repository
-public interface GoodsInfoMapper {
+public interface OrdersManageMapper {
     /**
-     * 条件获取商品信息
+     * 添加订单
      * @param ds
      * @return
      */
-    List<DSGoodsInfo> getGoodsinfo(@Param("ds") DSGoodsInfo ds);
+    Long addUserOrder(@Param("ds") DSOrders ds);
 }

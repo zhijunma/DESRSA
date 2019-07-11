@@ -29,7 +29,6 @@ public class UserLoginServiceImpl implements UserLoginService {
 //        }
         //用户信息缓存
         DSUserInfo ds = new DSUserInfo();
-        ds.setUserName(viewForm.getUserName());
         ds.setMobilePhone(viewForm.getMobilePhone());
         ds.setUserPassword(viewForm.getUserPassword());
         DSUserInfo dsUserInfo = new DSUserInfo();

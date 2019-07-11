@@ -20,4 +20,16 @@ public class DSUserInfo {
      * 密码
      */
     private String userPassword;
+    /**
+     * qq
+     */
+    private Long qq;
+    /**
+     * 邮箱地址
+     */
+    private String email;
+    /**
+     * 地址
+     */
+    private String address;
 }
