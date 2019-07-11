@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.school.mapper.mzj.UserInfoManageMapper">
+    <!--将订单信息写入数据库-->
+    <update id="updateUserInfo">
+        update user_info
+        set
+        <if test="ds.userName != null and '' != ds.userName">
+            user_name=#{ds.userName},
+        </if>
+    </update>
+    <!--通过guid查找用户信息-->
+    <select id="getUserInfo" resultType="com.cn.school.entity.mzj.DSUserInfo">
+        select
+        user_name as userName,
+        qq,
+        email,
+        address,
+        mobile_phone as mobilePhone
+        from user_info
+        where
+        mobile_phone = #{guid}
+    </select>
+</mapper>

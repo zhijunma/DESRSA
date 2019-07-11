@@ -1,7 +1,6 @@
 package com.cn.school.controller.mzj;
 
 import com.cn.school.FormView.AddUserOrderViewForm;
-import com.cn.school.FormView.GetUserInfoViewForm;
 import com.cn.school.service.mzj.OrdersManageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
