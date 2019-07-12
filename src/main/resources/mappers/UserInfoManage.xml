@@ -8,9 +8,24 @@
         <if test="ds.userName != null and '' != ds.userName">
             user_name=#{ds.userName},
         </if>
+        <if test="ds.qq != null and '' != ds.qq">
+            qq=#{ds.qq},
+        </if>
+        <if test="ds.email != null and '' != ds.email">
+            email=#{ds.email},
+        </if>
+        <if test="ds.address != null and '' != ds.address">
+            address=#{ds.address},
+        </if>
+        <if test="ds.mobilePhone != null and '' != ds.mobilePhone">
+            mobile_phone=#{ds.mobilePhone},
+        </if>
+        delete_flag = 0
+        where
+        guid = #{ds.guid}
     </update>
     <!--通过guid查找用户信息-->
-    <select id="getUserInfo" resultType="com.cn.school.entity.mzj.DSUserInfo">
+    <select id="getUserInfoByGuid" resultType="com.cn.school.entity.mzj.DSUserInfo">
         select
         user_name as userName,
         qq,
@@ -19,6 +34,6 @@
         mobile_phone as mobilePhone
         from user_info
         where
-        mobile_phone = #{guid}
+        guid = #{guid}
     </select>
 </mapper>

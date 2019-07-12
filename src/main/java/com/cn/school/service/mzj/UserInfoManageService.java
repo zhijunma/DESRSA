@@ -1,6 +1,7 @@
 package com.cn.school.service.mzj;
 
 
+import com.cn.school.FormView.GetUserInfoViewForm;
 import com.cn.school.entity.mzj.DSUserInfo;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,4 +13,11 @@ public interface UserInfoManageService {
      * @return
      */
     DSUserInfo getUserInfo(Long guid);
+
+    /**
+     * 修改信息
+     * @param form
+     * @return
+     */
+    String updateUserInfo(GetUserInfoViewForm form);
 }

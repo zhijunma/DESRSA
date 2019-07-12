@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(description = "CustomRSAController",tags = {"RSA加密算法controller"})
-@ApiModel(value="RSA加密算法",description="RSA加密算法")
+@Api(description = "CustomRSAController",tags = {"用户登录"})
+@ApiModel(value="用户登录",description="用户登录")
 @RequestMapping("/UserLogin")
 public class UserLoginController {
     @Autowired

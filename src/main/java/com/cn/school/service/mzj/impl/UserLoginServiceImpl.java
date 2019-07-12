@@ -31,17 +31,17 @@ public class UserLoginServiceImpl implements UserLoginService {
         DSUserInfo ds = new DSUserInfo();
         ds.setMobilePhone(viewForm.getMobilePhone());
         ds.setUserPassword(viewForm.getUserPassword());
-        DSUserInfo dsUserInfo = new DSUserInfo();
+        DSUserInfo dsUserInfo = userLoginMapper.getUserPassword(ds);
 
-        //通过账号获取密码
-        dsUserInfo.setUserPassword(userLoginMapper.getUserPassword(ds));
         //判断用户账号和密码是否为空，以及密码是否正确
         if (ObjectUtils.isEmpty(dsUserInfo.getUserPassword())
                 || !dsUserInfo.getUserPassword().equals(ds.getUserPassword()))
         {
             return "账号或密码不正确！";
         } else {
-            return "登录成功!";
+//            System.out.println("{"+"\"guid\":"+dsUserInfo.getGuid()
+//                    +","+"\"userPassword\":"+dsUserInfo.getUserPassword()+"}");
+            return "{"+"\"guid\":"+dsUserInfo.getGuid()+"}";
         }
     }
 

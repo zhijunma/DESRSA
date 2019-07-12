@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserLoginService {
     /**
-     * 通过id获取密文
+     * 通过电话号码获取用户密码
      * @param form
      * @return
      */

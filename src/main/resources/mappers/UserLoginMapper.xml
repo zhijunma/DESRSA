@@ -31,8 +31,9 @@
         delete_flag = 0
         and mobile_phone = #{mobilePhone}
     </select>
-    <select id="getUserPassword" resultType="java.lang.String">
+    <select id="getUserPassword" resultType="com.cn.school.entity.mzj.DSUserInfo">
         SELECT
+        guid,
         user_password as userPassword
         FROM
         user_info
@@ -45,4 +46,5 @@
             and mobile_phone = #{ds.mobilePhone}
         </if>
     </select>
+
 </mapper>

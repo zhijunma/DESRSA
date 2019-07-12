@@ -1,5 +1,6 @@
 package com.cn.school.service.mzj.impl;
 
+import com.cn.school.FormView.GetUserInfoViewForm;
 import com.cn.school.entity.mzj.DSUserInfo;
 import com.cn.school.mapper.mzj.UserInfoManageMapper;
 import com.cn.school.service.mzj.UserInfoManageService;
@@ -20,14 +21,37 @@ public class UserInfoManageServiceImpl implements UserInfoManageService {
      */
     @Override
     public DSUserInfo getUserInfo(Long guid) {
-        DSUserInfo dsUserInfo = userInfoManageMapper.getUserInfo(guid);
+        DSUserInfo dsUserInfo = userInfoManageMapper.getUserInfoByGuid(guid);
 
         return dsUserInfo;
     }
 
-//    @Override
-//    public Integer updateUserInfo(DSUserInfo ds) {
-//        return null;
-//    }
+    /**
+     * 修改信息实现类
+     * @param form
+     * @return
+     */
+    @Override
+    public String updateUserInfo(GetUserInfoViewForm form) {
+        //新建一个对象用来缓存信息
+        DSUserInfo dsUserInfo = new DSUserInfo();
+        //读取前台传来的值
+        dsUserInfo.setGuid(form.getGuid());
+        dsUserInfo.setUserName(form.getUserName());
+        dsUserInfo.setMobilePhone(form.getMobilePhone());
+        dsUserInfo.setAddress(form.getAddress());
+        dsUserInfo.setEmail(form.getEmail());
+        dsUserInfo.setQq(form.getQq());
+        //执行修改方法
+        Integer sta = userInfoManageMapper.updateUserInfo(dsUserInfo);
+        //判断是否修改成功
+        if (sta <= 0){
+            return "修改失败!";
+        } else {
+            return "修改成功！";
+        }
+
+    }
+
 
 }

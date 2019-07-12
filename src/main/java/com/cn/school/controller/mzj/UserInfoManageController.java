@@ -12,15 +12,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(description = "UserInfoManageController",tags = {"用户信息管理"})
 @ApiModel(value="用户信息管理",description="用户信息管理")
-@RequestMapping(value = "UserInfoManage")
+@RequestMapping(value = "/UserInfoManage")
 public class UserInfoManageController {
     @Autowired
     UserInfoManageService userInfoManageService;
 
-    @PostMapping(value = "getUserInfo")
+    @PostMapping(value = "/getUserInfo")
     @ApiOperation(value="通过用户guid获取用户信息")
     @ResponseBody
     public DSUserInfo getUserInfo(GetUserInfoViewForm form){
         return userInfoManageService.getUserInfo(form.getGuid());
+    }
+    @PostMapping(value = "/updateUserInfo")
+    @ApiOperation(value="更新用户信息")
+    @ResponseBody
+    public String updateUserInfo(GetUserInfoViewForm form){
+        return userInfoManageService.updateUserInfo(form);
     }
 }

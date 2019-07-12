@@ -16,7 +16,7 @@ public interface UserInfoManageMapper {
      * @Prame guid
      * 通过guid获取用户信息
      */
-    DSUserInfo getUserInfo(@Param("guid") Long guid);
+    DSUserInfo getUserInfoByGuid(@Param("guid") Long guid);
 
     /**
      * 更新用户信息
