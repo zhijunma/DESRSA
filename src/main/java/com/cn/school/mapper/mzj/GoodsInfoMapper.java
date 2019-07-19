@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
+ *
+ *
  * 条件获取商品信息
  */
 @Mapper
